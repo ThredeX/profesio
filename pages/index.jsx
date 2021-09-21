@@ -23,11 +23,24 @@ const Paragraph = styled.p`
     cursor: pointer;
     color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
 `
-const Index = (props) =>  {
+const Pol = styled.div`
+    clip-path: polygon(100% 60%, 0% 100%, 100% 100%);
+    height: 100vh;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+    @media screen and (max-height: 540px) and (min-height: 0) {
+        display: none;
+    }
+`
+const Index = () =>  {
     var router = useRouter()
     return (
-        <div>
-            <Header />
+        <>
+            <Header menu='none'/>
             <main>
                 <Heading1>
                     Login
@@ -51,9 +64,9 @@ const Index = (props) =>  {
                         </Container>
                     </Form>
                 </Formik>
-        
+                <Pol></Pol>
             </main>
-        </div>
+        </>
     )
 }
 export default Index
