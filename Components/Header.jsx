@@ -9,17 +9,20 @@ const HeaderC = styled.header`
 	width: 100%;
 `
 const Svg = styled.svg`
+	display: ${props => props.menu};
 	padding: .3rem;
+	cursor: pointer;
 	transform: rotate(180deg);
 `
-const Header = () => {
+const Header = props => {
     const handleClick = () => {
         //openMenu
     }
 	return (
 		<HeaderC>
 			<Logo />
-			<Svg
+			<Svg 
+				menu={props.menu}
                 onClick={handleClick}
 				fill="none"
 				height="70"
