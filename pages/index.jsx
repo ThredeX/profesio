@@ -3,6 +3,7 @@ import Header from '../Components/Header'
 import { NextRouter, useRouter } from 'next/router'
 import {Formik} from 'formik'
 import {Form, Field, SubmitButton} from '../theme'
+import Link from 'next/link'
 
 //login page and header PROFESIO and menu stay for all pages 
 const Heading1 = styled.h1`
@@ -49,9 +50,8 @@ const Index = () =>  {
                     name: '',
                     password: '',
                 }}
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    router.push('/administrator')
+                onSubmit={() => {
+                    router.push('peoples/administrator')
                 }}>
                     <Form>
                         <Field type='text' name='name' id='name' placeholder='Username'/>
@@ -60,7 +60,9 @@ const Index = () =>  {
                             <Paragraph>
                                 Zapomenuté heslo?
                             </Paragraph>
-                            <SubmitButton type="submit" value="Login" />
+
+                            {/* <SubmitButton type="submit" value="Login" /> */}
+                            <Link href='/peoples/administrator'><a>dasdas</a></Link>
                         </Container>
                     </Form>
                 </Formik>
