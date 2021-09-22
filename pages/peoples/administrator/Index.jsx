@@ -7,7 +7,7 @@ import NavBar from '../../../Components/NavBar'
 //pro vsechny uzivatele, komponenta bude 3x vyuzita (student, admin, ucitel) jako main page
 const Heading = styled.h1`
     color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
-    font-size: clamp(3rem, 5vw, 5vw);
+    font-size: clamp(3rem, 10vw, 10rem);
     text-align: center;
 `
 const Span = styled.span`
@@ -17,6 +17,7 @@ const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100%;
+    opacity: .4;
 `
 const Main = styled.main`
     height: 100vh;
@@ -28,13 +29,13 @@ const Index = () => {
     }
     return (
         <>
-            <Header handleBool={handleBool}/>
+            <Header />
             <Main>
                 <Container>
-                    {bool && <Heading>Vítejte v aplikaci <br/> <Span>P</Span>rofesio</Heading>}
+                    <Heading><Span>P</Span>rofesio</Heading>
                 </Container>
-            </Main>
             <NavBar />
+            </Main>
         </>
     )
 }
