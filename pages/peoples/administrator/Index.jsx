@@ -17,7 +17,7 @@ const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100%;
-    opacity: .4;
+    opacity: .17;
 `
 const Main = styled.main`
     height: 100vh;
