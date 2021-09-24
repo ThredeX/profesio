@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -12,17 +12,23 @@ import {
 	faGears,
 	faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/dist/client/router'
-import Link from 'next/link'
 
-const Container = styled.div`
+const Nav = styled.nav`
+	background-color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
+	height: 90vh;
+	width: 280px;
+	position: absolute;
+	top: 5vh;
+	right: -230px;
+	border-radius: 50px 0 0 50px;
+	padding: 0 20px;
+	overflow-y: scroll;
+	overflow: visible;
+	color: #fff;
+	transition: right 0.5s ease;
 	&::-webkit-scrollbar {
 		width: 0px;
 	}
-	overflow-y: scroll;
-	padding: 0 10px;
-	height: 100%;
-	border-radius: 30px;
 `
 const Paragraph = styled.p`
 	color: #fff;
@@ -39,41 +45,24 @@ const Heading1 = styled.h1`
 const Line = styled.div`
 	margin-block: 2rem;
 `
-const A = styled.a`
+const Line2 = styled.div`
+	width: 2px;
+	border-radius: 2px;
+	height: 80px;
+	background-color: #fff;
+
+`
+const Div = styled.div`
+	/* border-bottom: 1px solid ${process.env.NEXT_PUBLIC_COLOR_ORANGE}; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
 	margin-block: 0.3rem;
 `
-const Div = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgba(255, 255, 255, 0);
-	border-radius: 30px;
-	padding: 8px;
-	position: relative;
-	transition: background 0.3s ease-in-out;
-	&:hover {
-		background-color: #e4e4e4;
-	}
-`
-const Nav = styled.nav`
-	height: clamp(20rem, 80vh, 300rem);
-	padding-block: 4vh;
-	position: absolute;
-	top: clamp(0.3rem, 5vh, 4rem);
-	width: 50px;
-	right: 0;
-	border-radius: 50px 0 0 50px;
-	background-color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
-	color: #fff;
-	transition: width 0.5s ease;
-`
 const Handle = styled.div`
 	border-radius: 10px 0 0 10px;
-	width: 12px;
+	width: 8px;
 	height: 100px;
 	padding: 5px;
 	position: absolute;
@@ -82,10 +71,10 @@ const Handle = styled.div`
 	left: -4px;
 	opacity: 0;
 	transform: translate(-50%, -50%);
-	transition: opacity 0.5s ease;
+	transition: opacity .5s ease;
 	cursor: pointer;
 	background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
-	${Nav}:hover & {
+	${Nav}:hover &{
 		opacity: 1;
 	}
 `
@@ -96,148 +85,93 @@ const DivHeading = styled.div`
 	margin-left: 2rem;
 `
 export default function NavBar() {
-	const [state, setState] = useState(false)
-	const navRef = useRef(null)
-	const route = useRouter().pathname
+	const [state, setState] = useState(false);
+	const navRef = useRef(null);
 
 	function navHandling() {
-		let displayMenuOpen = document.getElementsByClassName('noneOpen')
-		if (state === false) {
-			navRef.current.style.width = 'clamp(100px, 60vw, 280px)'
-			for (let i = 0; i < displayMenuOpen.length; i++) {
-				displayMenuOpen[i].style.opacity = '1'
-			}
+		if(state === false) {
+			navRef.current.style.right = '0px'
 			setState(true)
-		} else {
-			navRef.current.style.width = '50px'
-			for (let i = 0; i < displayMenuOpen.length; i++) {
-				displayMenuOpen[i].style.opacity = '0'
-			}
+		}
+		else {
+			navRef.current.style.right = '-230px'
 			setState(false)
 		}
 	}
 
 	return (
 		<Nav ref={navRef}>
-			<Container>
-				<DivHeading className="noneOpen">
+			<DivHeading>
+				<FontAwesomeIcon
+					size="2x"
+					icon={faUser}
+					color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+				/>
+				<Heading1>{'Jmeno Správce'}</Heading1>
+			</DivHeading>
+			<div>
+				<Div>
 					<FontAwesomeIcon
-						size="2x"
-						icon={faUser}
+						icon={faFolderPlus}
 						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 					/>
-					<Heading1>{'Jmeno Správce'}</Heading1>
-				</DivHeading>
-				<div>
-					<Link href={`${route}/room`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faFolderPlus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Přidat učebnu</Paragraph>
-						</A>
-					</Link>
-					<Link href={`${route}/room`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faFolderOpen}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Změnit učebnu</Paragraph>
-						</A>
-					</Link>
-					<Link href={`${route}/room`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faFolderMinus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Odebrat učebnu</Paragraph>
-						</A>
-					</Link>
-					<Line></Line>
-					<Link href={`${route}/people`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faUserPlus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Přidat studenta/zaměstnance
-							</Paragraph>
-						</A>
-					</Link>
-					<Link href={`${route}/people`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faUserGear}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Změnit nastavení studenta/zaměstnance
-							</Paragraph>
-						</A>
-					</Link>
-					<Link href={`${route}/people`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faUserMinus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Odebrat studenta/zaměstnance
-							</Paragraph>
-						</A>
-					</Link>
-					<Line></Line>
-					<Link href={`${route}/globalSettings`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faGears}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Obecné nastavení školy
-							</Paragraph>
-						</A>
-					</Link>
-					<Link href={'/peoples/settings'} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
-									icon={faGear}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Nastavení</Paragraph>
-						</A>
-					</Link>
-				</div>
-			</Container>
-			<Handle onClick={navHandling}></Handle>
+					<Paragraph>Přidat učebnu</Paragraph>
+				</Div>
+				<Div>
+					<FontAwesomeIcon
+						icon={faFolderOpen}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Změnit učebnu</Paragraph>
+				</Div>
+				<Div>
+					<FontAwesomeIcon
+						icon={faFolderMinus}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Odebrat učebnu</Paragraph>
+				</Div>
+				<Line></Line>
+				<Div>
+					<FontAwesomeIcon
+						icon={faUserPlus}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Přidat studenta/zaměstnance</Paragraph>
+				</Div>
+				<Div>
+					<FontAwesomeIcon
+						icon={faUserGear}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Změnit nastavení studenta/zaměstnance</Paragraph>
+				</Div>
+				<Div>
+					<FontAwesomeIcon
+						icon={faUserMinus}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Odebrat studenta/zaměstnance</Paragraph>
+				</Div>
+				<Line></Line>
+				<Div>
+					<FontAwesomeIcon
+						icon={faGears}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Obecné nastavení školy</Paragraph>
+				</Div>
+				<Div>
+					<FontAwesomeIcon
+						icon={faGear}
+						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+					/>
+					<Paragraph>Nastavení</Paragraph>
+				</Div>
+			</div>
+			<Handle onClick={navHandling}>
+				{/* <Line2></Line2> */}
+			</Handle>
 		</Nav>
 	)
 }
