@@ -21,7 +21,6 @@ import {
 const FormContainer1 = styled.div`
 	display: flex;
 	align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
     margin-right: 5rem;
 `
