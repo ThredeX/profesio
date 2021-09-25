@@ -91,6 +91,7 @@ const Handle = styled.div`
 `
 const DivHeading = styled.div`
 	display: flex;
+	opacity: 0;
 	justify-content: center;
 	align-items: center;
 	margin-left: 2rem;
@@ -116,7 +117,6 @@ export default function NavBar() {
 			setState(false)
 		}
 	}
-
 	return (
 		<Nav ref={navRef}>
 			<Container>
@@ -129,7 +129,7 @@ export default function NavBar() {
 					<Heading1>{'Jmeno Správce'}</Heading1>
 				</DivHeading>
 				<div>
-					<Link href={`${route}/room`} passHref>
+					<Link href={`${route}/AddingRoom`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -141,7 +141,7 @@ export default function NavBar() {
 							<Paragraph className="noneOpen">Přidat učebnu</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/room`} passHref>
+					<Link href={`${route}/ChangingRoom`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -153,7 +153,7 @@ export default function NavBar() {
 							<Paragraph className="noneOpen">Změnit učebnu</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/room`} passHref>
+					<Link href={`${route}/DeletingRoom`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -166,7 +166,7 @@ export default function NavBar() {
 						</A>
 					</Link>
 					<Line></Line>
-					<Link href={`${route}/people`} passHref>
+					<Link href={`${route}/AddingPeople`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -180,7 +180,7 @@ export default function NavBar() {
 							</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/people`} passHref>
+					<Link href={`${route}/ChangingPeople`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -194,7 +194,7 @@ export default function NavBar() {
 							</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/people`} passHref>
+					<Link href={`${route}/DeletingPeople`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
