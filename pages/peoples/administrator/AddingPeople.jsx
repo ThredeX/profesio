@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
+import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
 
 import styled from 'styled-components'
 import { Formik } from 'formik'
@@ -14,21 +15,30 @@ import {
 	Label,
 	Select,
 	SubmitButton,
-    Main
+	Main,
 } from '../../../theme'
 
-
 const FormContainer1 = styled.div`
+	padding-right: 3rem;
 	display: flex;
 	align-items: center;
-    flex-wrap: wrap;
-    margin-right: 5rem;
+	flex-wrap: wrap;
+	border-radius: 20px;
+	box-shadow: inset 0px 0px 0px 4px ${process.env.NEXT_PUBLIC_COLOR_BLACK};
+	padding-left: 3rem;
+	background-image: linear-gradient(330deg, #f0f0f0ce, #fff);
+	margin-left: 1rem;
+	justify-content: space-evenly;
+	margin-right: 5rem;
+	min-height: 20rem;
 `
 const FormRadio = styled.form`
 	width: 20rem;
 	margin: 2rem 0;
 	display: flex;
 	justify-content: center;
+	flex: 1;
+
 	align-items: center;
 	flex-wrap: wrap;
 `
@@ -42,6 +52,7 @@ const Div = styled.div`
 const H2 = styled.h2`
 	margin-right: 1rem;
 	margin-top: 0;
+    font-weight: 400;
 	height: 2rem;
 `
 
@@ -96,62 +107,63 @@ const AddingPeople = props => {
 							</Div>
 						</div>
 					</FormRadio>
-					<Formik initialValues={{}} onSubmit={() => {}}>
-						{whichPeople === 'student' ? (
-							<>
-								<Form>
-									<Field type="text" placeholder="Jméno" />
-									<Field type="text" placeholder="Příjmení" />
-									<Field type="email" placeholder="E-mail" />
-									<Field type="number" placeholder="Telefon" />
-									<Field
-										type="number"
-										min="1990"
-										max="2099"
-										placeholder="Zadejte rok nástupu"
-									/>
-									<Select>
-										<option value="denni">Denní</option>
-										<option value="stridave">Střídavé</option>
-										<option value="dálkové">Dálkové</option>
-									</Select>
-						            <SubmitButton type="submit" value='Add'/>
-								</Form>
-							</>
-						) : whichPeople === 'teacher' ? (
-							<>
-								<Form>
-									<Field type="text" placeholder="Jméno" />
-									<Field type="text" placeholder="Příjmení" />
-									<Field type="email" placeholder="E-mail" />
-									<Field type="number" placeholder="Telefon" />
-						            <SubmitButton type="submit" value='Add'/>
-								</Form>
-							</>
-						) : whichPeople === 'worker' ? (
-							<>
-								<Form>
-									<Field type="text" placeholder="Jméno" />
-									<Field type="text" placeholder="Příjmení" />
-									<Field type="email" placeholder="E-mail" />
-									<Field type="number" placeholder="Telefon" />
-									<Field type="text" placeholder="pozice" />
-						            <SubmitButton type="submit" value='Add'/>
-								</Form>
-							</>
-						) : whichPeople === 'admin' ? (
-							<>
-								<Form>
-									<Field type="text" placeholder="Jméno" />
-									<Field type="text" placeholder="Příjmení" />
-									<Field type="email" placeholder="E-mail" />
-									<Field type="number" placeholder="Telefon" />
-						            <SubmitButton type="submit" value='Add'/>
-								</Form>
-							</>
-						) : null}
-					</Formik>
+						<Formik initialValues={{}} onSubmit={() => {}}>
+							{whichPeople === 'student' ? (
+								<>
+									<Form>
+										<Field type="text" placeholder="Jméno" />
+										<Field type="text" placeholder="Příjmení" />
+										<Field type="email" placeholder="E-mail" />
+										<Field type="number" placeholder="Telefon" />
+										<Field
+											type="number"
+											min="1990"
+											max="2099"
+											placeholder="Zadejte rok nástupu"
+											/>
+										<Select>
+											<option value="denni">Denní</option>
+											<option value="stridave">Střídavé</option>
+											<option value="dálkové">Dálkové</option>
+										</Select>
+										<SubmitButton type="submit" value="Add" />
+									</Form>
+								</>
+							) : whichPeople === 'teacher' ? (
+								<>
+									<Form>
+										<Field type="text" placeholder="Jméno" />
+										<Field type="text" placeholder="Příjmení" />
+										<Field type="email" placeholder="E-mail" />
+										<Field type="number" placeholder="Telefon" />
+										<SubmitButton type="submit" value="Add" />
+									</Form>
+								</>
+							) : whichPeople === 'worker' ? (
+								<>
+									<Form>
+										<Field type="text" placeholder="Jméno" />
+										<Field type="text" placeholder="Příjmení" />
+										<Field type="email" placeholder="E-mail" />
+										<Field type="number" placeholder="Telefon" />
+										<Field type="text" placeholder="pozice" />
+										<SubmitButton type="submit" value="Add" />
+									</Form>
+								</>
+							) : whichPeople === 'admin' ? (
+								<>
+									<Form>
+										<Field type="text" placeholder="Jméno" />
+										<Field type="text" placeholder="Příjmení" />
+										<Field type="email" placeholder="E-mail" />
+										<Field type="number" placeholder="Telefon" />
+										<SubmitButton type="submit" value="Add" />
+									</Form>
+								</>
+							) : null}
+						</Formik>
 				</FormContainer1>
+				<ListOfPeople />
 			</Main>
 		</>
 	)

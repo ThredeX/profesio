@@ -20,10 +20,10 @@ const Container = styled.div`
 		width: 0px;
 	}
 	overflow-y: scroll;
-	padding: 0 10px;
+	padding: 0 15px;
 	height: 100%;
 	border-radius: 30px;
-`
+	`
 const Paragraph = styled.p`
 	color: #fff;
 	text-overflow: ellipsis;
@@ -31,11 +31,11 @@ const Paragraph = styled.p`
 	white-space: nowrap;
 	overflow: hidden;
 	margin: 15px;
-`
+	`
 const Heading1 = styled.h1`
 	text-align: center;
 	margin-left: 0.5rem;
-`
+	`
 const Line = styled.div`
 	margin-block: 2rem;
 `
@@ -60,13 +60,13 @@ const Div = styled.div`
 	}
 `
 const Nav = styled.nav`
-	height: clamp(20rem, 80vh, 300rem);
-	padding-block: 4vh;
+	min-height: 100vh;
 	position: absolute;
-	top: clamp(0.3rem, 5vh, 4rem);
-	width: 50px;
-	right: 0;
 	border-radius: 50px 0 0 50px;
+	width: 60px;
+	top: 0;
+	z-index: 20;
+	right: 0;
 	background-color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
 	color: #fff;
 	transition: width 0.5s ease;
@@ -97,6 +97,7 @@ const DivHeading = styled.div`
 	margin-left: 2rem;
 `
 export default function NavBar() {
+	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
 	const route = useRouter().pathname
@@ -104,13 +105,13 @@ export default function NavBar() {
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
 		if (state === false) {
-			navRef.current.style.width = 'clamp(100px, 60vw, 280px)'
+			navRef.current.style.width = 'clamp(100px, 60vw, 300px)'
 			for (let i = 0; i < displayMenuOpen.length; i++) {
 				displayMenuOpen[i].style.opacity = '1'
 			}
 			setState(true)
 		} else {
-			navRef.current.style.width = '50px'
+			navRef.current.style.width = '60px'
 			for (let i = 0; i < displayMenuOpen.length; i++) {
 				displayMenuOpen[i].style.opacity = '0'
 			}
@@ -133,7 +134,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faFolderPlus}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -145,7 +146,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faFolderOpen}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -157,7 +158,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faFolderMinus}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -170,7 +171,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faUserPlus}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -184,7 +185,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faUserGear}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -198,7 +199,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faUserMinus}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -213,7 +214,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faGears}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
@@ -227,7 +228,7 @@ export default function NavBar() {
 						<A>
 							<Div>
 								<FontAwesomeIcon
-									style={{ width: '18px', height: '18px' }}
+									style={faIconSize}
 									icon={faGear}
 									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
 								/>
