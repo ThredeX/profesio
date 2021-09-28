@@ -8,7 +8,7 @@ const HeaderC = styled.header`
 	justify-content: space-between;
 	width: 100%;
 `
-const Header = props => {
+const Header = () => {
 	return (
 		<HeaderC>
 			<Logo />

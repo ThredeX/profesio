@@ -4,7 +4,7 @@ export const Form = styled.form`
     width: clamp(20rem, 20vw, 80vw);
     margin: 0 auto;
 `
-export const Field = styled.input`
+export const Input = styled.input`
     width: 100%;
     border: 1px ${process.env.NEXT_PUBLIC_COLOR_BLACK} solid;
     border-radius: 20px;
@@ -46,6 +46,9 @@ export const MainHeading = styled.h1`
 `
 export const Label = styled.label`
     font-weight: 100;
+    width: 10rem;
+    text-align: right;
+    padding: 0 .5rem;
 `
 export const Select = styled.select`
     width: 100%;

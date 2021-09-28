@@ -23,7 +23,7 @@ const Container = styled.div`
 	padding: 0 15px;
 	height: 100%;
 	border-radius: 30px;
-	`
+`
 const Paragraph = styled.p`
 	color: #fff;
 	text-overflow: ellipsis;
@@ -31,11 +31,11 @@ const Paragraph = styled.p`
 	white-space: nowrap;
 	overflow: hidden;
 	margin: 15px;
-	`
+`
 const Heading1 = styled.h1`
 	text-align: center;
 	margin-left: 0.5rem;
-	`
+`
 const Line = styled.div`
 	margin-block: 2rem;
 `
@@ -96,11 +96,11 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar() {
+export default function NavBar({route}) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
-	const route = useRouter().pathname
+	
 
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
@@ -130,7 +130,7 @@ export default function NavBar() {
 					<Heading1>{'Jmeno Správce'}</Heading1>
 				</DivHeading>
 				<div>
-					<Link href={`${route}/AddingRoom`} passHref>
+					<Link href={`/peoples/${route}/AddingRoom`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -142,7 +142,7 @@ export default function NavBar() {
 							<Paragraph className="noneOpen">Přidat učebnu</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/ChangingRoom`} passHref>
+					<Link href={`/peoples/${route}/ChangingRoom`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -154,7 +154,7 @@ export default function NavBar() {
 							<Paragraph className="noneOpen">Změnit učebnu</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/DeletingRoom`} passHref>
+					<Link href={`/peoples/${route}/DeletingRoom`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -167,7 +167,7 @@ export default function NavBar() {
 						</A>
 					</Link>
 					<Line></Line>
-					<Link href={`${route}/AddingPeople`} passHref>
+					<Link href={`/peoples/${route}/AddingPeople`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -181,7 +181,7 @@ export default function NavBar() {
 							</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/ChangingPeople`} passHref>
+					<Link href={`/peoples/${route}/ChangingPeople`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -195,7 +195,7 @@ export default function NavBar() {
 							</Paragraph>
 						</A>
 					</Link>
-					<Link href={`${route}/DeletingPeople`} passHref>
+					<Link href={`/peoples/${route}/DeletingPeople`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon
@@ -210,7 +210,7 @@ export default function NavBar() {
 						</A>
 					</Link>
 					<Line></Line>
-					<Link href={`${route}/globalSettings`} passHref>
+					<Link href={`/peoples/${route}/globalSettings`} passHref>
 						<A>
 							<Div>
 								<FontAwesomeIcon

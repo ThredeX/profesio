@@ -18,6 +18,7 @@ const Paragraph = styled.p`
 const UnsortedList = styled.ul`
 	height: 18rem;
 	padding-right: 2rem;
+	overflow-x: hidden;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
 		width: 20px;
@@ -75,7 +76,6 @@ export default function ListOfStudents() {
 			.then(data => setNames(data))
 			.catch(err => console.error(err))
 	}, [])
-	console.log(names)
 	return (
 		<Div>
 			<Settings>
