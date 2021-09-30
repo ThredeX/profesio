@@ -6,7 +6,7 @@ export const Form = styled.form`
 `
 export const Input = styled.input`
     width: 100%;
-    border: 1px ${process.env.NEXT_PUBLIC_COLOR_BLACK} solid;
+    border: 1px ${props => props.theme.text} solid;
     border-radius: 20px;
     margin-block: .3rem;
     padding: .3rem .6rem;
@@ -19,12 +19,9 @@ export const SubmitButton = styled.input`
     border: none;
     padding: .5rem 3rem;
     float: right;
-    height: 2.5rem;
-    margin-top: .8rem;
-    background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+    height: 1.95rem;
+    background-color: ${props => props.theme.orange};
     color: #fff;
-    margin-bottom: 1rem;
-    box-shadow: 0px 0px 0px 1px;
     cursor: pointer;
 `
 export const BackButton = styled.button`
@@ -37,22 +34,50 @@ export const Radio = styled.input`
     cursor: pointer;
     width: 15px;
     height: 15px;
+    &:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #fff;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid ${props => props.theme.text};
+    }
+    &:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: ${props => props.theme.orange};
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid ${props => props.theme.text};
+    }
 
 `
 export const MainHeading = styled.h1`
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 100;
+    color: ${props => props.theme.text};
+    margin-top:-1rem;
 `
 export const Label = styled.label`
     font-weight: 100;
     width: 10rem;
     text-align: right;
     padding: 0 .5rem;
+    color: ${props => props.theme.text};
 `
 export const Select = styled.select`
     width: 100%;
-    border: 1px ${process.env.NEXT_PUBLIC_COLOR_BLACK} solid;
     border-radius: 20px;
     margin-block: .3rem;
     padding: .3rem .6rem;
@@ -70,7 +95,7 @@ export const Pol = styled.div`
     width: 100%;
     top: 0%;
     right: 0;
-    background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+    background-color: ${props => props.theme.orange};
     @media screen and (max-height: 540px) and (min-height: 0) {
         display: none;
     }
@@ -83,7 +108,7 @@ export const Pol2 = styled.div`
     width: 100%;
     top: 0;
     right: 0;
-    background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+    background-color: ${props => props.theme.orange};
     @media screen and (max-height: 540px) and (min-height: 0) {
         display: none;
     }

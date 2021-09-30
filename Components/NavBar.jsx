@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { useRef, useState, useContext } from 'react'
+import { Context } from '../pages/_app'
+import styled, { ThemeProvider } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
 	faFolderPlus,
@@ -12,20 +13,20 @@ import {
 	faGears,
 	faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 
 const Container = styled.div`
 	&::-webkit-scrollbar {
 		width: 0px;
 	}
+	position: fixed;
 	overflow-y: scroll;
 	padding: 0 15px;
 	height: 100%;
 	border-radius: 30px;
 `
 const Paragraph = styled.p`
-	color: #fff;
+	color: ${props => props.theme.text};
 	text-overflow: ellipsis;
 	width: 230px;
 	white-space: nowrap;
@@ -61,14 +62,14 @@ const Div = styled.div`
 `
 const Nav = styled.nav`
 	min-height: 100vh;
-	position: absolute;
-	border-radius: 50px 0 0 50px;
+	position: fixed;
+	box-shadow: -2px 0 1px 0 #0f0f0fc1;
 	width: 60px;
 	top: 0;
 	z-index: 20;
 	right: 0;
-	background-color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
-	color: #fff;
+	background-color: ${props => props.theme.nav};
+	color: ${props => props.theme.text};
 	transition: width 0.5s ease;
 `
 const Handle = styled.div`
@@ -78,13 +79,12 @@ const Handle = styled.div`
 	padding: 5px;
 	position: absolute;
 	top: 50%;
-	box-shadow: -2px 0 1px 0px inset;
-	left: -4px;
+	left: -10px;
 	opacity: 0;
 	transform: translate(-50%, -50%);
 	transition: opacity 0.5s ease;
 	cursor: pointer;
-	background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+	background-color: ${props => props.theme.orange};
 	${Nav}:hover & {
 		opacity: 1;
 	}
@@ -96,11 +96,11 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({route}) {
+export default function NavBar({ route }) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
-	
+	const theme = useContext(Context)
 
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
@@ -119,126 +119,134 @@ export default function NavBar({route}) {
 		}
 	}
 	return (
-		<Nav ref={navRef}>
-			<Container>
-				<DivHeading className="noneOpen">
-					<FontAwesomeIcon
-						size="2x"
-						icon={faUser}
-						color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-					/>
-					<Heading1>{'Jmeno Správce'}</Heading1>
-				</DivHeading>
-				<div>
-					<Link href={`/peoples/${route}/AddingRoom`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faFolderPlus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Přidat učebnu</Paragraph>
-						</A>
-					</Link>
-					<Link href={`/peoples/${route}/ChangingRoom`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faFolderOpen}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Změnit učebnu</Paragraph>
-						</A>
-					</Link>
-					<Link href={`/peoples/${route}/DeletingRoom`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faFolderMinus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Odebrat učebnu</Paragraph>
-						</A>
-					</Link>
-					<Line></Line>
-					<Link href={`/peoples/${route}/AddingPeople`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faUserPlus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Přidat studenta/zaměstnance
-							</Paragraph>
-						</A>
-					</Link>
-					<Link href={`/peoples/${route}/ChangingPeople`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faUserGear}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Změnit nastavení studenta/zaměstnance
-							</Paragraph>
-						</A>
-					</Link>
-					<Link href={`/peoples/${route}/DeletingPeople`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faUserMinus}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Odebrat studenta/zaměstnance
-							</Paragraph>
-						</A>
-					</Link>
-					<Line></Line>
-					<Link href={`/peoples/${route}/globalSettings`} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faGears}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">
-								Obecné nastavení školy
-							</Paragraph>
-						</A>
-					</Link>
-					<Link href={'/peoples/settings'} passHref>
-						<A>
-							<Div>
-								<FontAwesomeIcon
-									style={faIconSize}
-									icon={faGear}
-									color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
-								/>
-							</Div>
-							<Paragraph className="noneOpen">Nastavení</Paragraph>
-						</A>
-					</Link>
-				</div>
-			</Container>
-			<Handle onClick={navHandling}></Handle>
-		</Nav>
+		<ThemeProvider theme={theme}>
+			<Nav ref={navRef}>
+				<Container>
+					<DivHeading className="noneOpen">
+						<FontAwesomeIcon
+							size="2x"
+							icon={faUser}
+							color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+						/>
+						<Heading1>{'Jmeno Správce'}</Heading1>
+					</DivHeading>
+					<div>
+						<Link href={`/peoples/${route}/AddingRoom`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faFolderPlus}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Přidat učebnu
+								</Paragraph>
+							</A>
+						</Link>
+						<Link href={`/peoples/${route}/ChangingRoom`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faFolderOpen}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Změnit učebnu
+								</Paragraph>
+							</A>
+						</Link>
+						<Link href={`/peoples/${route}/DeletingRoom`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faFolderMinus}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Odebrat učebnu
+								</Paragraph>
+							</A>
+						</Link>
+						<Line></Line>
+						<Link href={`/peoples/${route}/AddingPeople`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faUserPlus}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Přidat studenta/zaměstnance
+								</Paragraph>
+							</A>
+						</Link>
+						<Link href={`/peoples/${route}/ChangingPeople`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faUserGear}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Změnit nastavení studenta/zaměstnance
+								</Paragraph>
+							</A>
+						</Link>
+						<Link href={`/peoples/${route}/DeletingPeople`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faUserMinus}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Odebrat studenta/zaměstnance
+								</Paragraph>
+							</A>
+						</Link>
+						<Line></Line>
+						<Link href={`/peoples/${route}/globalSettings`} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faGears}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">
+									Obecné nastavení školy
+								</Paragraph>
+							</A>
+						</Link>
+						<Link href={'/peoples/settings'} passHref>
+							<A>
+								<Div>
+									<FontAwesomeIcon
+										style={faIconSize}
+										icon={faGear}
+										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+									/>
+								</Div>
+								<Paragraph className="noneOpen">Nastavení</Paragraph>
+							</A>
+						</Link>
+					</div>
+				</Container>
+				<Handle onClick={navHandling}></Handle>
+			</Nav>
+		</ThemeProvider>
 	)
 }

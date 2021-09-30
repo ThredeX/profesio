@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useContext, useEffect, useState } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import { Context } from '../../pages/_app'
 import { SubmitButton } from '../../theme'
 
 const List = styled.li`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	border-bottom: 1px solid;
-    &:nth-child(0) {
-        border:none;
-    }
+	border-bottom: 1px solid #8181814c;
+	&:last-child{
+		border-bottom: none;
+	}
 `
 const Paragraph = styled.p`
-	padding: 0.4rem 0.1rem;
+	justify-self: center;
+	width: 98%;
+	padding: 0.6rem 0.1rem;
 	margin: 0;
 	text-align: center;
+	color: ${props => props.theme.text};
+	
 `
 const UnsortedList = styled.ul`
 	height: 18rem;
@@ -21,34 +26,30 @@ const UnsortedList = styled.ul`
 	overflow-x: hidden;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
-		width: 20px;
-		border-block: 3px solid ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+		width: 10px;
 		border-radius: 20px;
 	}
 	&::-webkit-scrollbar-thumb {
 		height: 50px;
-		background-color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+		background-color: ${props => props.theme.orange};
 		border-radius: 10px;
 	}
 `
 const Div = styled.div`
 	font-weight: 100;
-	margin-top: 3rem;
-	margin-left: 1rem;
-	margin-right: 5rem;
+	margin: 1.5rem 5rem 0 1rem;
 	padding-right: 10px;
 	border-radius: 20px;
-	box-shadow: inset 0px 0px 0px 4px ${process.env.NEXT_PUBLIC_COLOR_BLACK};
+	box-shadow: 0 0 1px 2px #0f0f0fc1 inset;
 	overflow: hidden;
 	position: relative;
+	background-color: ${props => props.theme.box};
 `
 const Input = styled.input`
-	border: none;
-	box-shadow: 0px 0px 0px 4px ${process.env.NEXT_PUBLIC_COLOR_BLACK};
 	padding: 0.5rem 0.8rem;
 	font-weight: 100;
+	border: none;
 	margin: 0 0.5rem;
-	margin-top: -1px;
 	&::placeholder {
 		color: #c5c5c5;
 	}
@@ -59,6 +60,8 @@ const Input = styled.input`
 	}
 `
 const Settings = styled.div`
+	display: flex;
+	align-items: center;
 	width: 100%;
 	height: 6rem;
 `
@@ -77,24 +80,25 @@ export default function ListOfStudents() {
 			.catch(err => console.error(err))
 	}, [])
 	return (
-		<Div>
-			<Settings>
-				<Container>
-					<Input type="text" placeholder="Search..." />
-					<SubmitButton type="submit" value="Vyhledat" />
-				</Container>
-			</Settings>
-			<UnsortedList>
-				{names &&
-					names.map((name, id) => (
-						<List key={id}>
-							<Paragraph>{name.first}</Paragraph>
-							<Paragraph>{name.last}</Paragraph>
-							<Paragraph>{name.email}</Paragraph>
-							<Paragraph>{name.adress}</Paragraph>
-						</List>
-					))}
-			</UnsortedList>
-		</Div>
+		<ThemeProvider theme={useContext(Context)}>
+			<Div>
+				<Settings>
+					<Container>
+						<Input type="text" placeholder="Search..." />
+						<SubmitButton type="submit" value="Search" />
+					</Container>
+				</Settings>
+				<UnsortedList>
+					{names &&
+						names.map((name, id) => (
+							<List key={id}>
+								<Paragraph>{name.first}</Paragraph>
+								<Paragraph>{name.last}</Paragraph>
+								<Paragraph>{name.email}</Paragraph>
+							</List>
+						))}
+				</UnsortedList>
+			</Div>
+		</ThemeProvider>
 	)
 }
