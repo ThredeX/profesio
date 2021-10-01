@@ -1,6 +1,5 @@
-import React, { useRef, useState, useContext } from 'react'
-import { Context } from '../pages/_app'
-import styled, { ThemeProvider } from 'styled-components'
+import React, { useRef, useState } from 'react'
+import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
 	faFolderPlus,
@@ -100,7 +99,6 @@ export default function NavBar({ route }) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
-	const theme = useContext(Context)
 
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
@@ -119,7 +117,6 @@ export default function NavBar({ route }) {
 		}
 	}
 	return (
-		<ThemeProvider theme={theme}>
 			<Nav ref={navRef}>
 				<Container>
 					<DivHeading className="noneOpen">
@@ -247,6 +244,5 @@ export default function NavBar({ route }) {
 				</Container>
 				<Handle onClick={navHandling}></Handle>
 			</Nav>
-		</ThemeProvider>
 	)
 }

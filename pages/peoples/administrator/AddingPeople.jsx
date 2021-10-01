@@ -60,7 +60,6 @@ const FormDiv = styled.div`
 `
 const ButtonDiv = styled.div`
 	margin-top: 1rem;
-
 `
 
 //adding people
@@ -134,227 +133,278 @@ const AddingPeople = () => {
 								study: '',
 								position: '',
 							}}
-							onSubmit={values => console.log(values.firstName)}>
-							{whichPeople === 'student' ? (
-								<>
-									<Form style={{ margin: 0 }}>
-										<FormDiv>
-											<Label htmlFor="firstName">Jméno: </Label>
-											<Input
-												type="text"
-												placeholder="Jméno"
-												id="firstName"
-												name="firstName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="lastName">Příjmení: </Label>
-											<Input
-												type="text"
-												placeholder="Příjmení"
-												id="lastName"
-												name="lastName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="email">E-mail: </Label>
-											<Input
-												type="email"
-												placeholder="E-mail"
-												id="email"
-												name="email"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="phoneNumber">
-												Telefon:{' '}
-											</Label>
-											<Input
-												type="number"
-												placeholder="Telefon"
-												id="phoneNumber"
-												name="phoneNumber"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="yearOfEntry">
-												Rok nástupu:
-											</Label>
-											<Input
-												type="number"
-												min="1990"
-												max={new Date().getFullYear()}
-												id="yearOfEntry"
-												name="yearOfEntry"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="study">Studium: </Label>
-											<Field
-												style={style}
-												as="select"
-												id="study"
-												name="study">
-												<option value="denni">Denní</option>
-												<option value="stridave">
-													Střídavé
-												</option>
-												<option value="dálkové">Dálkové</option>
-											</Field>
-										</FormDiv>
-										<ButtonDiv>
-											<SubmitButton type="submit" value="Add" />
-										</ButtonDiv>
-									</Form>
-								</>
-							) : whichPeople === 'teacher' ? (
-								<>
-									<Form style={{ margin: 0 }}>
-										<FormDiv>
-											<Label htmlFor="firstName">Jméno: </Label>
-											<Input
-												type="text"
-												placeholder="Jméno"
-												id="firstName"
-												name="firstName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="lastName">Příjmení: </Label>
-											<Input
-												type="text"
-												placeholder="Příjmení"
-												id="lastName"
-												name="lastName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="email">E-mail: </Label>
-											<Input
-												type="email"
-												placeholder="E-mail"
-												id="email"
-												name="email"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="phoneNumber">
-												Telefon:
-											</Label>
-											<Input
-												type="number"
-												placeholder="Telefon"
-												id="phoneNumber"
-												name="phoneNumber"
-											/>
-										</FormDiv>
-										<ButtonDiv>
-											<SubmitButton type="submit" value="Add" />
-										</ButtonDiv>
-									</Form>
-								</>
-							) : whichPeople === 'worker' ? (
-								<>
-									<Form style={{ margin: 0 }}>
-										<FormDiv>
-											<Label htmlFor="firstName">Jméno: </Label>
-											<Input
-												type="text"
-												placeholder="Jméno"
-												id="firstName"
-												name="firstName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="lastName">Příjmení: </Label>
-											<Input
-												type="text"
-												placeholder="Příjmení"
-												id="lastName"
-												name="lastName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="email">E-mail: </Label>
-											<Input
-												type="email"
-												placeholder="E-mail"
-												id="email"
-												name="email"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="phoneNumber">
-												Telefon:
-											</Label>
-											<Input
-												type="number"
-												placeholder="Telefon"
-												id="phoneNumber"
-												name="phoneNumber"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="position">Pozice: </Label>
-											<Input
-												type="text"
-												placeholder="pozice"
-												name="position"
-												id="position"
-											/>
-										</FormDiv>
-										<ButtonDiv>
-											<SubmitButton type="submit" value="Add" />
-										</ButtonDiv>
-									</Form>
-								</>
-							) : whichPeople === 'admin' ? (
-								<>
-									<Form style={{ margin: 0 }}>
-										<FormDiv>
-											<Label htmlFor="firstName">Jméno: </Label>
-											<Input
-												type="text"
-												placeholder="Jméno"
-												id="firstName"
-												name="firstName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="lastName">Příjmení: </Label>
-											<Input
-												type="text"
-												placeholder="Příjmení"
-												id="lastName"
-												name="lastName"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="email">E-mail: </Label>
-											<Input
-												type="email"
-												placeholder="E-mail"
-												id="email"
-												name="email"
-											/>
-										</FormDiv>
-										<FormDiv>
-											<Label htmlFor="phoneNumber">
-												Telefon:
-											</Label>
-											<Input
-												type="number"
-												placeholder="Telefon"
-												id="phoneNumber"
-												name="phoneNumber"
-											/>
-										</FormDiv>
-										<ButtonDiv>
-											<SubmitButton type="submit" value="Add" />
-										</ButtonDiv>
-									</Form>
-								</>
-							) : null}
+							onSubmit={() => {}}>
+							{() => {
+								switch (whichPeople) {
+									case 'student': {
+										return (
+											<Form style={{ margin: 0 }}>
+												<FormDiv>
+													<Label htmlFor="firstName">
+														Jméno:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Jméno"
+														id="firstName"
+														name="firstName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="lastName">
+														Příjmení:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Příjmení"
+														id="lastName"
+														name="lastName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="email">
+														E-mail:{' '}
+													</Label>
+													<Input
+														type="email"
+														placeholder="E-mail"
+														id="email"
+														name="email"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="phoneNumber">
+														Telefon:{' '}
+													</Label>
+													<Input
+														type="number"
+														placeholder="Telefon"
+														id="phoneNumber"
+														name="phoneNumber"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="yearOfEntry">
+														Rok nástupu:
+													</Label>
+													<Input
+														type="number"
+														min="1990"
+														max={new Date().getFullYear()}
+														id="yearOfEntry"
+														name="yearOfEntry"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="study">
+														Studium:{' '}
+													</Label>
+													<Field
+														style={style}
+														as="select"
+														id="study"
+														name="study">
+														<option value="denni">
+															Denní
+														</option>
+														<option value="stridave">
+															Střídavé
+														</option>
+														<option value="dálkové">
+															Dálkové
+														</option>
+													</Field>
+												</FormDiv>
+												<ButtonDiv>
+													<SubmitButton
+														type="submit"
+														value="Add"
+													/>
+												</ButtonDiv>
+											</Form>
+										)
+									}
+									case 'teacher': {
+										return (
+											<Form style={{ margin: 0 }}>
+												<FormDiv>
+													<Label htmlFor="firstName">
+														Jméno:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Jméno"
+														id="firstName"
+														name="firstName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="lastName">
+														Příjmení:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Příjmení"
+														id="lastName"
+														name="lastName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="email">
+														E-mail:{' '}
+													</Label>
+													<Input
+														type="email"
+														placeholder="E-mail"
+														id="email"
+														name="email"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="phoneNumber">
+														Telefon:
+													</Label>
+													<Input
+														type="number"
+														placeholder="Telefon"
+														id="phoneNumber"
+														name="phoneNumber"
+													/>
+												</FormDiv>
+												<ButtonDiv>
+													<SubmitButton
+														type="submit"
+														value="Add"
+													/>
+												</ButtonDiv>
+											</Form>
+										)
+									}
+									case 'worker': {
+										return (
+											<Form style={{ margin: 0 }}>
+												<FormDiv>
+													<Label htmlFor="firstName">
+														Jméno:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Jméno"
+														id="firstName"
+														name="firstName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="lastName">
+														Příjmení:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Příjmení"
+														id="lastName"
+														name="lastName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="email">
+														E-mail:{' '}
+													</Label>
+													<Input
+														type="email"
+														placeholder="E-mail"
+														id="email"
+														name="email"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="phoneNumber">
+														Telefon:
+													</Label>
+													<Input
+														type="number"
+														placeholder="Telefon"
+														id="phoneNumber"
+														name="phoneNumber"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="position">
+														Pozice:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="pozice"
+														name="position"
+														id="position"
+													/>
+												</FormDiv>
+												<ButtonDiv>
+													<SubmitButton
+														type="submit"
+														value="Add"
+													/>
+												</ButtonDiv>
+											</Form>
+										)
+									}
+									case 'admin': {
+										return (
+											<Form style={{ margin: 0 }}>
+												<FormDiv>
+													<Label htmlFor="firstName">
+														Jméno:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Jméno"
+														id="firstName"
+														name="firstName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="lastName">
+														Příjmení:{' '}
+													</Label>
+													<Input
+														type="text"
+														placeholder="Příjmení"
+														id="lastName"
+														name="lastName"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="email">
+														E-mail:{' '}
+													</Label>
+													<Input
+														type="email"
+														placeholder="E-mail"
+														id="email"
+														name="email"
+													/>
+												</FormDiv>
+												<FormDiv>
+													<Label htmlFor="phoneNumber">
+														Telefon:
+													</Label>
+													<Input
+														type="number"
+														placeholder="Telefon"
+														id="phoneNumber"
+														name="phoneNumber"
+													/>
+												</FormDiv>
+												<ButtonDiv>
+													<SubmitButton
+														type="submit"
+														value="Add"
+													/>
+												</ButtonDiv>
+											</Form>
+										)
+									}
+								}
+							}}
 						</Formik>
 					</FormContainer1>
 					<ListOfPeople />
