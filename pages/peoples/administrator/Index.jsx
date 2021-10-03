@@ -1,42 +1,42 @@
-import { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import { useState, useContext } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
+import { Context } from '../../_app'
 
-
-//pro vsechny uzivatele, komponenta bude 3x vyuzita (student, admin, ucitel) jako main page
 const Heading = styled.h1`
-    color: ${process.env.NEXT_PUBLIC_COLOR_BLACK};
-    font-size: clamp(3rem, 10vw, 10rem);
-    text-align: center;
+	color: ${props => props.theme.text};
+	font-size: clamp(3rem, 10vw, 10rem);
+	text-align: center;
 `
 const Span = styled.span`
-    color: ${process.env.NEXT_PUBLIC_COLOR_ORANGE};
+	color: ${props => props.theme.orange};
 `
 const Container = styled.div`
-    display: grid;
-    place-items: center;
-    height: 100%;
-    opacity: .17;
+	display: grid;
+	place-items: center;
+	height: 100%;
+	opacity: 0.5;
 `
 const Main = styled.main`
-    height: 100vh;
+	height: calc(100vh - 5.2rem);
 `
 const Index = () => {
-    const [bool, setBool] = useState(true);
-    function handleBool() {
-        setBool(false)
-    }
-    return (
-        <>
-            <Header />
-            <Main>
-                <Container>
-                    <Heading><Span>P</Span>rofesio</Heading>
-                </Container>
-            <NavBar />
-            </Main>
-        </>
-    )
+
+	return (
+		<>
+			<ThemeProvider theme={useContext(Context)}>
+				<Header />
+				<Main>
+					<Container>
+						<Heading>
+							<Span>P</Span>rofesio
+						</Heading>
+					</Container>
+					<NavBar route='administrator'/>
+				</Main>
+			</ThemeProvider>
+		</>
+	)
 }
 export default Index

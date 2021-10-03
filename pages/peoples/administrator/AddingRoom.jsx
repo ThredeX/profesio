@@ -1,9 +1,9 @@
 //adding room
-const Adding = (props) => {
+const AddingRoom = (props) => {
     return (
         <div>
             
         </div>
     )
 }
-export default Adding
+export default AddingRoom

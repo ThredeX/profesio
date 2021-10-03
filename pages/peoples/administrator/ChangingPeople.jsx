@@ -1,10 +1,10 @@
 
 //changing people options and data
-const Changing = (props) => {
+const ChangingPeople = (props) => {
     return (
         <div>
             
         </div>
     )
 }
-export default Changing
+export default ChangingPeople

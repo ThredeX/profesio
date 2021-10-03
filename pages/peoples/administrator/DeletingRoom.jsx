@@ -1,9 +1,9 @@
 //delete room
-const Deleting = (props) => {
+const DeletingRoom = (props) => {
     return (
         <div>
             
         </div>
     )
 }
-export default Deleting
+export default DeletingRoom

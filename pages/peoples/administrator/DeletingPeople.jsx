@@ -1,10 +1,10 @@
 
 //delete people
-const Deleting = (props) => {
+const DeletingPeople = (props) => {
     return (
         <div>
             
         </div>
     )
 }
-export default Deleting
+export default DeletingPeople

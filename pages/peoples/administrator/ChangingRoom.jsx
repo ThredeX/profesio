@@ -1,10 +1,10 @@
 
 //changing room options and data
-const Changing = (props) => {
+const ChangingRoom = (props) => {
     return (
         <div>
             
         </div>
     )
 }
-export default Changing
+export default ChangingRoom

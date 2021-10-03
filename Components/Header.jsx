@@ -7,15 +7,9 @@ const HeaderC = styled.header`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	position: absolute;
+	height: 5.2rem;
 `
-const Svg = styled.svg`
-	display: ${props => props.menu};
-	padding: .3rem;
-	cursor: pointer;
-	transform: rotate(180deg);
-`
-const Header = props => {
+const Header = () => {
 	return (
 		<HeaderC>
 			<Logo />
