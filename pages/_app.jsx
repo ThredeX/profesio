@@ -1,3 +1,4 @@
+import React from 'react'
 import '../styles/globals.css'
 import { createContext, useEffect } from 'react'
 
@@ -9,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 		theme = {
 			bg: process.env.NEXT_PUBLIC_COLOR_BG_DARK,
 			text: process.env.NEXT_PUBLIC_COLOR_TEXT_DARK,
-			orange: process.env.NEXT_PUBLIC_COLOR_ORANGE,
+			color: process.env.NEXT_PUBLIC_COLOR_BLUE,
 			nav: process.env.NEXT_PUBLIC_COLOR_NAV_DARK,
 			box: process.env.NEXT_PUBLIC_COLOR_BOX_DARK
 		}
@@ -17,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 		theme = {
 			bg: process.env.NEXT_PUBLIC_COLOR_BG_LIGHT,
 			text: process.env.NEXT_PUBLIC_COLOR_TEXT_LIGHT,
-			orange: process.env.NEXT_PUBLIC_COLOR_ORANGE,
+			color: process.env.NEXT_PUBLIC_COLOR_PURPLE,
 			nav: process.env.NEXT_PUBLIC_COLOR_NAV_LIGHT,
 			box: process.env.NEXT_PUBLIC_COLOR_BOX_LIGHT
 		}

@@ -10,7 +10,7 @@ const Heading = styled.h1`
 	text-align: center;
 `
 const Span = styled.span`
-	color: ${props => props.theme.orange};
+	color: ${props => props.theme.color};
 `
 const Container = styled.div`
 	display: grid;

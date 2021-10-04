@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { useRef, useState, useContext } from 'react'
+import styled, {ThemeProvider} from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
 	faFolderPlus,
@@ -13,6 +13,8 @@ import {
 	faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import { Context } from '../pages/_app'
+
 
 const Container = styled.div`
 	&::-webkit-scrollbar {
@@ -83,7 +85,7 @@ const Handle = styled.div`
 	transform: translate(-50%, -50%);
 	transition: opacity 0.5s ease;
 	cursor: pointer;
-	background-color: ${props => props.theme.orange};
+	background-color: ${props => props.theme.color};
 	${Nav}:hover & {
 		opacity: 1;
 	}
@@ -95,7 +97,7 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({ route }) {
+export default function NavBar({ route , theme}) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
@@ -117,13 +119,14 @@ export default function NavBar({ route }) {
 		}
 	}
 	return (
+		<ThemeProvider theme={useContext(Context)}>
 			<Nav ref={navRef}>
 				<Container>
 					<DivHeading className="noneOpen">
 						<FontAwesomeIcon
 							size="2x"
 							icon={faUser}
-							color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+							color={theme.color}
 						/>
 						<Heading1>{'Jmeno Správce'}</Heading1>
 					</DivHeading>
@@ -134,7 +137,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faFolderPlus}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
@@ -148,11 +151,11 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faFolderOpen}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
-									Změnit učebnu
+									Změnit nastavení učebny
 								</Paragraph>
 							</A>
 						</Link>
@@ -162,7 +165,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faFolderMinus}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
@@ -177,7 +180,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faUserPlus}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
@@ -191,7 +194,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faUserGear}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
@@ -205,7 +208,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faUserMinus}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
@@ -220,7 +223,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faGears}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">
@@ -234,7 +237,7 @@ export default function NavBar({ route }) {
 									<FontAwesomeIcon
 										style={faIconSize}
 										icon={faGear}
-										color={process.env.NEXT_PUBLIC_COLOR_ORANGE}
+										color={theme.color}
 									/>
 								</Div>
 								<Paragraph className="noneOpen">Nastavení</Paragraph>
@@ -244,5 +247,6 @@ export default function NavBar({ route }) {
 				</Container>
 				<Handle onClick={navHandling}></Handle>
 			</Nav>
+		</ThemeProvider>
 	)
 }

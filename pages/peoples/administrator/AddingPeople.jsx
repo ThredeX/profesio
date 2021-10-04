@@ -68,7 +68,6 @@ const AddingPeople = () => {
 
 	const style = {
 		width: '100%',
-		border: 'none',
 		borderRadius: '20px',
 		marginBlock: '.3rem',
 		padding: '.3rem .6rem',
@@ -78,7 +77,7 @@ const AddingPeople = () => {
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
-				<NavBar route="administrator" />
+				<NavBar route="administrator" theme={useContext(Context)}/>
 				<MainHeading>Přidání lidí</MainHeading>
 				<Main>
 					<FormContainer1>
