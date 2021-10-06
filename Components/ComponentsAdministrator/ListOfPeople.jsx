@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../pages/_app'
-import { Box } from '../../theme'
-import WindowChange from './WindowChange'
+import { Box, SubmitButton } from '../../theme'
 
 
 const List = styled.li`
@@ -90,6 +89,10 @@ export default function ListOfPeople(props) {
 			.catch(err => console.error(err))
 	}, [])
 
+	function handleClick(id) {
+        props.setId(id)
+		console.log(id);
+    }
 	function funcNames() {
 		let searched = []
 
@@ -104,7 +107,7 @@ export default function ListOfPeople(props) {
 					<Paragraph>{searchedName.first}</Paragraph>
 					<Paragraph>{searchedName.last}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
-					{props.comp && <WindowChange id={id} />}
+					{props.comp &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClick(id)} />}
 				</List>
 			))
 		}
@@ -114,7 +117,7 @@ export default function ListOfPeople(props) {
 					<Paragraph>{names.first}</Paragraph>
 					<Paragraph>{names.last}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
-					{props.comp && <WindowChange id={id} />}
+					{props.comp &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClick(id)} />}
 				</List>
 			))
 		}
