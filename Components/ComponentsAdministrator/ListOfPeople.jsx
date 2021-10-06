@@ -1,28 +1,43 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../pages/_app'
-import { SubmitButton } from '../../theme'
+import { Box, SubmitButton } from '../../theme'
+
 
 const List = styled.li`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	border-bottom: 1px solid #8181814c;
+	
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	&:last-child {
 		border-bottom: none;
 	}
-`
+	
+	`
 const Paragraph = styled.p`
+	border-bottom: 1px solid #8181814c;
 	justify-self: center;
-	width: 98%;
+	width: 25vw;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+
 	padding: 0.6rem 0.1rem;
 	margin: 0;
 	text-align: center;
 	color: ${props => props.theme.text};
+	@media screen and (max-width: 1070px) and (min-width: 0){
+		&:nth-child(3){
+			display: none;
+		}
+	}
 `
 const UnsortedList = styled.ul`
 	height: 18rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	padding-right: 2rem;
-	overflow-x: hidden;
+	width: 100%;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
 		width: 10px;
@@ -30,23 +45,14 @@ const UnsortedList = styled.ul`
 	}
 	&::-webkit-scrollbar-thumb {
 		height: 50px;
-		background-color: ${props => props.theme.orange};
+		background-color: ${props => props.theme.color};
 		border-radius: 10px;
 	}
-`
-const Div = styled.div`
-	font-weight: 100;
-	margin: 1.5rem 5rem 0 1rem;
-	padding-right: 10px;
-	border-radius: 20px;
-	box-shadow: 0 0 1px 2px #0f0f0fc1 inset;
-	overflow: hidden;
-	position: relative;
-	background-color: ${props => props.theme.box};
 `
 const Input = styled.input`
 	padding: 0.5rem 0.8rem;
 	font-weight: 100;
+	width: 50vw;
 	border: 1px solid ${props => props.theme.text};
 
 	margin: 0 0.5rem;
@@ -62,7 +68,6 @@ const Input = styled.input`
 const Settings = styled.div`
 	display: flex;
 	align-items: center;
-	width: 100%;
 	height: 6rem;
 `
 const Container = styled.div`
@@ -71,9 +76,9 @@ const Container = styled.div`
 	flex-wrap: wrap;
 	margin-left: 1rem;
 `
-export default function ListOfStudents() {
+export default function ListOfPeople(props) {
 	const [names, setNames] = useState([])
-	const [reference, setReference] = useState(null)
+	const [reference, setReference] = useState()
 
 	useEffect(() => {
 		fetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
@@ -84,6 +89,10 @@ export default function ListOfStudents() {
 			.catch(err => console.error(err))
 	}, [])
 
+	function handleClick(id) {
+        props.setId(id)
+		console.log(id);
+    }
 	function funcNames() {
 		let searched = []
 
@@ -98,6 +107,7 @@ export default function ListOfStudents() {
 					<Paragraph>{searchedName.first}</Paragraph>
 					<Paragraph>{searchedName.last}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
+					{props.comp &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClick(id)} />}
 				</List>
 			))
 		}
@@ -107,20 +117,22 @@ export default function ListOfStudents() {
 					<Paragraph>{names.first}</Paragraph>
 					<Paragraph>{names.last}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
+					{props.comp &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClick(id)} />}
 				</List>
 			))
 		}
 	}
 	return (
 		<ThemeProvider theme={useContext(Context)}>
-			<Div>
+			<Box>
 				<Settings>
 					<Container>
 						<Input onChange={(e) => setReference(e.target.value)} type="text" placeholder="Search..." />
 					</Container>
 				</Settings>
 				<UnsortedList>{funcNames()}</UnsortedList>
-			</Div>
+			</Box>
+			
 		</ThemeProvider>
 	)
 }
