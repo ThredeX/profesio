@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
+import { useFetch } from '../../hooks/useFetch'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
 
@@ -77,17 +78,11 @@ const Container = styled.div`
 	margin-left: 1rem;
 `
 export default function ListOfPeople(props) {
-	const [names, setNames] = useState([])
 	const [reference, setReference] = useState()
-
-	useEffect(() => {
-		fetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
-			.then(res => res.json())
-			.then(data => {
-				setNames(data)
-			})
-			.catch(err => console.error(err))
-	}, [])
+	
+	
+	const [names, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole');
+	console.log(status);
 
 	function handleClick(id) {
         props.setId(id)

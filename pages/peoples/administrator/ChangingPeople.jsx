@@ -6,21 +6,13 @@ import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../_app'
 import { MainHeading, Main, Paragraph, Box } from '../../../theme'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
+import { useFetch } from '../../../hooks/useFetch'
 
 const ChangingPeople = props => {
-	const [state, setState] = useState([])
   const [id, setId] = useState(null)
 
-	useEffect(() => {
-		fetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
-			.then(res => res.json())
-			.then(data => {
-				setState(data)
-				console.log(data)
-			})
-			.catch(err => console.error(err))
-	}, [])
-
+	const [data, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
+  console.log(status);
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
@@ -31,7 +23,7 @@ const ChangingPeople = props => {
 					<ListOfPeople comp={true} setId={setId} />
 					<Box>
 						{!!id ? (
-							<Paragraph>{state[id]['email']}</Paragraph>
+							<Paragraph>{data[id]['email']}</Paragraph>
 						) : null}
 					</Box>
 				</Main>
