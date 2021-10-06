@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import { Context } from '../../_app'
 import { MainHeading, Main, Paragraph, Box } from '../../../theme'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
@@ -12,7 +12,7 @@ const ChangingPeople = props => {
   const [id, setId] = useState(null)
 
 	const [data, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
-  console.log(status);
+
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
@@ -20,9 +20,9 @@ const ChangingPeople = props => {
 				<NavBar route="administrator" theme={useContext(Context)} />
 				<MainHeading>Změna nastavení uživatelů</MainHeading>
 				<Main>
-					<ListOfPeople comp={true} setId={setId} />
+					<ListOfPeople changingPeople={true} setId={setId} />
 					<Box>
-						{!!id ? (
+						{(id !== undefined && id !== null) ? (
 							<Paragraph>{data[id]['email']}</Paragraph>
 						) : null}
 					</Box>
