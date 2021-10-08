@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
+import { useFetch } from '../../hooks/useFetch'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
 
@@ -77,22 +78,23 @@ const Container = styled.div`
 	margin-left: 1rem;
 `
 export default function ListOfPeople(props) {
-	const [names, setNames] = useState([])
 	const [reference, setReference] = useState()
+	
+	
+	const [names, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole');
+	console.log(status);
+	console.log(names);
 
-	useEffect(() => {
-		fetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
-			.then(res => res.json())
-			.then(data => {
-				setNames(data)
-			})
-			.catch(err => console.error(err))
-	}, [])
-
-	function handleClick(id) {
+	function handleClickChanging(id) {
         props.setId(id)
-		console.log(id);
     }
+	function handleClickDeleting(id) {
+		if(confirm('Opravdu si přejete odstranit uživatele?')) {
+			props.setId(id)
+			alert('Uživatel byl odstraněn');
+		}
+		return;	
+	}
 	function funcNames() {
 		let searched = []
 
@@ -107,7 +109,8 @@ export default function ListOfPeople(props) {
 					<Paragraph>{searchedName.first}</Paragraph>
 					<Paragraph>{searchedName.last}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
-					{props.comp &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClick(id)} />}
+					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
+					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
 				</List>
 			))
 		}
@@ -117,7 +120,8 @@ export default function ListOfPeople(props) {
 					<Paragraph>{names.first}</Paragraph>
 					<Paragraph>{names.last}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
-					{props.comp &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClick(id)} />}
+					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
+					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
 				</List>
 			))
 		}
