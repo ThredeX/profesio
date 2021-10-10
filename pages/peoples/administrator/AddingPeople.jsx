@@ -28,7 +28,6 @@ const FormContainer1 = styled.div`
 	padding-left: 3rem;
 	margin-left: 1rem;
 	justify-content: space-evenly;
-	margin-right: 5rem;
 	background-color: ${props => props.theme.box};
 	min-height: 20rem;
 `

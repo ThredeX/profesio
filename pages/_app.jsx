@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 		theme = {
 			bg: process.env.NEXT_PUBLIC_COLOR_BG_DARK,
 			text: process.env.NEXT_PUBLIC_COLOR_TEXT_DARK,
-			color: process.env.NEXT_PUBLIC_COLOR_BLUE,
+			color: process.env.NEXT_PUBLIC_COLOR_RED,
 			nav: process.env.NEXT_PUBLIC_COLOR_NAV_DARK,
 			box: process.env.NEXT_PUBLIC_COLOR_BOX_DARK
 		}

@@ -97,11 +97,11 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({ route , theme}) {
+export default function NavBar({ route}) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
-
+	const theme = useContext(Context);
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
 		if (state === false) {
