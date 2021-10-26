@@ -12,6 +12,7 @@ import ThemeChange from '../../../Components/ThemeChange'
 
 const Index = () => {
     return (
+
         <>
         <ThemeProvider theme={useContext(Context)}>
             <Header />
@@ -23,6 +24,7 @@ const Index = () => {
             </Main>
         </ThemeProvider>
     </>
+
     )
 }
 export default Index
