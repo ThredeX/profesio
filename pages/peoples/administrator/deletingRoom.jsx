@@ -62,11 +62,11 @@ const Margin = styled.div`
 `
 const DeletingRoom = () => {
 	const [fakulta, setFakulta] = useState(0)
-	const [mistnosts, setMistnosts] = useState()
+	const [mistnost, setMistnost] = useState()
 
     function handleSubmit() {
         if(confirm('Opravdu si přejete odstranit místnost')) {
-			alert('Místnost byla odstraněna');
+			alert(`Místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost} byla odstraněna`);
 		}
     }
 
@@ -80,7 +80,7 @@ const DeletingRoom = () => {
 					<Box>
 						<Select2
 							name="fakulty"
-							onClick={e => setFakulta(e.target.value)}>
+							onChange={e => setFakulta(e.target.value)}>
 							{fakulty.map((fakulta, i) => (
 								<Option value={i} key={i}>
 									{fakulta.name}
@@ -90,7 +90,7 @@ const DeletingRoom = () => {
                         <Margin m={1}></Margin>
 						<Select2
 							name="mistnosti"
-							onClick={e => setMistnosts(e.target.value)}>
+							onChange={e => setMistnost(e.target.value)}>
 							{fakulty[fakulta].mistnost.map((mistnost, i) => (
 								<Option value={i} key={i}>
 									{mistnost.nameMistnost}
