@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
@@ -22,7 +22,6 @@ const Main = styled.main`
 	height: calc(100vh - 5.2rem);
 `
 const Index = () => {
-
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>

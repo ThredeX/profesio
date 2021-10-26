@@ -166,8 +166,7 @@ export const Td = styled.td`
 	height: 8rem;
 	position: relative;
 	border: 1px solid #444;
-	
-	`
+`
 export const Tr = styled.tr`
 	height: 8rem;
 	width: 8rem;

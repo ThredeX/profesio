@@ -57,10 +57,10 @@ const AddingRoom = props => {
 	const [faculty, setFaculty] = useState(null)
 	const [facultyDelete, setFacultyDelete] = useState(null)
 
-	const handleClick = (e) => {
+	const handleClick = e => {
 		e.preventDefault()
 		if (confirm('Opravdu si přejete odstranit fakultu?')) {
-			alert('Fakulta byla odstraněna');
+			alert('Fakulta byla odstraněna')
 		}
 	}
 	return (
@@ -137,7 +137,7 @@ const AddingRoom = props => {
 							))}
 						</Select2>
 					</Box>
-					<TimetableAdding faculty={fakulty[state]} />
+					<TimetableAdding faculty={fakulty[state]} changeTT={false} />
 				</Main>
 			</ThemeProvider>
 		</>
