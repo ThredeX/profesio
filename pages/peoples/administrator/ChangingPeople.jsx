@@ -9,9 +9,11 @@ import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeop
 import { useFetch } from '../../../hooks/useFetch'
 
 const ChangingPeople = props => {
-  const [id, setId] = useState(null)
+	const [id, setId] = useState(null)
 
-	const [data, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole')
+	const [data, status] = useFetch(
+		'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole',
+	)
 
 	return (
 		<>
@@ -21,11 +23,11 @@ const ChangingPeople = props => {
 				<MainHeading>Změna nastavení uživatelů</MainHeading>
 				<Main>
 					<ListOfPeople changingPeople={true} setId={setId} />
-					<Box>
-						{(id !== undefined && id !== null) ? (
+					{id !== undefined && id !== null ? (
+						<Box>
 							<Paragraph>{data[id]['email']}</Paragraph>
-						) : null}
-					</Box>
+						</Box>
+					) : null}
 				</Main>
 			</ThemeProvider>
 		</>
