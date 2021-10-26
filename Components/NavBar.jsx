@@ -159,7 +159,7 @@ export default function NavBar({ route}) {
 								</Paragraph>
 							</A>
 						</Link>
-						<Link href={`/peoples/${route}/DeletingRoom`} passHref>
+						<Link href={`/peoples/${route}/deletingRoom`} passHref>
 							<A>
 								<Div>
 									<FontAwesomeIcon

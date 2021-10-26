@@ -93,7 +93,6 @@ export default function ListOfPeople(props) {
 			props.setId(id)
 			alert('Uživatel byl odstraněn');
 		}
-		return;	
 	}
 	function funcNames() {
 		let searched = []

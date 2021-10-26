@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import TimetableAdding from '../../../Components/ComponentsAdministrator/TimetableAdding'
+import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 
@@ -137,7 +137,7 @@ const AddingRoom = props => {
 							))}
 						</Select2>
 					</Box>
-					<TimetableAdding faculty={fakulty[state]} changeTT={false} />
+					<TimetableComp faculty={fakulty[state]} changeTT={false} />
 				</Main>
 			</ThemeProvider>
 		</>
