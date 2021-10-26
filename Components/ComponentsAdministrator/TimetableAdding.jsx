@@ -1,0 +1,405 @@
+import React, { useContext, useState, useRef, useEffect } from 'react'
+import { Box, Table, Th, Td, Tr, Tbody, Option, SubmitButton } from '../../theme'
+import styled, { ThemeProvider } from 'styled-components'
+import { Context } from '../../pages/_app'
+
+const Div = styled.div`
+	display: grid;
+	justify-content: center;
+	align-items: center;
+`
+const Div2 = styled.div`
+	height: 1rem;
+`
+
+const Input = styled.input`
+	border-radius: 8px;
+	width: 60%;
+	border: none;
+	text-align: center;
+	position: relative;
+	color: red;
+	background-color: rgba(0, 0, 0, 0);
+	&::-webkit-calendar-picker-indicator {
+		cursor: pointer;
+		width: 80%;
+		background: none;
+		position: absolute;
+		z-index: 0;
+		height: 18%;
+	}
+`
+const Select = styled.select`
+	border-radius: 10px;
+	width: 90%;
+	cursor: pointer;
+	border: none;
+	height: 1.5rem;
+`
+const Button = styled.button`
+	color: ${props => props.theme.color};
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	font-size: 2rem;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+`
+const Container = styled.div`
+	display: grid;
+	height: 120%;
+`
+const Container2 = styled.div`
+	margin-top: 1.5rem;
+`
+const WindowTime = styled.div`
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	display: none;
+`
+const WindowSubjects = styled.div`
+	position: absolute;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+`
+const Paragraph = styled.p`
+	margin: 0;
+	color: ${props => props.theme.color};
+`
+const Textarea = styled.textarea`
+	resize: vertical;
+	border-radius: 8px;
+	width: 60%;
+	min-height: 1.5rem;
+	border: none;
+	font-size: 1rem;
+	padding-inline: 0.5rem;
+`
+export default function TimetableAdding({ changeTT }, props) {
+	const days = ['Po', 'Út', 'St', 'Čt', 'Pa']
+	const [timetableState, setTimetableState] = useState([null])
+	const timeRef = useRef(null)
+	const [note, setNote] = useState()
+	useEffect(() => {
+		if (changeTT) {
+			setTimetableState({
+				//bude se fetchovat => changeTT = true
+				fakulta: {
+					name: 'Fakulta informačních technologií',
+					shortName: 'FIT',
+					timetable: {
+						subject: [
+							[
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+							],
+							[
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+							],
+							[
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+							],
+							[
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika II',
+									teacherName: 'PhD. Kozajska',
+								},
+							],
+							[
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+								{
+									id: 1,
+									subjectName: 'Matematika I',
+									teacherName: 'PhD. Kozajska',
+								},
+							],
+						],
+						time: [
+							{ start: '09:00', end: '10:30' },
+							{ start: '10:30', end: '12:00' },
+							{ start: '13:00', end: '14:30' },
+						],
+						note: '',
+					},
+				},
+			})
+			console.log(timetableState)
+		}
+	}, [])
+
+	const subjects = [
+		//bude se fetchovat
+		{
+			id: 1,
+			subjectName: 'Matematika I',
+			teacherName: 'PhD. Kozajska',
+		},
+		{
+			id: 2,
+			subjectName: 'Matematika II',
+			teacherName: 'PhD. Kozajska',
+		},
+		{
+			id: 3,
+			subjectName: 'Programovaní I',
+			teacherName: 'PhD. Kozajska',
+		},
+		{
+			id: 4,
+			subjectName: 'Programovaní II',
+			teacherName: 'PhD. Kozajska',
+		},
+		{
+			id: 5,
+			subjectName: 'Ekonomika',
+			teacherName: 'PhD. Kozajska',
+		},
+		{
+			id: 6,
+			subjectName: 'Anglický jazyk I',
+			teacherName: 'PhD. Kozajska',
+		},
+		{
+			id: 7,
+			subjectName: 'Anglický jazyk II',
+			teacherName: 'PhD. Kozajska',
+		},
+	]
+
+	function handleClickTime(e) {
+		if (timetableState.length < 20) {
+			setTimetableState([null, ...timetableState])
+		}
+		e.target.style.display = 'none'
+		timeRef.current.style.display = 'flex'
+	}
+
+	function handleClickSubject(e, x, y) {
+		e.target.style.display = 'none'
+		document.getElementsByClassName('timetableSubjects')[
+			x * timetableState.length + y
+		].style.opacity = '1'
+		document.getElementsByClassName('timetableSubjects')[
+			x * timetableState.length + y
+		].style.zIndex = '1'
+	}
+	function handleSubmit() {
+		let subjectData = [[], [], [], [], []]
+		let timeData = []
+		let length = document.getElementsByClassName('timetableSubjects').length / 5
+		console.log(length);
+		let counter = 0, k
+		for (let i = 0; i < 5; i++) {
+			for (let j = 0; j < length; j++) {
+				for(k = 0;k < subjects.length && subjects[k].subjectName != document.querySelectorAll('.timetableSubjects select')[counter].value;k++){ }
+				subjectData[i][j] = subjects[k - 1]
+				counter++
+			}
+		}
+		for (let i = 0; i < length * 2; i += 2) {
+			timeData.push({
+				start: document.querySelectorAll('.timetableTime input')[i].value,
+				end: document.querySelectorAll('.timetableTime input')[i + 1].value,
+			})
+			console.log(timeData);
+		}
+		console.log({
+			fakulta: changeTT ? timetableState.fakulta.shortName : props.faculty,
+			timetable: { subject: subjectData, time: timeData, note: note},
+		})
+		alert('Uloženo')
+	}
+	return (
+		<ThemeProvider theme={useContext(Context)}>
+			<Box style={{ overflowX: 'scroll' }}>
+				<Container>
+					<Div>
+						<Table
+							size={
+								changeTT
+									? !!timetableState.fakulta
+										? timetableState.fakulta.timetable.subject[0].length + 1
+										: null
+									: timetableState.length + 1
+							}>
+							<thead>
+								<Tr>
+									<Th></Th>
+									{(!!timetableState.fakulta
+										? timetableState.fakulta.timetable.time
+										: timetableState
+									).map((value, i) => (
+										<Th key={i}>
+											{!changeTT && <Button
+												onClick={handleClickTime}>
+												+
+											</Button>}
+											<WindowTime
+												className="timetableTime"
+												ref={timeRef}
+													style={
+														changeTT
+															? {display: 'flex'}
+															: null
+													}
+												>
+												{
+													changeTT 
+													? 
+														<>
+															<Input type="time" defaultValue={timetableState.fakulta ? value.start : null}/>
+															<Paragraph>-</Paragraph>
+															<Input type="time" defaultValue={timetableState.fakulta ? value.end : null}/>
+														</> 
+													:
+														<>
+															<Input type="time"/>
+															<Paragraph>-</Paragraph>
+															<Input type="time"/>
+														</>
+												}
+											</WindowTime>
+										</Th>
+									))}
+								</Tr>
+							</thead>
+							<Tbody>
+								{days.map((value, i) => {
+									return (
+										<Tr key={i}>
+											<Td>{`${value}`}</Td>
+											{(timetableState.fakulta
+												? timetableState.fakulta.timetable.subject[i]
+												: timetableState
+											).map((e, key) => {
+												return (
+													<Td key={key}>
+														<WindowSubjects
+															className="timetableSubjects"
+															style={
+																changeTT
+																	? { opacity: '1', zIndex: '1'}
+ 																	: null
+															}>
+															<Select>
+																<Option value={changeTT ? timetableState.fakulta && e.subjectName : null}>
+																	{changeTT ? timetableState.fakulta && e.subjectName : '-'}
+																</Option>
+																{subjects.map(
+																	(subject, j) => (
+																		<Option
+																			title={subject.subjectName}
+																			value={j}
+																			key={j}>
+																				{subject.subjectName}
+																		</Option>
+																	),
+																)}
+															</Select>
+														</WindowSubjects>
+														{!changeTT && (
+															<Button onClick={e => handleClickSubject(e, i, key)}>
+																+
+															</Button>
+														)}
+													</Td>
+												)
+											})}
+										</Tr>
+									)
+								})}
+							</Tbody>
+						</Table>
+					</Div>
+				</Container>
+			</Box>
+			<Box>
+				<Container2>
+					{!changeTT && (
+						<Textarea
+							onChange={e => setNote(e.target.value)}
+							placeholder="Popisek"></Textarea>
+					)}
+					<SubmitButton
+						type="submit"
+						onClick={handleSubmit}
+						value={changeTT ? 'Změnit rozvrh' : 'Uložit rozvrh'}
+					/>
+				</Container2>
+			</Box>
+			<Div2></Div2>
+		</ThemeProvider>
+	)
+}

@@ -1,9 +1,8 @@
 //settings menu
-const Index = (props) => {
+const index = (props) => {
     return (
         <div>
-            
         </div>
     )
 }
-export default Index
+export default index
