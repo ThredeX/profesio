@@ -3,6 +3,10 @@ import styled from 'styled-components'
 export const Form = styled.form`
 	width: clamp(20rem, 20vw, 80vw);
 `
+export const Form2= styled.form`
+	width: clamp(15rem, 80%, 80vw);
+	margin-left: 1rem;
+`
 export const Input = styled.input`
 	width: 100%;
 	border: 1px ${props => props.theme.text} solid;
@@ -60,6 +64,13 @@ export const MainHeading = styled.h1`
 	font-weight: 100;
 	color: ${props => props.theme.text};
 	margin-top: -1rem;
+`
+export const Heading2 = styled.h2`
+	text-align: center;
+	font-size: clamp(1.5rem, 2vw, 2rem);
+	font-weight: 100;
+
+	color: ${props => props.theme.text};
 `
 export const Label = styled.label`
 	font-weight: 100;
