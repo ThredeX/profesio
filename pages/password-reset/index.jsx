@@ -1,5 +1,5 @@
 //zapomenute heslo - kod
-const index = (props) => {
+const Index = (props) => {
     return (
         <div>
             
