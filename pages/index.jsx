@@ -2,29 +2,40 @@ import styled, { ThemeProvider } from 'styled-components'
 import Header from '../Components/Header'
 import { useRouter } from 'next/router'
 import { Formik } from 'formik'
-import { Form, Input, Pol } from '../theme'
+import { Form, Input, Pol, SubmitButton, MainHeading} from '../theme'
 import Link from 'next/link'
 import { Context } from './_app'
 import React, {useContext} from 'react'
 
 //login page and header PROFESIO and menu stay for all pages
-const Heading1 = styled.h1`
-	text-align: center;
-	font-size: 3.5rem;
-`
+
 const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 5px;
 `
-const Paragraph = styled.p`
+const Div = styled.div`
+	margin: 0 auto;
+	width: 100vw;
+`
+const Main = styled.main`
+	margin: 0 auto;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+`
+const Heading = styled.h1`
+	font-size: 4rem;
+	text-align: center;
+	color: ${props => props.theme.text};
+`
+const Button = styled.button`
+	text-align: center;
+	color: ${props => props.theme.color};
 	border-radius: 20px;
-	padding: 0.5rem 1rem;
-	height: 2.5rem;
-	border: 1px solid ${props => props.theme.color};
-	cursor: pointer;
-	color: ${0x000};
+	border: none;
+	background-color: rgba(0,0,0,0);
 `
 
 const Index = () => {
@@ -32,9 +43,12 @@ const Index = () => {
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
-				<Header menu="none" />
-				<main>
-					<Heading1>Login</Heading1>
+				<Header />
+				<Div>
+					<Heading>Login</Heading>
+
+				</Div>
+				<Main>
 					<Formik
 						initialValues={{
 							name: '',
@@ -57,15 +71,16 @@ const Index = () => {
 								placeholder="Password"
 							/>
 							<Container>
-								<Paragraph>Zapomenuté heslo?</Paragraph>
-								<Link href="/peoples/administrator">
-									<a>dasdas</a>
+								<Button>
+								Zapomenuté heslo?
+								</Button>
+								<Link href="/peoples/administrator" passHref>
+									<SubmitButton value='Login' type='submit'/>
 								</Link>
 							</Container>
 						</Form>
 					</Formik>
-					<Pol></Pol>
-				</main>
+				</Main>
 			</ThemeProvider>
 		</>
 	)
