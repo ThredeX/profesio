@@ -65,9 +65,14 @@ const DeletingRoom = () => {
 	const [mistnost, setMistnost] = useState()
 
     function handleSubmit() {
-        if(confirm('Opravdu si přejete odstranit místnost')) {
-			alert(`Místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost} byla odstraněna`);
-		}
+        try {
+            if(confirm(`Opravdu si přejete odstranit místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost}?`)) {
+                alert(`Místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost} byla odstraněna`);
+            }
+        }
+        catch {
+            alert('Nebyla vybrána žádná místnost')
+        }
     }
 
 	return (
@@ -81,6 +86,9 @@ const DeletingRoom = () => {
 						<Select2
 							name="fakulty"
 							onChange={e => setFakulta(e.target.value)}>
+                                <Option>
+									-
+								</Option>
 							{fakulty.map((fakulta, i) => (
 								<Option value={i} key={i}>
 									{fakulta.name}
@@ -91,6 +99,9 @@ const DeletingRoom = () => {
 						<Select2
 							name="mistnosti"
 							onChange={e => setMistnost(e.target.value)}>
+                                 <Option>
+									-
+								</Option>
 							{fakulty[fakulta].mistnost.map((mistnost, i) => (
 								<Option value={i} key={i}>
 									{mistnost.nameMistnost}

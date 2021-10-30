@@ -6,7 +6,7 @@ export const Context = createContext(null)
 
 function MyApp({ Component, pageProps }) {
 	let theme = {}
-	if (true) { //dark
+	if (!true) { //dark
 		theme = {
 			bg: process.env.NEXT_PUBLIC_COLOR_BG_DARK,
 			text: process.env.NEXT_PUBLIC_COLOR_TEXT_DARK,

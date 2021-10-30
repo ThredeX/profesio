@@ -18,7 +18,7 @@ const Input = styled.input`
 	border: none;
 	text-align: center;
 	position: relative;
-	color: red;
+	color: ${props => props.theme.color};
 	background-color: rgba(0, 0, 0, 0);
 	&::-webkit-calendar-picker-indicator {
 		cursor: pointer;

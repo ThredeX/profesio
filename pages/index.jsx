@@ -72,7 +72,7 @@ const Index = () => {
 							/>
 							<Container>
 								<Button>
-								Zapomenuté heslo?
+									Zapomenuté heslo?
 								</Button>
 								<Link href="/peoples/administrator" passHref>
 									<SubmitButton value='Login' type='submit'/>
