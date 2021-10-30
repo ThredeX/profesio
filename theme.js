@@ -23,7 +23,7 @@ export const SubmitButton = styled.input`
 	padding: 0.5rem 3rem;
 	height: 1.95rem;
 	background-color: ${props => props.theme.color};
-	color: ${props => props.theme.text};
+	color: #fff;
 	cursor: pointer;
 	float: right;
 `
@@ -104,19 +104,6 @@ export const Main = styled.main`
 	height: 80vh;
 	padding-top: 2rem;
 `
-export const Pol2 = styled.div`
-	clip-path: polygon(100% 0, 39% 0, 100% 27%);
-	min-height: 100vh;
-	position: absolute;
-	z-index: -1;
-	width: 100%;
-	top: 0;
-	right: 0;
-	background-color: ${props => props.theme.color};
-	@media screen and (max-height: 540px) and (min-height: 0) {
-		display: none;
-	}
-`
 export const Paragraph = styled.p`
 	color: ${props => props.theme.color};
 `
@@ -151,7 +138,6 @@ export const Th = styled.th`
 	font-weight: 100;
 	color: ${props => props.theme.text};
 	border: 1px solid #444;
-
 	position: relative;
 	height: 100%;
 	&:nth-child(1) {
