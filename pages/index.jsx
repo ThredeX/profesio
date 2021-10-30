@@ -36,7 +36,7 @@ const Button = styled.button`
 	border-radius: 20px;
 	border: none;
 	background-color: rgba(0,0,0,0);
-`
+` 
 
 const Index = () => {
 	var router = useRouter()
