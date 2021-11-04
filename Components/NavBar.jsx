@@ -217,7 +217,7 @@ export default function NavBar({ route}) {
 							</A>
 						</Link>
 						<Line></Line>
-						<Link href={`/peoples/${route}/globalSettings`} passHref>
+						<Link href={`/peoples/${route}/schoolSettings`} passHref>
 							<A>
 								<Div>
 									<FontAwesomeIcon
