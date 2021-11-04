@@ -67,7 +67,7 @@ const DeletingRoom = () => {
     function handleSubmit() {
         try {
             if(confirm(`Opravdu si přejete odstranit místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost}?`)) {
-                alert(`Místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost} byla odstraněna`);
+                alert(`Místnost ${fakulty[fakulta].mistnost[mistnost].nameMistnost} byla odstraněna.`);
             }
         }
         catch {
