@@ -6,6 +6,8 @@ import { ThemeProvider } from 'styled-components'
 import { Context } from '../../../_app'
 import { MainHeading, Main} from '../../../../theme'
 import TimetableEnd from '../../../../Components/ComponentsAdministrator/TimetableEnd'
+import SchoolInformation from '../../../../Components/ComponentsAdministrator/SchoolInformation'
+
 
 
 
@@ -18,6 +20,7 @@ const Index = () => {
                 <MainHeading>Nastavení školy</MainHeading>
                 <Main>
                     <TimetableEnd />
+                    <SchoolInformation />
                 </Main>
             </ThemeProvider>
         </>
