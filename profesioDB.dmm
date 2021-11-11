@@ -21,7 +21,7 @@
 					"pg": {
 						"generatedIdentity": "no"
 					}
-				}, 
+				},
 				{
 					"id": "e45140fe-2a9f-4625-ad35-f2684d464413",
 					"name": "nastaveni",
@@ -867,15 +867,17 @@
 			"estimatedSize": "",
 			"cols": [
 				{
-					"id": "b844d6c3-6ef8-4e02-ad10-39e0179f66a1",
+					"id": "aa7c1ab3-e496-4dd4-b9f6-19aadb241a38",
 					"name": "id",
 					"datatype": "integer",
+					"param": "",
 					"pk": true,
 					"nn": true,
 					"comment": "",
 					"defaultvalue": "",
 					"data": "",
 					"collation": null,
+					"list": false,
 					"after": "",
 					"pg": {
 						"generatedIdentity": "no"
@@ -982,63 +984,12 @@
 					"pg": {
 						"generatedIdentity": "no"
 					}
-				},
-				{
-					"id": "63c867c9-2ee8-457c-80ef-195978ceaf3a",
-					"name": "Učitel_id",
-					"datatype": "integer",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"data": "",
-					"collation": null,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no"
-					},
-					"fk": true,
-					"ref": "Učitel"
-				},
-				{
-					"id": "fd83ac5d-a431-4d78-96c6-bff001611f11",
-					"name": "Student_id",
-					"datatype": "integer",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"data": "",
-					"collation": null,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no"
-					},
-					"fk": true,
-					"ref": "Student"
-				},
-				{
-					"id": "3fedfb4d-b1c1-49d1-84fa-40da1c0715a3",
-					"name": "Administrator_id",
-					"datatype": "integer",
-					"pk": false,
-					"nn": true,
-					"comment": "",
-					"defaultvalue": "",
-					"data": "",
-					"collation": null,
-					"after": "",
-					"pg": {
-						"generatedIdentity": "no"
-					},
-					"fk": true,
-					"ref": "Administrator"
 				}
 			],
 			"relations": [
-				"c0a3a5b5-e475-489d-abdc-3a00617cae2b",
-				"8fb7e61f-270c-4205-8fd1-78d8c3b765fa",
-				"d90aeb62-6e8c-4f37-99a7-437b00eaa635"
+				"2f7a0c9f-a930-4450-a50e-056a2e2bf650",
+				"1d442924-5747-43c7-a68a-14d0d6dea5df",
+				"f6568cb8-d9d3-4a01-992c-b60c44f8b2bf"
 			],
 			"lines": [],
 			"keys": [
@@ -1049,8 +1000,8 @@
 					"using": "",
 					"cols": [
 						{
-							"id": "efebbb8b-05d8-4d9a-b906-daa830853b50",
-							"colid": "b844d6c3-6ef8-4e02-ad10-39e0179f66a1"
+							"id": "01683dae-5362-463d-b645-e8780475b1d9",
+							"colid": "aa7c1ab3-e496-4dd4-b9f6-19aadb241a38"
 						}
 					]
 				}
@@ -1121,12 +1072,31 @@
 					},
 					"fk": true,
 					"ref": "obor"
+				},
+				{
+					"id": "0d00b6cb-2961-4106-8030-aa546179a1bb",
+					"name": "Uživatel_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"list": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no"
+					},
+					"fk": true,
+					"ref": "Uživatel"
 				}
 			],
 			"relations": [
-				"c0a3a5b5-e475-489d-abdc-3a00617cae2b",
 				"fb158541-b4e3-4582-a0b2-1c4e54c6a8f9",
-				"2825f7f5-4071-458e-b0e8-d0a9368d7849"
+				"2825f7f5-4071-458e-b0e8-d0a9368d7849",
+				"1d442924-5747-43c7-a68a-14d0d6dea5df"
 			],
 			"lines": [],
 			"keys": [
@@ -1191,13 +1161,32 @@
 					"pg": {
 						"generatedIdentity": "no"
 					}
+				},
+				{
+					"id": "b1b741ed-d942-4a78-97e8-1b7e3e0ac226",
+					"name": "Uživatel_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"list": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no"
+					},
+					"fk": true,
+					"ref": "Uživatel"
 				}
 			],
 			"relations": [
-				"8fb7e61f-270c-4205-8fd1-78d8c3b765fa",
 				"bced6dc2-f71d-4263-96ed-ccd872f821e3",
 				"fc50ee43-d085-4d2c-8980-77762b7fc40d",
-				"67643c71-ad86-4717-a634-2b7d551a4a51"
+				"67643c71-ad86-4717-a634-2b7d551a4a51",
+				"f6568cb8-d9d3-4a01-992c-b60c44f8b2bf"
 			],
 			"lines": [],
 			"keys": [
@@ -1314,7 +1303,7 @@
 				},
 				{
 					"id": "820a4b6f-858c-48d0-8896-58a62cc64b84",
-					"name": "opravneni",
+					"name": "can_edit",
 					"datatype": "bool",
 					"param": "",
 					"pk": false,
@@ -1328,10 +1317,28 @@
 					"pg": {
 						"generatedIdentity": "no"
 					}
+				},
+				{
+					"id": "a5a9bc42-187f-4151-91e2-72c7699145c9",
+					"name": "Uživatel_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"list": false,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no"
+					},
+					"fk": true
 				}
 			],
 			"relations": [
-				"d90aeb62-6e8c-4f37-99a7-437b00eaa635"
+				"2f7a0c9f-a930-4450-a50e-056a2e2bf650"
 			],
 			"lines": [],
 			"keys": [
@@ -1603,56 +1610,6 @@
 			"generate": true,
 			"generateCustomCode": true
 		},
-		"c0a3a5b5-e475-489d-abdc-3a00617cae2b": {
-			"id": "c0a3a5b5-e475-489d-abdc-3a00617cae2b",
-			"visible": true,
-			"name": "Student_Uživatel",
-			"desc": "",
-			"type": "identifying",
-			"parent_key": "814de532-ea74-4dbf-a79e-8d0044abecf3",
-			"parent": "8a93c599-089c-4a76-86e0-25e42609e215",
-			"child": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
-			"c_mp": "true",
-			"c_mch": "true",
-			"c_p": "one",
-			"c_ch": "one",
-			"c_cp": "",
-			"c_cch": "",
-			"cols": [
-				{
-					"id": "6eef276b-a6f1-4496-95ad-f783928bd49e",
-					"parentcol": "f6adf350-976d-4d24-a384-8b3aae56d7bc",
-					"childcol": "fd83ac5d-a431-4d78-96c6-bff001611f11"
-				}
-			],
-			"generate": true,
-			"generateCustomCode": true
-		},
-		"8fb7e61f-270c-4205-8fd1-78d8c3b765fa": {
-			"id": "8fb7e61f-270c-4205-8fd1-78d8c3b765fa",
-			"visible": true,
-			"name": "Učitel_Uživatel",
-			"desc": "",
-			"type": "identifying",
-			"parent_key": "f18bcfe6-c8ad-4eab-8e12-28ba3d9801b8",
-			"parent": "b4620d61-40b8-4c6b-880f-436dee698ffd",
-			"child": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
-			"c_mp": "true",
-			"c_mch": "true",
-			"c_p": "one",
-			"c_ch": "one",
-			"c_cp": "",
-			"c_cch": "",
-			"cols": [
-				{
-					"id": "4df9e971-34d9-407f-985d-24bae62409c7",
-					"parentcol": "c3e8408d-e4da-4d54-ad6a-be40f7209403",
-					"childcol": "63c867c9-2ee8-457c-80ef-195978ceaf3a"
-				}
-			],
-			"generate": true,
-			"generateCustomCode": true
-		},
 		"bced6dc2-f71d-4263-96ed-ccd872f821e3": {
 			"id": "bced6dc2-f71d-4263-96ed-ccd872f821e3",
 			"visible": true,
@@ -1723,31 +1680,6 @@
 					"id": "f093c8e2-6b3e-4772-bf9d-879421966db5",
 					"parentcol": "f6adf350-976d-4d24-a384-8b3aae56d7bc",
 					"childcol": "e250061f-fae5-4fe1-806e-a6d90fa81079"
-				}
-			],
-			"generate": true,
-			"generateCustomCode": true
-		},
-		"d90aeb62-6e8c-4f37-99a7-437b00eaa635": {
-			"id": "d90aeb62-6e8c-4f37-99a7-437b00eaa635",
-			"visible": true,
-			"name": "Administrator_Uživatel",
-			"desc": "",
-			"type": "identifying",
-			"parent_key": "1d0b2f2c-0761-415e-8916-9952fac79a20",
-			"parent": "5b4b0cc0-9492-4987-9f5f-2d919ba88aec",
-			"child": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
-			"c_mp": "true",
-			"c_mch": "true",
-			"c_p": "one",
-			"c_ch": "one",
-			"c_cp": "",
-			"c_cch": "",
-			"cols": [
-				{
-					"id": "c36c77bd-a1b4-452c-bc0b-793756634e63",
-					"parentcol": "237ce288-0c99-4ea4-a6b2-5861847322dc",
-					"childcol": "3fedfb4d-b1c1-49d1-84fa-40da1c0715a3"
 				}
 			],
 			"generate": true,
@@ -1852,6 +1784,81 @@
 			],
 			"generate": true,
 			"generateCustomCode": true
+		},
+		"2f7a0c9f-a930-4450-a50e-056a2e2bf650": {
+			"id": "2f7a0c9f-a930-4450-a50e-056a2e2bf650",
+			"visible": true,
+			"name": "Uživatel_Administrator",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "e0cb773e-a550-4516-b9a0-87f3c2a03018",
+			"parent": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
+			"child": "5b4b0cc0-9492-4987-9f5f-2d919ba88aec",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "a49f614d-89b2-4f02-94c9-9f99add64bec",
+					"parentcol": "aa7c1ab3-e496-4dd4-b9f6-19aadb241a38",
+					"childcol": "a5a9bc42-187f-4151-91e2-72c7699145c9"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true
+		},
+		"1d442924-5747-43c7-a68a-14d0d6dea5df": {
+			"id": "1d442924-5747-43c7-a68a-14d0d6dea5df",
+			"visible": true,
+			"name": "Uživatel_Student",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "e0cb773e-a550-4516-b9a0-87f3c2a03018",
+			"parent": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
+			"child": "8a93c599-089c-4a76-86e0-25e42609e215",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "2e741320-b5eb-4326-a203-881accfde082",
+					"parentcol": "aa7c1ab3-e496-4dd4-b9f6-19aadb241a38",
+					"childcol": "0d00b6cb-2961-4106-8030-aa546179a1bb"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true
+		},
+		"f6568cb8-d9d3-4a01-992c-b60c44f8b2bf": {
+			"id": "f6568cb8-d9d3-4a01-992c-b60c44f8b2bf",
+			"visible": true,
+			"name": "Uživatel_Učitel",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "e0cb773e-a550-4516-b9a0-87f3c2a03018",
+			"parent": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
+			"child": "b4620d61-40b8-4c6b-880f-436dee698ffd",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "one",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "baaf286c-3f0a-4bfa-912e-96c1ef1408dc",
+					"parentcol": "aa7c1ab3-e496-4dd4-b9f6-19aadb241a38",
+					"childcol": "b1b741ed-d942-4a78-97e8-1b7e3e0ac226"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true
 		}
 	},
 	"notes": {},
@@ -1869,7 +1876,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": false,
+		"isDirty": true,
 		"storedin": {
 			"major": 4,
 			"minor": 2,
@@ -1898,7 +1905,7 @@
 			"includeSchema": "always",
 			"quotation": "if_needed"
 		},
-		"lastSaved": "Wed Nov 03 2021 21:54:32 GMT+0100 (Středoevropský standardní čas)",
+		"lastSaved": "3. 11. 2021",
 		"writeFileParam": false
 	},
 	"otherObjects": {},
@@ -2005,8 +2012,8 @@
 				},
 				"c4ebd817-6e52-4d08-abe5-8768a87f3318": {
 					"referencedItemId": "c4ebd817-6e52-4d08-abe5-8768a87f3318",
-					"x": 236,
-					"y": 652,
+					"x": 199,
+					"y": 621,
 					"gHeight": 214,
 					"gWidth": 310,
 					"color": "#ffffff",
@@ -2018,8 +2025,8 @@
 					"referencedItemId": "8a93c599-089c-4a76-86e0-25e42609e215",
 					"x": 734,
 					"y": 568,
-					"gHeight": 81,
-					"gWidth": 207,
+					"gHeight": 99,
+					"gWidth": 211,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": false,
@@ -2029,8 +2036,8 @@
 					"referencedItemId": "b4620d61-40b8-4c6b-880f-436dee698ffd",
 					"x": 709,
 					"y": 455,
-					"gHeight": 63,
-					"gWidth": 194,
+					"gHeight": 81,
+					"gWidth": 211,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": false,
@@ -2049,10 +2056,10 @@
 				},
 				"5b4b0cc0-9492-4987-9f5f-2d919ba88aec": {
 					"referencedItemId": "5b4b0cc0-9492-4987-9f5f-2d919ba88aec",
-					"x": 739,
-					"y": 670,
-					"gHeight": 63,
-					"gWidth": 194,
+					"x": 733,
+					"y": 721,
+					"gHeight": 81,
+					"gWidth": 211,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": false,
@@ -2060,8 +2067,8 @@
 				},
 				"bae3a008-237a-427a-8771-c2df18326d85": {
 					"referencedItemId": "bae3a008-237a-427a-8771-c2df18326d85",
-					"x": 1026,
-					"y": 433,
+					"x": 1005,
+					"y": 417,
 					"gHeight": 63,
 					"gWidth": 232,
 					"color": "#ffffff",
@@ -2098,15 +2105,15 @@
 		"ae816f33-1a39-49bb-831c-f80fa04e1ffd",
 		"06cd943b-8484-45d2-8538-963a3e6c5748",
 		"a671f205-d27d-4935-b420-b6016c9cd591",
-		"c0a3a5b5-e475-489d-abdc-3a00617cae2b",
-		"8fb7e61f-270c-4205-8fd1-78d8c3b765fa",
 		"bced6dc2-f71d-4263-96ed-ccd872f821e3",
 		"911d387c-35ff-4371-911c-4dad95f41537",
 		"fb158541-b4e3-4582-a0b2-1c4e54c6a8f9",
-		"d90aeb62-6e8c-4f37-99a7-437b00eaa635",
 		"fc50ee43-d085-4d2c-8980-77762b7fc40d",
 		"cebfc509-2c16-44de-ab87-04019d934eba",
 		"2825f7f5-4071-458e-b0e8-d0a9368d7849",
-		"67643c71-ad86-4717-a634-2b7d551a4a51"
+		"67643c71-ad86-4717-a634-2b7d551a4a51",
+		"2f7a0c9f-a930-4450-a50e-056a2e2bf650",
+		"1d442924-5747-43c7-a68a-14d0d6dea5df",
+		"f6568cb8-d9d3-4a01-992c-b60c44f8b2bf"
 	]
 }
