@@ -45,7 +45,7 @@ export default function TimetableEnd() {
 			alert(`Rozvrhy budou zpřístupněny od ${alertDate(new Date(dateSince))} do ${alertDate(new Date(dateTo))}`);
         }
     }
-
+	
 
 	return (
 		<Draggable onStart={onStart} onStop={onStop}>
