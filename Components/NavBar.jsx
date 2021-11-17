@@ -128,7 +128,7 @@ export default function NavBar({ route }) {
 					<>
 						{route == 'administrator' ? (
 							<div>
-								<Link href={`/peoples/${route}/AddingRoom`} passHref>
+								<Link href={`/peoples/${route}/addingroom`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
@@ -142,7 +142,7 @@ export default function NavBar({ route }) {
 										</Paragraph>
 									</A>
 								</Link>
-								<Link href={`/peoples/${route}/ChangingRoom`} passHref>
+								<Link href={`/peoples/${route}/changingroom`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
@@ -156,7 +156,7 @@ export default function NavBar({ route }) {
 										</Paragraph>
 									</A>
 								</Link>
-								<Link href={`/peoples/${route}/deletingRoom`} passHref>
+								<Link href={`/peoples/${route}/deletingroom`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
@@ -171,7 +171,7 @@ export default function NavBar({ route }) {
 									</A>
 								</Link>
 								<Line></Line>
-								<Link href={`/peoples/${route}/AddingPeople`} passHref>
+								<Link href={`/peoples/${route}/addingpeople`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
@@ -186,7 +186,7 @@ export default function NavBar({ route }) {
 									</A>
 								</Link>
 								<Link
-									href={`/peoples/${route}/ChangingPeople`}
+									href={`/peoples/${route}/changingpeople`}
 									passHref>
 									<A>
 										<Div>
@@ -202,7 +202,7 @@ export default function NavBar({ route }) {
 									</A>
 								</Link>
 								<Link
-									href={`/peoples/${route}/DeletingPeople`}
+									href={`/peoples/${route}/deletingpeople`}
 									passHref>
 									<A>
 										<Div>
@@ -219,7 +219,7 @@ export default function NavBar({ route }) {
 								</Link>
 								<Line></Line>
 								<Link
-									href={`/peoples/${route}/schoolSettings`}
+									href={`/peoples/${route}/schoolsettings`}
 									passHref>
 									<A>
 										<Div>
