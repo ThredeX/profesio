@@ -8,7 +8,7 @@
 
 -file system (pro FE mohou nastat nepatrné změny)
 
--změna pozadí na tmavou a světlou (téměř kotovo)
+-změna pozadí na tmavou a světlou (hotovo)
 
 -Favicon
 
@@ -25,10 +25,10 @@ Hlavní stránka: dodělat přihlášení -> podle toho jak se uživatel přihl�
 
 Stránky:
 
--   settings
+-   settings (hotovo, ceka se na DB)
     -   změna hesla
     -   informace o uživateli
--   administrator:
+-   administrator: (hotovo, ceka se na DB)
 
     -   /schoolSettings
         -   na této stránce administrátor zvolí:
@@ -73,9 +73,11 @@ Stránky:
         -   rozvrh, který je vytvořen
     -   TimetableChange.jsx
         -   může měnit rozvrh -> zrušení výuky + může uvést důvody ----> studentovi se rozvrh aktualizuje a dostane tyto informace
-    -   index.js
+    -   index.js (hotovo)
         -   hlavní stránka s NavBar.jsx, Header.jsx a logem aplikace
 
+
+- ikona nastaveni se bude muset dat dolu 
 ### Backend
 
 | Databázový systém | ORM               | Produkce |
