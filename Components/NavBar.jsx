@@ -11,6 +11,7 @@ import {
 	faGear,
 	faGears,
 	faUser,
+	faTable
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { Context } from '../pages/_app'
@@ -256,7 +257,7 @@ export default function NavBar({ route }) {
 										<Div>
 											<FontAwesomeIcon
 												style={faIconSize}
-												icon={faUserGear}
+												icon={faTable}
 												color={theme.color}
 											/>
 										</Div>
@@ -304,7 +305,7 @@ export default function NavBar({ route }) {
 										<Div>
 											<FontAwesomeIcon
 												style={faIconSize}
-												icon={faFolderOpen}
+												icon={faTable}
 												color={theme.color}
 											/>
 										</Div>
@@ -320,7 +321,7 @@ export default function NavBar({ route }) {
 										<Div>
 											<FontAwesomeIcon
 												style={faIconSize}
-												icon={faUserGear}
+												icon={faFolderPlus}
 												color={theme.color}
 											/>
 										</Div>
@@ -336,7 +337,7 @@ export default function NavBar({ route }) {
 										<Div>
 											<FontAwesomeIcon
 												style={faIconSize}
-												icon={faUserGear}
+												icon={faFolderOpen}
 												color={theme.color}
 											/>
 										</Div>
