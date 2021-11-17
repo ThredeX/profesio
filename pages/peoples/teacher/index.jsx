@@ -1,13 +1,17 @@
-import Header from '../../../Components/Header'
+import { useContext } from 'react'
+import { Context } from '../../_app'
 
-//pro vsechny uzivatele, komponenta bude 3x vyuzita (student, admin, ucitel) jako main page
-const index = (props) => {
+import Header from '../../../Components/Header'
+import NavBar from '../../../Components/NavBar'
+
+const Index = (props) => {
 
     return (
         <>
             <Header/>
+            <NavBar route="administrator" theme={useContext(Context)}/>
         </>
     )
 }
-export default index
+export default Index
 
