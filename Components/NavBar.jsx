@@ -235,7 +235,7 @@ export default function NavBar({ route }) {
 										</Paragraph>
 									</A>
 								</Link>
-								<Link href={'/peoples/settings'} passHref>
+								<Link href={`/peoples/${route}/settings`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
@@ -283,7 +283,7 @@ export default function NavBar({ route }) {
 									</A>
 								</Link>
 
-								<Link href={'/peoples/settings'} passHref>
+								<Link href={`/peoples/${route}/settings`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
@@ -346,7 +346,7 @@ export default function NavBar({ route }) {
 										</Paragraph>
 									</A>
 								</Link>
-								<Link href={'/peoples/settings'} passHref>
+								<Link href={`/peoples/${route}/settings`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
