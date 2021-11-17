@@ -116,15 +116,17 @@ export const Box = styled.div`
 	position: relative;
 	overflow: hidden;
 	background-color: ${props => props.theme.box};
+
 	&::-webkit-scrollbar {
-		height: 10px;
-		border-radius: 20px;
+		height: 0px;
 	}
 	&::-webkit-scrollbar-thumb {
+		box-sizing: border-box;
 		width: 10px;
 		background-color: ${props => props.theme.color};
 		border-radius: 10px;
 	}
+	
 `
 export const Table = styled.table`
 	color: ${props => props.theme.text};
@@ -150,11 +152,11 @@ export const Td = styled.td`
 	height: 8rem;
 	position: relative;
 	border: 1px solid #444;
+	padding: 0.4rem;
 `
 export const Tr = styled.tr`
 	height: 8rem;
 	width: 8rem;
-	
 `
 export const Tbody = styled.tbody`
 `

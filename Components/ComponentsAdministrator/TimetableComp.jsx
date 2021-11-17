@@ -319,9 +319,9 @@ export default function TimetableAdding({ changeTT }, props) {
 													changeTT 
 													? 
 														<>
-															<Input type="time" defaultValue={timetableState.fakulta ? value.start : null}/>
+															<Input type="time" defaultValue={timetableState.fakulta ? value.start : ''}/>
 															<Paragraph>-</Paragraph>
-															<Input type="time" defaultValue={timetableState.fakulta ? value.end : null}/>
+															<Input type="time" defaultValue={timetableState.fakulta ? value.end : ''}/>
 														</> 
 													:
 														<>

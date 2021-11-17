@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from 'react'
-import styled, {ThemeProvider} from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
 	faFolderPlus,
@@ -11,10 +11,10 @@ import {
 	faGear,
 	faGears,
 	faUser,
+	faTable
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { Context } from '../pages/_app'
-
 
 const Container = styled.div`
 	&::-webkit-scrollbar {
@@ -97,11 +97,11 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({ route}) {
+export default function NavBar({ route }) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
-	const theme = useContext(Context);
+	const theme = useContext(Context)
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
 		if (state === false) {
@@ -123,127 +123,246 @@ export default function NavBar({ route}) {
 			<Nav ref={navRef}>
 				<Container>
 					<DivHeading className="noneOpen">
-						<FontAwesomeIcon
-							size="2x"
-							icon={faUser}
-							color={theme.color}
-						/>
+						<FontAwesomeIcon size="2x" icon={faUser} color={theme.color} />
 						<Heading1>{'Jmeno Správce'}</Heading1>
 					</DivHeading>
-					<div>
-						<Link href={`/peoples/${route}/AddingRoom`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faFolderPlus}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Přidat učebnu
-								</Paragraph>
-							</A>
-						</Link>
-						<Link href={`/peoples/${route}/ChangingRoom`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faFolderOpen}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Změnit nastavení učebny
-								</Paragraph>
-							</A>
-						</Link>
-						<Link href={`/peoples/${route}/deletingRoom`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faFolderMinus}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Odebrat učebnu
-								</Paragraph>
-							</A>
-						</Link>
-						<Line></Line>
-						<Link href={`/peoples/${route}/AddingPeople`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faUserPlus}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Přidat studenta/zaměstnance
-								</Paragraph>
-							</A>
-						</Link>
-						<Link href={`/peoples/${route}/ChangingPeople`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faUserGear}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Změnit nastavení studenta/zaměstnance
-								</Paragraph>
-							</A>
-						</Link>
-						<Link href={`/peoples/${route}/DeletingPeople`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faUserMinus}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Odebrat studenta/zaměstnance
-								</Paragraph>
-							</A>
-						</Link>
-						<Line></Line>
-						<Link href={`/peoples/${route}/schoolSettings`} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faGears}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">
-									Obecné nastavení školy
-								</Paragraph>
-							</A>
-						</Link>
-						<Link href={'/peoples/settings'} passHref>
-							<A>
-								<Div>
-									<FontAwesomeIcon
-										style={faIconSize}
-										icon={faGear}
-										color={theme.color}
-									/>
-								</Div>
-								<Paragraph className="noneOpen">Nastavení</Paragraph>
-							</A>
-						</Link>
-					</div>
+					<>
+						{route == 'administrator' ? (
+							<div>
+								<Link href={`/peoples/${route}/addingroom`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFolderPlus}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Přidat učebnu
+										</Paragraph>
+									</A>
+								</Link>
+								<Link href={`/peoples/${route}/changingroom`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFolderOpen}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Změnit nastavení učebny
+										</Paragraph>
+									</A>
+								</Link>
+								<Link href={`/peoples/${route}/deletingroom`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFolderMinus}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Odebrat učebnu
+										</Paragraph>
+									</A>
+								</Link>
+								<Line></Line>
+								<Link href={`/peoples/${route}/addingpeople`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faUserPlus}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Přidat studenta/zaměstnance
+										</Paragraph>
+									</A>
+								</Link>
+								<Link
+									href={`/peoples/${route}/changingpeople`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faUserGear}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Změnit nastavení studenta/zaměstnance
+										</Paragraph>
+									</A>
+								</Link>
+								<Link
+									href={`/peoples/${route}/deletingpeople`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faUserMinus}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Odebrat studenta/zaměstnance
+										</Paragraph>
+									</A>
+								</Link>
+								<Line></Line>
+								<Link
+									href={`/peoples/${route}/schoolsettings`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faGears}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Obecné nastavení školy
+										</Paragraph>
+									</A>
+								</Link>
+								<Link href={`/peoples/${route}/settings`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faGear}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Nastavení
+										</Paragraph>
+									</A>
+								</Link>
+							</div>
+						) : route == 'teacher' ? (
+							<div>
+								<Link href={`/peoples/${route}/timetable`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faTable}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Rozvrh
+										</Paragraph>
+									</A>
+								</Link>
+								<Link
+									href={`/peoples/${route}/changingtimetable`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFolderOpen}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Úprava rozvrhů
+										</Paragraph>
+									</A>
+								</Link>
+
+								<Link href={`/peoples/${route}/settings`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faGear}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Nastavení
+										</Paragraph>
+									</A>
+								</Link>
+							</div>
+						) : route == 'student' ? (
+							<div>
+								<Link href={`/peoples/${route}/timetable`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faTable}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Rozvrh
+										</Paragraph>
+									</A>
+								</Link>
+								<Link
+									href={`/peoples/${route}/timetablecreate`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFolderPlus}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Vytvoření rozvrhu
+										</Paragraph>
+									</A>
+								</Link>
+								<Link
+									href={`/peoples/${route}/timetablechange`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFolderOpen}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Úprava rozvrhu
+										</Paragraph>
+									</A>
+								</Link>
+								<Link href={`/peoples/${route}/settings`} passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faGear}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Nastavení
+										</Paragraph>
+									</A>
+								</Link>
+							</div>
+						) : null}
+					</>
 				</Container>
 				<Handle onClick={navHandling}></Handle>
 			</Nav>

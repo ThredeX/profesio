@@ -74,7 +74,7 @@ const Index = () => {
 								<Button>
 									Zapomenuté heslo?
 								</Button>
-								<Link href="/peoples/administrator" passHref>
+								<Link href="/peoples/teacher" passHref>
 									<SubmitButton value='Login' type='submit'/>
 								</Link>
 							</Container>
