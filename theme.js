@@ -14,7 +14,7 @@ export const Input = styled.input`
 	margin-block: 0.3rem;
 	padding: 0.3rem 0.6rem;
 	&::placeholder {
-		color: #999999;
+		color: #999;
 	}
 `
 export const SubmitButton = styled.input`
@@ -148,8 +148,7 @@ export const Th = styled.th`
 
 `
 export const Td = styled.td`
-	width: 8rem;
-	height: 8rem;
+
 	position: relative;
 	border: 1px solid #444;
 	padding: 0.4rem;
@@ -157,6 +156,15 @@ export const Td = styled.td`
 export const Tr = styled.tr`
 	height: 8rem;
 	width: 8rem;
+	@media screen and (max-width: 500px) {
+		width: 2rem;
+		font-size: .6rem;
+		height: 2rem;
+	}
 `
 export const Tbody = styled.tbody`
+	width: 100%;
+`
+export const Thead = styled.thead`
+	width: 100%;
 `
