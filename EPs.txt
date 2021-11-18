@@ -118,137 +118,214 @@
     }
   }
 }
-2. EP 
+2. EP: 
 
 informace kde ucitel uci
 
 {
-  "ucitel": {    
-    "teacherName": "PhD. Kozajska"
-    "timetable": {
-      "subject": [
-        [
-          {
-            "id": 1,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 2,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 3,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-        ],
-        [
-         {
-            "id": 1,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 2,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 3,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-        ],
-        [
-          {
-            "id": 1,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 2,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 3,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-        ],
-        [
-          {
-            "id": 1,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 2,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 3,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-        ],
-        [
-         {
-            "id": 1,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 2,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-          {
-            "id": 3,
-            "subjectName": "Matematika I",
-            "shortNameSubject": "MAT1",
-            "name": "Fakulta informačních technologií",
-            "shortNameFaculty": "FIT",
-          },
-        ]
-      ],
-      "time": [
-        { "start": "09:00", "end": "10:30" },
-        { "start": "10:30", "end": "12:00" },
-        { "start": "13:00", "end": "14:30" },
-        { "start": "x", "end": "y" }
-      ],
-    }
-  }
+		"teacherName": "PhD. Kozajska",
+		"timetable": {
+			"subject": [
+				[
+					{
+						"id": 1,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 2,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 3,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					}
+				],
+				[
+					{
+						"id": 1,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 2,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 3,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					}
+				],
+				[
+					{
+						"id": 1,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 2,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 3,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					}
+				],
+				[
+					{
+						"id": 1,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 2,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 3,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					}
+				],
+				[
+					{
+						"id": 1,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 2,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					},
+					{
+						"id": 3,
+						"subjectName": "Matematika I",
+						"shortNameSubject": "MAT1",
+						"name": "Fakulta informačních technologií",
+                        "class": "C205",
+						"shortNameFaculty": "FIT",
+            "status": {
+              "uci": "true",
+              "Duvod": ""
+            }
+					}
+				]
+			],
+			"time": [
+				{ "start": "09:00", "end": "10:30" },
+				{ "start": "10:30", "end": "12:00" },
+				{ "start": "13:00", "end": "14:30" }
+			]
+		}
 }
+
+3. EP:
+
+budu chtit menit status u hodin u daneho ucitele
+

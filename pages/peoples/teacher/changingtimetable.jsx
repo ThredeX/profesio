@@ -116,7 +116,7 @@ const ChangingTimetable = () => {
 																		{e.shortNameSubject}
 																		<Change>
 																			<Div2>
-																				<label htmlFor="radio_teacher">Zrušeno: </label> <Radio name="radio_teacher" type="radio" />
+																				<label htmlFor="radio_teacher">Zrušit: </label> <Radio name="radio_teacher" type="checkbox" />
 																			</Div2>
 																			<Input name="duvod" type="text" placeholder="Důvod" maxLength="30" />
 																			<SubmitButton type="submit" value="Uložit" />
