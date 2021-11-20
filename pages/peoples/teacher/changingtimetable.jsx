@@ -3,7 +3,20 @@ import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import fakulta from '../../../teacherTimetable.json'
-import { Box, Table, Th, Td, Tr, Tbody, MainHeading, Main, Thead, SubmitButton, Input, Radio } from '../../../theme'
+import {
+	Box,
+	Table,
+	Th,
+	Td,
+	Tr,
+	Tbody,
+	MainHeading,
+	Main,
+	Thead,
+	SubmitButton,
+	Input,
+	Radio,
+} from '../../../theme'
 
 import { Context } from '../../_app'
 const Div = styled.div`
@@ -16,7 +29,6 @@ const Div2 = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	margin: 10px;
-
 `
 const Container = styled.div`
 	display: grid;
@@ -90,17 +102,19 @@ const ChangingTimetable = () => {
 										<Tr>
 											<Th></Th>
 											{!!timetableState.fakulta &&
-												timetableState.fakulta.timetable.time.map((value, i) => (
-													<Th key={i}>
-														<Paragraph>
-															{value.start}
-															<br />
-															-
-															<br />
-															{value.end}
-														</Paragraph>
-													</Th>
-												))}
+												timetableState.fakulta.timetable.time.map(
+													(value, i) => (
+														<Th key={i}>
+															<Paragraph>
+																{value.start}
+																<br />
+																-
+																<br />
+																{value.end}
+															</Paragraph>
+														</Th>
+													),
+												)}
 										</Tr>
 									</Thead>
 									<Tbody>
@@ -109,17 +123,33 @@ const ChangingTimetable = () => {
 												<Tr key={i}>
 													<Td>{day}</Td>
 													{timetableState.fakulta &&
-														timetableState.fakulta.timetable.subject[i].map((e, key) => {
+														timetableState.fakulta.timetable.subject[
+															i
+														].map((e, key) => {
 															return (
 																<Td key={key}>
 																	<Paragraph2>
 																		{e.shortNameSubject}
 																		<Change>
 																			<Div2>
-																				<label htmlFor="radio_teacher">Zrušit: </label> <Radio name="radio_teacher" type="checkbox" />
+																				<label htmlFor="radio_teacher">
+																					Zrušit:{' '}
+																				</label>{' '}
+																				<Radio
+																					name="radio_teacher"
+																					type="checkbox"
+																				/>
 																			</Div2>
-																			<Input name="duvod" type="text" placeholder="Důvod" maxLength="30" />
-																			<SubmitButton type="submit" value="Uložit" />
+																			<Input
+																				name="duvod"
+																				type="text"
+																				placeholder="Důvod"
+																				maxLength="30"
+																			/>
+																			<SubmitButton
+																				type="submit"
+																				value="Uložit"
+																			/>
 																		</Change>
 																	</Paragraph2>
 																</Td>
