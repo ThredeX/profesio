@@ -1,5 +1,5 @@
 //settings menu
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import Header from '../../../../Components/Header'
 import NavBar from '../../../../Components/NavBar'
@@ -12,12 +12,11 @@ import ThemeChange from '../../../../Components/ThemeChange'
 
 const Index = () => {
     return (
-
         <>
         <ThemeProvider theme={useContext(Context)}>
             <Header />
-            <NavBar route="administrator" />
-            <MainHeading>Nastavení uživatele</MainHeading>
+            <NavBar route="teacher" />
+            <MainHeading>Nastavení</MainHeading>
             <Main>
                 <PasswordChange />
                 <ThemeChange />

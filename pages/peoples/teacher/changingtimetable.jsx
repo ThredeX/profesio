@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
+import fakulta from '../../../teacherTimetable.json'
 import {
 	Box,
 	Table,
@@ -9,9 +10,12 @@ import {
 	Td,
 	Tr,
 	Tbody,
-	SubmitButton,
 	MainHeading,
 	Main,
+	Thead,
+	SubmitButton,
+	Input,
+	Radio,
 } from '../../../theme'
 
 import { Context } from '../../_app'
@@ -21,257 +25,132 @@ const Div = styled.div`
 	align-items: center;
 `
 const Div2 = styled.div`
-	height: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px;
 `
-
-const Input = styled.input`
-	border-radius: 8px;
-	width: 60%;
-	border: none;
-	text-align: center;
-	position: relative;
-	color: ${props => props.theme.color};
-	background-color: rgba(0, 0, 0, 0);
-	&::-webkit-calendar-picker-indicator {
-		cursor: pointer;
-		width: 80%;
-		background: none;
-		position: absolute;
-		z-index: 0;
-		height: 18%;
-	}
-`
-
 const Container = styled.div`
 	display: grid;
 	height: 120%;
 `
-const Container2 = styled.div`
-	margin-top: 1.5rem;
-`
-const WindowTime = styled.div`
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-`
-const WindowSubjects = styled.div`
-	position: absolute;
-	top: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	opacity: 0;
-	z-index: -1;
-	height: 100%;
-	width: 100%;
-`
+
 const Paragraph = styled.p`
 	color: ${props => props.theme.color};
 	font-size: 1rem;
+	width: 8rem;
+	margin: 0 auto;
+	padding: 5px;
+
+	@media screen and (max-width: 500px) {
+		text-align: center;
+		width: 2rem;
+		font-size: 0.6rem;
+	}
+`
+const Change = styled.div`
+	opacity: 0;
+	background-color: #383838;
+	height: auto;
+	border-radius: 10px;
+	z-index: 10;
+	width: auto;
+	position: absolute;
+	transform: translateY(-50%);
+	transition: opacity 0.4s;
+	padding: 10px;
+	@media screen and (max-width: 500px) {
+		width: auto;
+	}
 `
 const Paragraph2 = styled.p`
 	color: ${props => props.theme.text};
 	font-size: 1rem;
+	width: 8rem;
+	cursor: pointer;
+	@media screen and (max-width: 500px) {
+		width: 2rem;
+		font-size: 0.6rem;
+	}
+	position: relative;
+	&:hover ${Change} {
+		opacity: 1;
+	}
 `
 
 const ChangingTimetable = () => {
-	const days = ['Po', 'Út', 'St', 'Čt', 'Pa']
+	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
-	const timeRef = useRef(null)
-	const [note, setNote] = useState()
 	useEffect(() => {
 		setTimetableState({
-			fakulta: {
-				name: 'Fakulta informačních technologií',
-				shortName: 'FIT',
-				timetable: {
-					subject: [
-						[
-							{
-								id: 1,
-								subjectName: 'Matematika I',
-								teacherName: 'PhD. Kozajska',
-							},
-							{
-								id: 1,
-								subjectName: 'Matematika I',
-								teacherName: 'PhD. Kozajska',
-							},
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-						],
-						[
-							{
-								id: 1,
-								subjectName: 'Matematika I',
-								teacherName: 'PhD. Kozajska',
-							},
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-							{
-								id: 1,
-								subjectName: 'Matematika I',
-								teacherName: 'PhD. Kozajska',
-							},
-						],
-						[
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-							{
-								id: 1,
-								subjectName: 'Matematika I',
-								teacherName: 'PhD. Kozajska',
-							},
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-						],
-						[
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-							{
-								id: 1,
-								subjectName: 'Matematika II',
-								teacherName: 'PhD. Kozajska',
-							},
-						],
-						[
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-							{
-								id: 1,
-								subjectName: 'Matematika I',
-								teacherName: 'PhD. Kozajska',
-							},
-							{
-								id: 1,
-								subjectName: '',
-								teacherName: '',
-							},
-						],
-					],
-					time: [
-						{ start: '09:00', end: '10:30' },
-						{ start: '10:30', end: '12:00' },
-						{ start: '13:00', end: '14:30' },
-					],
-					note: '',
-				},
-			},
+			fakulta,
 		})
 	}, [])
-
-	function handleSubmit() {
-		let subjectData = [[], [], [], [], []]
-		let timeData = []
-		let length = document.getElementsByClassName('timetableSubjects').length / 5
-		console.log(length)
-		let counter = 0,
-			k
-		for (let i = 0; i < 5; i++) {
-			for (let j = 0; j < length; j++) {
-				for (
-					k = 0;
-					k < subjects.length &&
-					subjects[k].subjectName !=
-						document.querySelectorAll('.timetableSubjects select')[counter]
-							.value;
-					k++
-				) {}
-				subjectData[i][j] = subjects[k - 1]
-				counter++
-			}
-		}
-		for (let i = 0; i < length * 2; i += 2) {
-			timeData.push({
-				start: document.querySelectorAll('.timetableTime input')[i].value,
-				end: document.querySelectorAll('.timetableTime input')[i + 1].value,
-			})
-			console.log(timeData)
-		}
-		console.log({
-			fakulta: changeTT ? timetableState.fakulta.shortName : props.faculty,
-			timetable: { subject: subjectData, time: timeData, note: note },
-		})
-		alert('Uloženo')
-	}
 
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
 				<NavBar route="teacher" />
-				<MainHeading>Změna rozvrhů</MainHeading>
+				<MainHeading>Rozvrh</MainHeading>
 				<Main>
 					<Box style={{ overflowX: 'scroll' }}>
 						<Container>
 							<Div>
 								<Table size={timetableState.length + 1}>
-									<thead>
+									<Thead>
 										<Tr>
 											<Th></Th>
-
 											{!!timetableState.fakulta &&
 												timetableState.fakulta.timetable.time.map(
 													(value, i) => (
 														<Th key={i}>
-															<WindowTime
-																className="timetableTime"
-																ref={timeRef}>
-																	<Paragraph>
-																		{value.start}
-																		<br />
-																		-
-																		<br />
-																		{value.end}
-																	</Paragraph>
-															</WindowTime>
+															<Paragraph>
+																{value.start}
+																<br />
+																-
+																<br />
+																{value.end}
+															</Paragraph>
 														</Th>
 													),
 												)}
 										</Tr>
-									</thead>
+									</Thead>
 									<Tbody>
-										{days.map((value, i) => {
+										{days.map((day, i) => {
 											return (
 												<Tr key={i}>
-													<Td>{`${value}`}</Td>
+													<Td>{day}</Td>
 													{timetableState.fakulta &&
 														timetableState.fakulta.timetable.subject[
 															i
 														].map((e, key) => {
 															return (
 																<Td key={key}>
-																	<WindowSubjects className="timetableSubjects"></WindowSubjects>
 																	<Paragraph2>
-																		{e.subjectName}
+																		{e.shortNameSubject}
+																		<Change>
+																			<Div2>
+																				<label htmlFor="radio_teacher">
+																					Zrušit:{' '}
+																				</label>{' '}
+																				<Radio
+																					name="radio_teacher"
+																					type="checkbox"
+																				/>
+																			</Div2>
+																			<Input
+																				name="duvod"
+																				type="text"
+																				placeholder="Důvod"
+																				maxLength="30"
+																			/>
+																			<SubmitButton
+																				type="submit"
+																				value="Uložit"
+																			/>
+																		</Change>
 																	</Paragraph2>
 																</Td>
 															)
@@ -284,16 +163,6 @@ const ChangingTimetable = () => {
 							</Div>
 						</Container>
 					</Box>
-					<Box>
-						<Container2>
-							<SubmitButton
-								type="submit"
-								onClick={handleSubmit}
-								value={'Změnit rozvrh'}
-							/>
-						</Container2>
-					</Box>
-					<Div2></Div2>
 				</Main>
 			</ThemeProvider>
 		</>
