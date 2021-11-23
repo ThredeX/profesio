@@ -67,6 +67,7 @@ const ChangingTimetable = () => {
 			fakulta,
 		})
 	}, [])
+	
 
 	return (
 		<>
@@ -83,32 +84,39 @@ const ChangingTimetable = () => {
 										<Tr>
 											<Th></Th>
 											{!!timetableState.fakulta &&
-												timetableState.fakulta.timetable.time.map((value, i) => (
-													<Th key={i}>
-														<Paragraph>
-															{value.start}
-															<br />
-															-
-															<br />
-															{value.end}
-														</Paragraph>
-													</Th>
-												))}
+												timetableState.fakulta.timetable.time.map(
+													(value, i) => (
+														<Th key={i}>
+															<Paragraph>
+																{value.start}
+																<br />
+																-
+																<br />
+																{value.end}
+															</Paragraph>
+														</Th>
+													),
+												)}
 										</Tr>
 									</Thead>
-									<Tbody>
+									<Tbody>vg
 										{days.map((day, i) => {
 											return (
 												<Tr key={i}>
 													<Td>{day}</Td>
 													{timetableState.fakulta &&
-														timetableState.fakulta.timetable.subject[i].map((e, key) => {
+														timetableState.fakulta.timetable.subject[
+															i
+														].map((e, key) => {
 															return (
 																<Td key={key}>
 																	<Paragraph2>
 																		{e.shortNameSubject}
 																		<Info>
-																			{e.subjectName} <br /> {e.name} <br /> {e.shortNameFaculty} <br /> {e.class}
+																			{e.subjectName} <br />{' '}
+																			{e.name} <br />{' '}
+																			{e.shortNameFaculty}{' '}
+																			<br /> {e.class}
 																		</Info>
 																	</Paragraph2>
 																</Td>
