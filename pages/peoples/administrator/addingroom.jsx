@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
 import Header from '../../../Components/Header'

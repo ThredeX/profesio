@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import Draggable from 'react-draggable'
 
 import { Context } from '../../pages/_app'
-import { Form, Input, SubmitButton, Label, Box } from '../../theme'
+import { Input, SubmitButton, Label, Box } from '../../theme'
 
 const Div2 = styled.div`
 	width: clamp(20rem, 80vw, 24rem);
@@ -12,6 +12,9 @@ const Div2 = styled.div`
 `
 const Margin = styled.div`
 	margin: ${props => props.m};
+`
+const Form = styled.form`
+	width: 100%;
 `
 export default function TimetableEnd() {
     const [dateSince, setDateSince] = useState();

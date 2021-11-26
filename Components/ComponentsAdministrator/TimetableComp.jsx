@@ -30,11 +30,17 @@ const Input = styled.input`
 	}
 `
 const Select = styled.select`
-	border-radius: 10px;
 	width: 90%;
 	cursor: pointer;
 	border: none;
 	height: 1.5rem;
+	background-color: ${props => props.theme.box};
+	color: ${props => props.theme.text};
+	display: flex;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border-bottom: 1px solid ${props => props.theme.border};
+	overflow: hidden;
 `
 const Button = styled.button`
 	color: ${props => props.theme.color};
@@ -42,6 +48,10 @@ const Button = styled.button`
 	border: none;
 	font-size: 2rem;
 	width: 100%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
 	height: 100%;
 	cursor: pointer;
 `
@@ -63,15 +73,11 @@ const WindowTime = styled.div`
 	display: none;
 `
 const WindowSubjects = styled.div`
-	position: absolute;
-	top: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	opacity: 0;
-	z-index: -1;
-	height: 100%;
-	width: 100%;
+	z-index: -3;
 `
 const Paragraph = styled.p`
 	margin: 0;
@@ -87,7 +93,7 @@ const Textarea = styled.textarea`
 	padding-inline: 0.5rem;
 `
 export default function TimetableAdding({ changeTT }, props) {
-	const days = ['Po', 'Út', 'St', 'Čt', 'Pa']
+	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const timeRef = useRef(null)
 	const [note, setNote] = useState()
