@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import Header from '../../../../Components/Header'
 import NavBar from '../../../../Components/NavBar'
@@ -10,7 +10,7 @@ import SchoolInformation from '../../../../Components/ComponentsAdministrator/Sc
 const Main = styled.main`
 	height: 80vh;
 	padding-top: 2rem;
-	
+	width: 100%;
 `
 const Index = () => {
 	return (

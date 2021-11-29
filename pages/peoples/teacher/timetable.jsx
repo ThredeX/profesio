@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
@@ -37,14 +37,15 @@ const Info = styled.div`
 	z-index: 10;
 	width: auto;
 	position: absolute;
-	transition: opacity 0.4s;
+	transition: opacity 1s;
 	transform: translateY(-40%);
-	padding: 10px;
+	padding: 2rem;
 	@media screen and (max-width: 500px) {
 		width: auto;
 	}
+	
 `
-const Paragraph2 = styled.p`
+const Div2 = styled.div`
 	color: ${props => props.theme.text};
 	font-size: 1rem;
 	width: 8rem;
@@ -54,20 +55,30 @@ const Paragraph2 = styled.p`
 		font-size: 0.6rem;
 	}
 	position: relative;
-	&:hover ${Info} {
-		opacity: 1;
-	}
+	
 `
 
 const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
-	useEffect(() => {
-		setTimetableState({
-			fakulta,
-		})
-	}, [])
+	const showInfoRefClick = useRef([...new Array(5)].map(() => []));
+	const showInfoRefOver = useRef([...new Array(5)].map(() => []));
 	
+	useEffect(() => {
+		setTimetableState({fakulta})
+	}, [])
+	useEffect(() => {
+		for(let i = 0;i < showInfoRefClick.current.length;i++) {
+			for(let j = 0;j < showInfoRefClick.current[i].length;j++) {
+				showInfoRefClick.current[i][j].onclick = () => {
+					showInfoRefOver.current[i][j].style.opacity = '1';
+				}
+				showInfoRefOver.current[i][j].onmouseleave = () => {
+					showInfoRefOver.current[i][j].style.opacity = '0';
+				}
+			}
+		}
+	}, [timetableState])
 
 	return (
 		<>
@@ -79,7 +90,7 @@ const ChangingTimetable = () => {
 					<Box style={{ overflowX: 'scroll' }}>
 						<Container>
 							<Div>
-								<Table size={timetableState.length + 1}>
+								<Table size={(timetableState.length + 1).toString()}>
 									<Thead>
 										<Tr>
 											<Th></Th>
@@ -99,7 +110,7 @@ const ChangingTimetable = () => {
 												)}
 										</Tr>
 									</Thead>
-									<Tbody>vg
+									<Tbody>
 										{days.map((day, i) => {
 											return (
 												<Tr key={i}>
@@ -110,15 +121,20 @@ const ChangingTimetable = () => {
 														].map((e, key) => {
 															return (
 																<Td key={key}>
-																	<Paragraph2>
-																		{e.shortNameSubject}
-																		<Info>
-																			{e.subjectName} <br />{' '}
+																	<Div2 ref={(element) => showInfoRefClick.current[i][key] = element}>
+																		<p>
+																			{e.shortNameSubject}
+																		</p>
+																		<Info ref={(element) => showInfoRefOver.current[i][key] = element}>
+																			<span>
+																				{e.subjectName} <br />{' '}
+																			</span>
 																			{e.name} <br />{' '}
 																			{e.shortNameFaculty}{' '}
-																			<br /> {e.class}
+																			<br /> 
+																			{e.class}
 																		</Info>
-																	</Paragraph2>
+																	</Div2>
 																</Td>
 															)
 														})}

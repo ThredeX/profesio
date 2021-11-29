@@ -83,6 +83,7 @@ const DeletingRoom = () => {
 				<MainHeading>Odstanění rozvrhů</MainHeading>
 				<Main>
 					<Box>
+                        <br />
 						<Select2
 							name="fakulty"
 							onChange={e => setFakulta(e.target.value)}>

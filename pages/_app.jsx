@@ -15,19 +15,30 @@ function MyApp({ Component, pageProps }) {
 
 	// Background
 	const BG_LIGHT = '#fff'
-	const BG_DARK = '#090909'
+	const BG_DARK = '#121212'
 
 	// Navigation
 	const NAV_LIGHT = '#fff'
-	const NAV_DARK = '#141414'
+	const NAV_DARK = '#1E1E1E'
 
 	// text
-	const TEXT_LIGHT = '#000'
+	const TEXT_LIGHT = '#121212'
 	const TEXT_DARK = '#fff'
 
 	// box
 	const BOX_LIGHT = '#f1f1f1'
-	const BOX_DARK = '#141414'
+	const BOX_DARK = '#1E1E1E'
+	
+	//shadow
+	const SHADOW_LIGHT = '#dddddd'
+	const SHADOW_DARK = '#131313'
+	//border
+	const BORDER_LIGHT = '#929292'
+	const BORDER_DARK = '#fff'
+	//table border
+	const TABLE_LINE_LIGHT = '#b3b3b3'
+	const TABLE_LINE_DARK = '#444'
+
 
 	let theme = {}
 
@@ -38,6 +49,9 @@ function MyApp({ Component, pageProps }) {
 			color: RED,
 			nav: NAV_DARK,
 			box: BOX_DARK,
+			shadow: SHADOW_DARK,
+			tableLine: TABLE_LINE_DARK,
+			border: BORDER_DARK,
 		}
 	} else {
 		theme = {
@@ -46,6 +60,9 @@ function MyApp({ Component, pageProps }) {
 			color: PURPLE,
 			nav: NAV_LIGHT,
 			box: BOX_LIGHT,
+			shadow: SHADOW_LIGHT,
+			tableLine: TABLE_LINE_LIGHT,
+			border: BORDER_LIGHT,
 		}
 	}
 	useEffect(() => {

@@ -49,6 +49,9 @@ const UnsortedList = styled.ul`
 		background-color: ${props => props.theme.color};
 		border-radius: 10px;
 	}
+	&::-webkit-scrollbar-corner {
+		background: rgba(0, 0, 0, 0);
+	}
 `
 const Input = styled.input`
 	padding: 0.5rem 0.8rem;

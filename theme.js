@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Form = styled.form`
 	width: clamp(20rem, 20vw, 80vw);
 `
-export const Form2= styled.form`
+export const Form2 = styled.form`
 	width: clamp(15rem, 80%, 80vw);
 	margin-left: 1rem;
 `
@@ -84,11 +84,11 @@ export const Select = styled.select`
 	margin-block: 0.3rem;
 	padding: 0.3rem 0.6rem;
 	font-weight: 100;
+	background-color: ${props => props.theme.box};
 `
 export const Option = styled.option`
 	border: none;
 	color: ${props => props.theme.text};
-	background-color: ${props => props.theme.box};
 `
 export const Select2 = styled.select`
 	width: 100%;
@@ -115,10 +115,11 @@ export const Box = styled.div`
 	padding-bottom: 1.5rem;
 	position: relative;
 	overflow: hidden;
+	box-shadow: 0 0 5px 3px ${props => props.theme.shadow};
 	background-color: ${props => props.theme.box};
-
+	
 	&::-webkit-scrollbar {
-		height: 0px;
+		height: 10px;
 	}
 	&::-webkit-scrollbar-thumb {
 		box-sizing: border-box;
@@ -132,6 +133,7 @@ export const Table = styled.table`
 	color: ${props => props.theme.text};
 	text-align: center;
 	border-collapse: collapse;
+	border: 2px ${props => props.theme.box} solid;
 	width: ${props => props.size * 8 + 'rem'};
 	margin: 20px;
 	font-size: clamp(1rem, 1.5vw, 1.5rem);
@@ -139,18 +141,17 @@ export const Table = styled.table`
 export const Th = styled.th`
 	font-weight: 100;
 	color: ${props => props.theme.text};
-	border: 1px solid #444;
+	border: 1px solid ${props => props.theme.tableLine};
 	position: relative;
 	height: 100%;
 	&:nth-child(1) {
 		border: none;
 	}
-
 `
 export const Td = styled.td`
-
+	width: 8rem;
 	position: relative;
-	border: 1px solid #444;
+	border: 1px solid ${props => props.theme.tableLine};
 	padding: 0.4rem;
 `
 export const Tr = styled.tr`
@@ -158,7 +159,7 @@ export const Tr = styled.tr`
 	width: 8rem;
 	@media screen and (max-width: 500px) {
 		width: 2rem;
-		font-size: .6rem;
+		font-size: 0.6rem;
 		height: 2rem;
 	}
 `

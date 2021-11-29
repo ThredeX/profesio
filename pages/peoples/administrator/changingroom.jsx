@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
 import Header from '../../../Components/Header'
@@ -28,7 +28,7 @@ const ChangingRoom = () => {
 					<Box>
 						<Select2 name="fakulty" onClick={e => setState(e.target.value)}>
 							{fakulty.map((fakulta, i) => (
-								<Option value={i} key={i}>
+								<Option value={i} key={i} title={fakulta.name}>
 									{fakulta.name}
 								</Option>
 							))}

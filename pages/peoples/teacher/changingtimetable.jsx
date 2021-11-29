@@ -56,14 +56,16 @@ const Change = styled.div`
 	z-index: 10;
 	width: auto;
 	position: absolute;
-	transform: translateY(-50%);
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 	transition: opacity 0.4s;
-	padding: 10px;
+	padding: 20px;
 	@media screen and (max-width: 500px) {
 		width: auto;
 	}
 `
-const Paragraph2 = styled.p`
+const Div3 = styled.div`
 	color: ${props => props.theme.text};
 	font-size: 1rem;
 	width: 8rem;
@@ -97,7 +99,7 @@ const ChangingTimetable = () => {
 					<Box style={{ overflowX: 'scroll' }}>
 						<Container>
 							<Div>
-								<Table size={timetableState.length + 1}>
+								<Table size={(timetableState.length + 1).toString()}>
 									<Thead>
 										<Tr>
 											<Th></Th>
@@ -128,8 +130,10 @@ const ChangingTimetable = () => {
 														].map((e, key) => {
 															return (
 																<Td key={key}>
-																	<Paragraph2>
-																		{e.shortNameSubject}
+																	<Div3>
+																		{
+																			e.shortNameSubject
+																		}
 																		<Change>
 																			<Div2>
 																				<label htmlFor="radio_teacher">
@@ -151,7 +155,7 @@ const ChangingTimetable = () => {
 																				value="Uložit"
 																			/>
 																		</Change>
-																	</Paragraph2>
+																	</Div3>
 																</Td>
 															)
 														})}
