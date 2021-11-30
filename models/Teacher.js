@@ -8,10 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 				allowNull: false,
 			},
-			can_edit: {
-				type: DataTypes.BOOLEAN,
-				allowNull: false,
-			},
 			user_id: {
 				type: DataTypes.UUID,
 				allowNull: false,
