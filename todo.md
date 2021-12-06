@@ -84,7 +84,7 @@ Stránky:
 | ----------------- | ----------------- | -------- |
 | PostgreSQL        | Sequelize/TypeORM | Docker   |
 
--   Všechny API endpointy jsou v `/pages/api`
+-   Všechny API endpointy jsou v `/api`
 -   Bohužel knihovna `next-auth` ne moc dobře podporuje Credentials login,
     takže bude muset být napsán od nuly
 -   Kvůli tomu že se používá api routes od Next.js tak bude potřeba server, pro jednodušší využití bude vytvořen Dockerfile

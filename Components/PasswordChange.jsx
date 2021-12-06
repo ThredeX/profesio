@@ -13,11 +13,11 @@ export default function PasswordChange() {
 				<Heading2>Změna hesla</Heading2>
 				<Form2>
 					<Label>Zadejte aktualní heslo: </Label>
-					<Input />
+					<Input type='password' name='password-now'/>
 					<Label>Zadejte nové heslo: </Label>
-					<Input />
+					<Input type='password' name='password-new-1'/>
 					<Label>Zadejte nové heslo ještě jednou: </Label>
-					<Input />
+					<Input type='password' name='password-new-2'/>
 					<SubmitButton type="submit" value="Změnit" />
 				</Form2>
 			</Box>

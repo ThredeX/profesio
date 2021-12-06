@@ -97,7 +97,7 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({ route }) {
+export default function NavBar({ route, name }) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
@@ -124,7 +124,7 @@ export default function NavBar({ route }) {
 				<Container>
 					<DivHeading className="noneOpen">
 						<FontAwesomeIcon size="2x" icon={faUser} color={theme.color} />
-						<Heading1>{'Jmeno Správce'}</Heading1>
+						<Heading1>{name}</Heading1>
 					</DivHeading>
 					<>
 						{route == 'administrator' ? (
