@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 			adress: {
 				type: DataTypes.STRING,
 			},
-			school_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: true,
@@ -22,13 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 			freezeTableName: true,
 		},
 	)
-
-	Building.associate = function (models) {
-		Building.belongsTo(models.School, {
-			foreignKey: 'school_id',
-			target: 'id',
-		})
-	}
 
 	return Building
 }
