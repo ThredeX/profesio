@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.UUID,
 				allowNull: false,
 			},
+			faculty_id: {
+				type: DataTypes.UUID,
+				allowNull: false,
+			},
 			room_id: {
 				type: DataTypes.UUID,
 				allowNull: false,
@@ -53,6 +57,11 @@ module.exports = (sequelize, DataTypes) => {
 
 		Lecture.belongsTo(models.Room, {
 			foreignKey: 'room_id',
+			target: 'id',
+		})
+
+		Lecture.belongsTo(models.Faculty, {
+			foreignKey: 'faculty_id',
 			target: 'id',
 		})
 	}
