@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
 			website: {
 				type: DataTypes.STRING,
 			},
-			settings_id: {
-				type: DataTypes.UUID,
+			timetable_end: {
+				type: DataTypes.DATE,
 				allowNull: false,
 			},
 		},
@@ -25,13 +25,6 @@ module.exports = (sequelize, DataTypes) => {
 			freezeTableName: true,
 		},
 	)
-
-	School.associate = function (models) {
-		School.belongsTo(models.Settings, {
-			foreignKey: 'settings_id',
-			target: 'id',
-		})
-	}
 
 	return School
 }
