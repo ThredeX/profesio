@@ -52,6 +52,9 @@ const FormDiv = styled.div`
 	display: flex;
 	align-items: center;
 `
+const Margin = styled.div`
+margin-block: 1rem;
+`
 const AddingRoom = props => {
 	const [state, setState] = useState(0)
 	const [faculty, setFaculty] = useState(null)
@@ -129,6 +132,9 @@ const AddingRoom = props => {
 								</Form>
 							)}
 						</Container>
+					</Box>
+					<Box>
+					<Margin></Margin>
 						<Select2 name="fakulty" onClick={e => setState(e.target.value)}>
 							{fakulty.map((fakulta, i) => (
 								<Option value={i} key={i}>
@@ -136,6 +142,7 @@ const AddingRoom = props => {
 								</Option>
 							))}
 						</Select2>
+						<Input style={{ maxWidth: '10rem' }} placeholder="Název budovy" title='Budova, do které budete přidávat místnosti/rozvrhy' />
 					</Box>
 					<TimetableComp faculty={fakulty[state]} changeTT={false} />
 				</Main>

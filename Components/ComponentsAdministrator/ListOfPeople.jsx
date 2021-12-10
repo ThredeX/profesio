@@ -4,7 +4,6 @@ import { useFetch } from '../../hooks/useFetch'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
 
-
 const List = styled.li`
 	display: grid;
 	
@@ -84,8 +83,8 @@ export default function ListOfPeople(props) {
 	const [reference, setReference] = useState()
 	
 	
-	const [names, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole');
-
+	const [names, status] = useFetch('../../api/users/info');
+	console.log(names);
 
 	function handleClickChanging(id) {
         props.setId(id)
@@ -101,14 +100,14 @@ export default function ListOfPeople(props) {
 
 		if(!!names && !!reference){
 			names?.map(name => {
-				if (`${name.first.toLowerCase()} ${name.last.toLowerCase()} ${name.email.toLowerCase()}`.includes(reference.trim().toLowerCase()) ) {
+				if (`${name.name.toLowerCase()} ${name.surname.toLowerCase()} ${name.email.toLowerCase()}`.includes(reference.trim().toLowerCase()) ) {
 					searched.push(name)
 				}
 			})
 			return searched?.map((searchedName, id) => (
 				<List key={id}>
-					<Paragraph>{searchedName.first}</Paragraph>
-					<Paragraph>{searchedName.last}</Paragraph>
+					<Paragraph>{searchedName.name}</Paragraph>
+					<Paragraph>{searchedName.surname}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
 					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
 					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
@@ -118,8 +117,8 @@ export default function ListOfPeople(props) {
 		else{
 			return names?.map((names, id) => (
 				<List key={id}>
-					<Paragraph>{names.first}</Paragraph>
-					<Paragraph>{names.last}</Paragraph>
+					<Paragraph>{names.name}</Paragraph>
+					<Paragraph>{names.surname}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
 					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
 					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}

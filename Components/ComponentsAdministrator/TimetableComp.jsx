@@ -312,7 +312,7 @@ export default function TimetableAdding({ changeTT }, props) {
 							<thead>
 								<Tr>
 									<Th>
-										<Room onChange={(e) => setRoom(e.target.value)} type='text' placeholder='room' name='room'/>
+										<Room title='místnost rozvrhu' onChange={(e) => setRoom(e.target.value)} type='text' placeholder='room' name='room'/>
 									</Th>
 									{(!!timetableState.fakulta
 										? timetableState.fakulta.timetable.time
