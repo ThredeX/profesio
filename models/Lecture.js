@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 		'Lecture',
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: DataTypes.INTEGER,
 				primaryKey: true,
-				allowNull: false,
+				autoIncrement: true,
 			},
 			topic: {
 				type: DataTypes.STRING,

@@ -4,13 +4,12 @@ module.exports = (sequelize, DataTypes) => {
 		'Teacher',
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: DataTypes.INTEGER,
 				primaryKey: true,
-				allowNull: false,
+				autoIncrement: true,
 			},
 			user_id: {
 				type: DataTypes.UUID,
-				allowNull: false,
 			},
 		},
 		{

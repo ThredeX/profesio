@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 		'Administrator',
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: DataTypes.INTEGER,
 				primaryKey: true,
-				allowNull: false,
+				autoIncrement: true,
 			},
 			can_edit: {
 				type: DataTypes.BOOLEAN,

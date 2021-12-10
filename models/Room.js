@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 		'Room',
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: DataTypes.INTEGER,
 				primaryKey: true,
-				allowNull: false,
+				autoIncrement: true,
 			},
 			label: {
 				type: DataTypes.INTEGER,

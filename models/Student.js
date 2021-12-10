@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 		'Student',
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: DataTypes.INTEGER,
 				primaryKey: true,
-				allowNull: false,
+				autoIncrement: true,
 			},
 			entry_year: {
 				type: DataTypes.INTEGER,
@@ -14,11 +14,9 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			specialization_id: {
 				type: DataTypes.UUID,
-				allowNull: false,
 			},
 			user_id: {
 				type: DataTypes.UUID,
-				allowNull: false,
 			},
 		},
 		{

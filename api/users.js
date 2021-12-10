@@ -10,7 +10,47 @@ const Administrator = require('../models').Administrator
 // Get all users in the database
 router.get('/info', async (req, res) => {
 	const users = await User.findAll()
-	res.json(users.toJSON())
+	res.json(users.map(user => user.toJSON()))
+})
+
+// AUTHENTICATION REQUIRED
+// Create a new student in the database
+router.post('/student', async (req, res) => {
+	try {
+		const user = await usergen(req.body)
+		await user.createStudent({entry_year: req.body.entry_year})
+		res.status(204).json({
+			message: 'User created',
+		})
+	} catch (error) {
+		console.error(error);
+		res.status(500).send(error)
+	}
+})
+
+// AUTHENTICATION REQUIRED
+// Create a new teacher in the database
+router.post('/teacher', async (req, res) => {
+	try {
+		const user = await usergen(req.body)
+		await user.createTeacher()
+		res.status(204).json({
+			message: 'User created',
+		})
+	} catch (error) {
+		res.status(500).send(error)
+	}
+})
+
+// AUTHENTICATION REQUIRED
+// Create a new administrator in the database
+router.post('/administrator', async (req, res) => {
+	try {
+		const user = await usergen(req.body)
+		await user.createAdministrator()
+	} catch (error) {
+		res.status(500).send(error)
+	}
 })
 
 // AUTHENTICATION REQUIRED
@@ -41,37 +81,5 @@ router.post('/:id', async (req, res) => {
 	}
 })
 
-// AUTHENTICATION REQUIRED
-// Create a new student in the database
-router.post('/student', async (req, res) => {
-	try {
-		const user = usergen(req.body)
-		await user.createStudent()
-	} catch (error) {
-		res.status(500).send(error)
-	}
-})
-
-// AUTHENTICATION REQUIRED
-// Create a new teacher in the database
-router.post('/teacher', async (req, res) => {
-	try {
-		const user = usergen(req.body)
-		await user.createTeacher()
-	} catch (error) {
-		res.status(500).send(error)
-	}
-})
-
-// AUTHENTICATION REQUIRED
-// Create a new administrator in the database
-router.post('/administrator', async (req, res) => {
-	try {
-		const user = usergen(req.body)
-		await user.createAdministrator()
-	} catch (error) {
-		res.status(500).send(error)
-	}
-})
 
 module.exports = router

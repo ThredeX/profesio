@@ -85,8 +85,7 @@ export default function ListOfPeople(props) {
 	
 	
 	const [names, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole');
-	console.log(status);
-	console.log(names);
+
 
 	function handleClickChanging(id) {
         props.setId(id)
@@ -101,12 +100,12 @@ export default function ListOfPeople(props) {
 		let searched = []
 
 		if(!!names && !!reference){
-			names.map(name => {
+			names?.map(name => {
 				if (`${name.first.toLowerCase()} ${name.last.toLowerCase()} ${name.email.toLowerCase()}`.includes(reference.trim().toLowerCase()) ) {
 					searched.push(name)
 				}
 			})
-			return searched.map((searchedName, id) => (
+			return searched?.map((searchedName, id) => (
 				<List key={id}>
 					<Paragraph>{searchedName.first}</Paragraph>
 					<Paragraph>{searchedName.last}</Paragraph>
@@ -117,7 +116,7 @@ export default function ListOfPeople(props) {
 			))
 		}
 		else{
-			return names.map((names, id) => (
+			return names?.map((names, id) => (
 				<List key={id}>
 					<Paragraph>{names.first}</Paragraph>
 					<Paragraph>{names.last}</Paragraph>
