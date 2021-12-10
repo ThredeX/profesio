@@ -125,10 +125,10 @@ const AddingPeople = () => {
 							}}
 							onSubmit={(values) => {
 								let data = {}
+								data.firstName = values.firstName
+								data.lastName = values.lastName
+								data.email = values.email
 								if(whichPeople === 'student') {
-									data.firstName = values.firstName
-									data.lastName = values.lastName
-									data.email = values.email
 									data.entry_year = values.yearOfEntry
 									data.phoneNumber = values.phoneNumber
 								}
@@ -138,7 +138,6 @@ const AddingPeople = () => {
 										'content-type': 'application/json'
 									},
 									body: JSON.stringify(data)
-									
 								})
 								.then(res => {
 									if(!res.ok) {

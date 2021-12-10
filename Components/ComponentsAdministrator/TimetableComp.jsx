@@ -29,6 +29,15 @@ const Input = styled.input`
 		height: 18%;
 	}
 `
+const Room = styled.input`
+	width: 60%;
+	border: none;
+	text-align: center;
+	position: relative;
+	color: ${props => props.theme.text};
+	background-color: rgba(0, 0, 0, 0);
+	border-bottom: ${props => props.theme.text} solid 1px;
+`
 const Select = styled.select`
 	width: 90%;
 	cursor: pointer;
@@ -96,7 +105,7 @@ export default function TimetableAdding({ changeTT }, props) {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const timeRef = useRef(null)
-	const [note, setNote] = useState()
+	const [room, setRoom] = useState(null)
 	useEffect(() => {
 		if (changeTT) {
 			setTimetableState({
@@ -283,7 +292,7 @@ export default function TimetableAdding({ changeTT }, props) {
 		}
 		console.log({
 			fakulta: changeTT ? timetableState.fakulta.shortName : props.faculty,
-			timetable: { subject: subjectData, time: timeData, note: note},
+			timetable: { subject: subjectData, time: timeData, room: room},
 		})
 		alert('Uloženo')
 	}
@@ -302,7 +311,9 @@ export default function TimetableAdding({ changeTT }, props) {
 							}>
 							<thead>
 								<Tr>
-									<Th></Th>
+									<Th>
+										<Room onChange={(e) => setRoom(e.target.value)} type='text' placeholder='room' name='room'/>
+									</Th>
 									{(!!timetableState.fakulta
 										? timetableState.fakulta.timetable.time
 										: timetableState
@@ -393,11 +404,7 @@ export default function TimetableAdding({ changeTT }, props) {
 			</Box>
 			<Box>
 				<Container2>
-					{!changeTT && (
-						<Textarea
-							onChange={e => setNote(e.target.value)}
-							placeholder="Popisek"></Textarea>
-					)}
+				
 					<SubmitButton
 						type="submit"
 						onClick={handleSubmit}
