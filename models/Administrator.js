@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
 			},
-			user_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: false,
@@ -25,10 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Administrator.associate = function (models) {
-		Administrator.belongsTo(models.User, {
-			foreignKey: 'user_id',
-			target: 'id',
-		})
+		Administrator.belongsTo(models.User)
 	}
 
 	return Administrator

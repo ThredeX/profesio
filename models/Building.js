@@ -19,5 +19,10 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	)
 
+	Building.associate = function (models) {
+		Building.belongsToMany(models.Faculty, { through: 'BuildingInfo' })
+		Building.hasOne(models.Room)
+	}
+
 	return Building
 }

@@ -8,9 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 				autoIncrement: true,
 			},
-			user_id: {
-				type: DataTypes.UUID,
-			},
 		},
 		{
 			timestamps: false,
@@ -20,10 +17,9 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Teacher.associate = function (models) {
-		Teacher.belongsTo(models.User, {
-			foreignKey: 'user_id',
-			target: 'id',
-		})
+		Teacher.belongsTo(models.User)
+		Teacher.hasOne(models.Subject)
+		Teacher.hasOne(models.Lecture)
 	}
 
 	return Teacher

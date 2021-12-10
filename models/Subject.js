@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			teacher_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: false,
@@ -29,10 +25,8 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Subject.associate = function (models) {
-		Subject.belongsTo(models.Teacher, {
-			foreignKey: 'teacher_id',
-			target: 'id',
-		})
+		Subject.belongsTo(models.Teacher)
+		Subject.hasOne(models.Lecture)
 	}
 
 	return Subject

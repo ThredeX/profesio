@@ -12,12 +12,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
-			specialization_id: {
-				type: DataTypes.UUID,
-			},
-			user_id: {
-				type: DataTypes.UUID,
-			},
 		},
 		{
 			timestamps: false,
@@ -27,15 +21,9 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Student.associate = function (models) {
-		Student.belongsTo(models.Specialization, {
-			foreignKey: 'specialization_id',
-			target: 'id',
-		})
-
-		Student.belongsTo(models.User, {
-			foreignKey: 'user_id',
-			target: 'id',
-		})
+		Student.belongsTo(models.Specialization)
+		Student.belongsTo(models.User)
+		Student.belongsToMany(models.Lecture, { through: 'Participation' })
 	}
 
 	return Student

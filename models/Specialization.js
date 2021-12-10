@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			faculty_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: false,
@@ -29,10 +25,8 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Specialization.associate = function (models) {
-		Specialization.belongsTo(models.Faculty, {
-			foreignKey: 'faculty_id',
-			target: 'id',
-		})
+		Specialization.hasOne(models.Student)
+		Specialization.belongsTo(models.Faculty)
 	}
 
 	return Specialization

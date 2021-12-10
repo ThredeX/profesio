@@ -20,22 +20,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				allowNull: false,
 			},
-			subject_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
-			teacher_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
-			faculty_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
-			room_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: true,
@@ -45,25 +29,11 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Lecture.associate = function (models) {
-		Lecture.belongsTo(models.Subject, {
-			foreignKey: 'subject_id',
-			target: 'id',
-		})
-
-		Lecture.belongsTo(models.Teacher, {
-			foreignKey: 'teacher_id',
-			target: 'id',
-		})
-
-		Lecture.belongsTo(models.Room, {
-			foreignKey: 'room_id',
-			target: 'id',
-		})
-
-		Lecture.belongsTo(models.Faculty, {
-			foreignKey: 'faculty_id',
-			target: 'id',
-		})
+		Lecture.belongsTo(models.Subject)
+		Lecture.belongsTo(models.Teacher)
+		Lecture.belongsTo(models.Room)
+		Lecture.belongsTo(models.Faculty)
+		Lecture.belongsToMany(models.Student, { through: 'Participation' })
 	}
 
 	return Lecture
