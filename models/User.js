@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 		'User',
 		{
 			id: {
-				type: DataTypes.UUID,
+				type: DataTypes.INTEGER,
 				primaryKey: true,
-				allowNull: false,
+				autoIncrement: true,
 			},
 			username: {
 				type: DataTypes.STRING,
@@ -37,7 +37,13 @@ module.exports = (sequelize, DataTypes) => {
 			paranoid: true,
 			freezeTableName: true,
 		},
+		
 	)
+	User.associate = function (models) {
+        User.hasOne(models.Student)
+        User.hasOne(models.Teacher)
+        User.hasOne(models.Administrator)
+    }
 
 	return User
 }

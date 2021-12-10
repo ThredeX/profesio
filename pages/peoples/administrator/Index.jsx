@@ -32,7 +32,7 @@ const Index = () => {
 							<Span>P</Span>rofesio
 						</Heading>
 					</Container>
-					<NavBar route='administrator'/>
+					<NavBar route='administrator' name='Admin'/>
 				</Main>
 			</ThemeProvider>
 		</>

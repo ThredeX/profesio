@@ -35,7 +35,7 @@ const Index = (props) => {
 							<Span>P</Span>rofesio
 						</Heading>
 					</Container>
-					<NavBar route='student'/>
+					<NavBar route='student' name='Dominik'/>
 				</Main>
 			</ThemeProvider>
         </>

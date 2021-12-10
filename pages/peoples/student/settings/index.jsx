@@ -16,7 +16,7 @@ const Index = () => {
         <>
         <ThemeProvider theme={useContext(Context)}>
             <Header />
-            <NavBar route="student" />
+            <NavBar route='student' name='Dominik'/>
             <MainHeading>Nastavení</MainHeading>
             <Main>
                 <PasswordChange />

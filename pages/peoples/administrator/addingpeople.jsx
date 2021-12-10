@@ -101,15 +101,7 @@ const AddingPeople = () => {
 										value="teacher"
 									/>
 								</Div>
-								<Div>
-									<Label htmlFor="radio3">Pracovník školy: </Label>
-									<Radio
-										type="radio"
-										name="radio"
-										id="radio3"
-										value="worker"
-									/>
-								</Div>
+								
 								<Div>
 									<Label htmlFor="radio4">Administrátor: </Label>
 									<Radio
@@ -131,7 +123,29 @@ const AddingPeople = () => {
 								study: '',
 								position: '',
 							}}
-							onSubmit={() => {}}>
+							onSubmit={(values) => {
+								let data = {}
+								if(whichPeople === 'student') {
+									data.firstName = values.firstName
+									data.lastName = values.lastName
+									data.email = values.email
+									data.entry_year = values.yearOfEntry
+									data.phoneNumber = values.phoneNumber
+								}
+
+								fetch('../../../api/users/student', {
+									headers: {
+										'content-type': 'application/json'
+									},
+									body: JSON.stringify(data)
+									
+								})
+								.then(res => {
+									if(!res.ok) {
+										console.error(res.status);
+									}
+								})
+							}}>
 							{() => {
 								switch (whichPeople) {
 									case 'student': {
@@ -193,26 +207,7 @@ const AddingPeople = () => {
 														name="yearOfEntry"
 													/>
 												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="study">
-														Studium:{' '}
-													</Label>
-													<Field
-														style={style}
-														as="select"
-														id="study"
-														name="study">
-														<option value="denni">
-															Denní
-														</option>
-														<option value="stridave">
-															Střídavé
-														</option>
-														<option value="dálkové">
-															Dálkové
-														</option>
-													</Field>
-												</FormDiv>
+											
 												<ButtonDiv>
 													<SubmitButton
 														type="submit"
