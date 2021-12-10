@@ -84,7 +84,6 @@ export default function ListOfPeople(props) {
 	
 	
 	const [names, status] = useFetch('../../api/users/info');
-	console.log(names);
 
 	function handleClickChanging(id) {
         props.setId(id)
@@ -104,24 +103,24 @@ export default function ListOfPeople(props) {
 					searched.push(name)
 				}
 			})
-			return searched?.map((searchedName, id) => (
-				<List key={id}>
+			return searched?.map((searchedName) => (
+				<List key={searchedName.id}>
 					<Paragraph>{searchedName.name}</Paragraph>
 					<Paragraph>{searchedName.surname}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
-					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
-					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
+					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(searchedName.id)} />}
+					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(searchedName.id)} />}
 				</List>
 			))
 		}
 		else{
 			return names?.map((names, id) => (
-				<List key={id}>
+				<List key={names.id}>
 					<Paragraph>{names.name}</Paragraph>
 					<Paragraph>{names.surname}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
-					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
-					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
+					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(names.id)} />}
+					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(names.id)} />}
 				</List>
 			))
 		}

@@ -128,9 +128,9 @@ const AddingPeople = () => {
 								data.firstName = values.firstName
 								data.lastName = values.lastName
 								data.email = values.email
+								data.phoneNumber = values.phoneNumber
 								if(whichPeople === 'student') {
 									data.entry_year = values.yearOfEntry
-									data.phoneNumber = values.phoneNumber
 								}
 
 								fetch('../../../api/users/student', {
@@ -272,73 +272,7 @@ const AddingPeople = () => {
 											</Form>
 										)
 									}
-									case 'worker': {
-										return (
-											<Form style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:
-													</Label>
-													<Input
-														type="number"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="position">
-														Pozice:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="pozice"
-														name="position"
-														id="position"
-													/>
-												</FormDiv>
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Add"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
+									
 									case 'admin': {
 										return (
 											<Form style={{ margin: 0 }}>
