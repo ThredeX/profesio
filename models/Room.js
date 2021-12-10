@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
-			building_id: {
-				type: DataTypes.UUID,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: false,
@@ -25,10 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 	)
 
 	Room.associate = function (models) {
-		Room.belongsTo(models.Building, {
-			foreignKey: 'building_id',
-			target: 'id',
-		})
+		Room.hasOne(models.Lecture)
+		Room.belongsTo(models.Building)
 	}
 
 	return Room
