@@ -79,9 +79,7 @@ const AddingPeople = () => {
 			headers: {
 				'content-type': 'application/json',
 			},
-			body: JSON.stringify({
-				...data
-			}),
+			body: JSON.stringify(data),
 		}).then(res => {
 			if (!res.ok) {
 				console.error(res.text)
