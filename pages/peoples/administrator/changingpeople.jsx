@@ -72,7 +72,7 @@ const Margin = styled.div`
 const ChangingPeople = props => {
 	const [id, setId] = useState(null)
 
-	const [data, status] = useFetch('../../../api/users/info')
+	const [dataFetch, status] = useFetch('../../../api/users/info')
 	const [whichPeople, setWhichPeople] = useState('student')
 	const [dataID, setDataID] = useState({})
 	const [reload, setReload] = useState(false)
@@ -104,7 +104,8 @@ const ChangingPeople = props => {
 		})
 	}
 	useEffect(() => {
-		setDataID(data[id - 1])
+		setDataID(dataFetch[id - 1])
+		console.log(dataFetch[id - 1]);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id])
 
@@ -125,199 +126,211 @@ const ChangingPeople = props => {
 						<>
 							<Margin></Margin>
 							<FormContainer1>
-						<FormRadio onChange={e => setWhichPeople(e.target.value)}>
-							<H2>Vyberte stav:</H2>
-							<div>
-								<Div>
-									<Label htmlFor="radio1">Student: </Label>
-									<Radio
-										type="radio"
-										name="radio"
-										id="radio1"
-										value="student"
-									/>
-								</Div>
-								<Div>
-									<Label htmlFor="radio2">Vyučující: </Label>
-									<Radio
-										type="radio"
-										name="radio"
-										id="radio2"
-										value="teacher"
-									/>
-								</Div>
-								<Div>
-									<Label htmlFor="radio4">Administrátor: </Label>
-									<Radio
-										type="radio"
-										name="radio"
-										id="radio4"
-										value="administrator"
-									/>
-								</Div>
-							</div>
-						</FormRadio>
-						{whichPeople === 'student' ? (
-							<Form onSubmit={handleSubmit} style={{ margin: 0 }}>
-								<FormDiv>
-									<Label htmlFor="firstName">Jméno: </Label>
-									<Input
-										type="text"
-										placeholder="Jméno"
-										id="firstName"
-										name="firstName"
-										defaultValue={dataID?.name}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="lastName">Příjmení: </Label>
-									<Input
-										type="text"
-										placeholder="Příjmení"
-										id="lastName"
-										name="lastName"
-										defaultValue={dataID?.surname}
+								<FormRadio
+									onChange={e => setWhichPeople(e.target.value)}>
+									<H2>Vyberte stav:</H2>
+									<div>
+										<Div>
+											<Label htmlFor="radio1">Student: </Label>
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio1"
+												value="student"
+											/>
+										</Div>
+										<Div>
+											<Label htmlFor="radio2">Vyučující: </Label>
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio2"
+												value="teacher"
+											/>
+										</Div>
+										<Div>
+											<Label htmlFor="radio4">
+												Administrátor:{' '}
+											</Label>
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio4"
+												value="administrator"
+											/>
+										</Div>
+									</div>
+								</FormRadio>
+								{whichPeople === 'student' ? (
+									<Form onSubmit={handleSubmit} style={{ margin: 0 }}>
+										<FormDiv>
+											<Label htmlFor="firstName">Jméno: </Label>
+											<Input
+												type="text"
+												placeholder="Jméno"
+												id="firstName"
+												name="firstName"
+												defaultValue={dataID?.name}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="lastName">Příjmení: </Label>
+											<Input
+												type="text"
+												placeholder="Příjmení"
+												id="lastName"
+												name="lastName"
+												defaultValue={dataID?.surname}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="email">E-mail: </Label>
+											<Input
+												type="email"
+												placeholder="E-mail"
+												id="email"
+												name="email"
+												defaultValue={dataID?.email}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="phoneNumber">
+												Telefon:{' '}
+											</Label>
+											<Input
+												type="number"
+												placeholder="Telefon"
+												id="phoneNumber"
+												name="phoneNumber"
+												defaultValue={dataID?.telephone_number}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="yearOfEntry">
+												Rok nástupu:
+											</Label>
+											<Input
+												type="number"
+												min="1990"
+												max={new Date().getFullYear()}
+												id="yearOfEntry"
+												name="yearOfEntry"
+												defaultValue={dataID?.entry_year}
+											/>
+										</FormDiv>
 
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="email">E-mail: </Label>
-									<Input
-										type="email"
-										placeholder="E-mail"
-										id="email"
-										name="email"
-										defaultValue={dataID?.email}
-
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="phoneNumber">Telefon: </Label>
-									<Input
-										type="number"
-										placeholder="Telefon"
-										id="phoneNumber"
-										name="phoneNumber"
-										defaultValue={dataID?.telephone_number}
-
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="yearOfEntry">Rok nástupu:</Label>
-									<Input
-										type="number"
-										min="1990"
-										max={new Date().getFullYear()}
-										id="yearOfEntry"
-										name="yearOfEntry"
-										defaultValue={dataID?.entry_year}
-									/>
-								</FormDiv>
-
-								<ButtonDiv>
-									<SubmitButton type="submit" value="Add" />
-								</ButtonDiv>
-							</Form>
-						) : whichPeople === 'teacher' ? (
-							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
-								<FormDiv>
-									<Label htmlFor="firstName">Jméno: </Label>
-									<Input
-										type="text"
-										placeholder="Jméno"
-										id="firstName"
-										name="firstName"
-										defaultValue={dataID?.name}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="lastName">Příjmení: </Label>
-									<Input
-										type="text"
-										placeholder="Příjmení"
-										id="lastName"
-										name="lastName"
-										defaultValue={dataID?.surname}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="email">E-mail: </Label>
-									<Input
-										type="email"
-										placeholder="E-mail"
-										id="email"
-										name="email"
-										defaultValue={dataID?.email}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="phoneNumber">Telefon:</Label>
-									<Input
-										type="number"
-										placeholder="Telefon"
-										id="phoneNumber"
-										name="phoneNumber"
-										defaultValue={dataID?.telephone_number}
-									/>
-								</FormDiv>
-								<ButtonDiv>
-									<SubmitButton type="submit" value="Add" />
-								</ButtonDiv>
-							</Form>
-						) : whichPeople === 'administrator' ? (
-							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
-								<FormDiv>
-									<Label htmlFor="firstName">Jméno: </Label>
-									<Input
-										type="text"
-										placeholder="Jméno"
-										id="firstName"
-										name="firstName"
-										defaultValue={dataID?.name}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="lastName">Příjmení: </Label>
-									<Input
-										type="text"
-										placeholder="Příjmení"
-										id="lastName"
-										name="lastName"
-										defaultValue={dataID?.surname}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="email">E-mail: </Label>
-									<Input
-										type="email"
-										placeholder="E-mail"
-										id="email"
-										name="email"
-										defaultValue={dataID?.email}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="phoneNumber">Telefon:</Label>
-									<Input
-										type="number"
-										placeholder="Telefon"
-										id="phoneNumber"
-										name="phoneNumber"
-										defaultValue={dataID?.telephone_number}
-									/>
-								</FormDiv>
-								<FormDiv>
-									<Label htmlFor="can_edit">Editovaní:</Label>
-									<Div2>
-										<Radio name="can_edit" type="checkbox" checked={dataID?.can_edit}/>
-									</Div2>
-								</FormDiv>
-								<ButtonDiv>
-									<SubmitButton type="submit" value="Add" />
-								</ButtonDiv>
-							</Form>
-						) : null}
-					</FormContainer1>
+										<ButtonDiv>
+											<SubmitButton type="submit" value="Add" />
+										</ButtonDiv>
+									</Form>
+								) : whichPeople === 'teacher' ? (
+									<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
+										<FormDiv>
+											<Label htmlFor="firstName">Jméno: </Label>
+											<Input
+												type="text"
+												placeholder="Jméno"
+												id="firstName"
+												name="firstName"
+												defaultValue={dataID?.name}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="lastName">Příjmení: </Label>
+											<Input
+												type="text"
+												placeholder="Příjmení"
+												id="lastName"
+												name="lastName"
+												defaultValue={dataID?.surname}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="email">E-mail: </Label>
+											<Input
+												type="email"
+												placeholder="E-mail"
+												id="email"
+												name="email"
+												defaultValue={dataID?.email}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="phoneNumber">
+												Telefon:
+											</Label>
+											<Input
+												type="number"
+												placeholder="Telefon"
+												id="phoneNumber"
+												name="phoneNumber"
+												defaultValue={dataID?.telephone_number}
+											/>
+										</FormDiv>
+										<ButtonDiv>
+											<SubmitButton type="submit" value="Add" />
+										</ButtonDiv>
+									</Form>
+								) : whichPeople === 'administrator' ? (
+									<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
+										<FormDiv>
+											<Label htmlFor="firstName">Jméno: </Label>
+											<Input
+												type="text"
+												placeholder="Jméno"
+												id="firstName"
+												name="firstName"
+												defaultValue={dataID?.name}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="lastName">Příjmení: </Label>
+											<Input
+												type="text"
+												placeholder="Příjmení"
+												id="lastName"
+												name="lastName"
+												defaultValue={dataID?.surname}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="email">E-mail: </Label>
+											<Input
+												type="email"
+												placeholder="E-mail"
+												id="email"
+												name="email"
+												defaultValue={dataID?.email}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="phoneNumber">
+												Telefon:
+											</Label>
+											<Input
+												type="number"
+												placeholder="Telefon"
+												id="phoneNumber"
+												name="phoneNumber"
+												defaultValue={dataID?.telephone_number}
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Label htmlFor="can_edit">Editovaní:</Label>
+											<Div2>
+												<Radio
+													name="can_edit"
+													type="checkbox"
+													checked={dataID?.can_edit}
+												/>
+											</Div2>
+										</FormDiv>
+										<ButtonDiv>
+											<SubmitButton type="submit" value="Add" />
+										</ButtonDiv>
+									</Form>
+								) : null}
+							</FormContainer1>
 						</>
 					)}
 				</Main>
