@@ -68,8 +68,10 @@ const Div2 = styled.div`
 //adding people
 const AddingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState('student')
+	const [reload, setReload] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault()
+		setReload(true)
 		let data = {}
 		data.name = e.target.firstName.value
 		data.surname = e.target.lastName.value
@@ -279,7 +281,7 @@ const AddingPeople = () => {
 							</Form>
 						) : null}
 					</FormContainer1>
-					<ListOfPeople />
+					<ListOfPeople reload={reload} setReload={setReload}/>
 				</Main>
 			</ThemeProvider>
 		</>

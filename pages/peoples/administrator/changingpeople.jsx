@@ -1,13 +1,22 @@
-import React, { useContext, useState, useEffect} from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../_app'
-import { MainHeading, Main, Paragraph, Box, Input, Label, Radio, Form, SubmitButton} from '../../../theme'
+import {
+	MainHeading,
+	Main,
+	Paragraph,
+	Box,
+	Input,
+	Label,
+	Radio,
+	Form,
+	SubmitButton,
+} from '../../../theme'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
 import { useFetch } from '../../../hooks/useFetch'
-import { Formik } from 'formik'
 
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
@@ -37,6 +46,12 @@ const Div = styled.div`
 	align-items: center;
 	height: 2rem;
 `
+const Div2 = styled.div`
+	width: 100%;
+	margin-block: 0.3rem;
+	margin-left: -0.3rem;
+`
+
 const H2 = styled.h2`
 	margin-right: 1rem;
 	color: ${props => props.theme.text};
@@ -60,8 +75,34 @@ const ChangingPeople = props => {
 	const [data, status] = useFetch('../../../api/users/info')
 	const [whichPeople, setWhichPeople] = useState('student')
 	const [dataID, setDataID] = useState({})
-
-	
+	const [reload, setReload] = useState(false)
+	function handleSubmit(e) {
+		e.preventDefault()
+		setReload(true)
+		let data = {}
+		data.name = e.target.firstName.value
+		data.surname = e.target.lastName.value
+		data.email = e.target.email.value
+		data.telephone_number = e.target.phoneNumber.value
+		if (whichPeople === 'student') {
+			data.entry_year = parseInt(e.target.yearOfEntry.value)
+		}
+		if (whichPeople === 'administrator') {
+			data.can_edit = e.target.can_edit.checked
+		}
+		console.log(data)
+		fetch(`../../../api/users/${id}`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		}).then(res => {
+			if (!res.ok) {
+				console.error(res.text)
+			}
+		})
+	}
 	useEffect(() => {
 		setDataID(data[id - 1])
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,11 +115,16 @@ const ChangingPeople = props => {
 				<NavBar route="administrator" theme={useContext(Context)} />
 				<MainHeading>Změna nastavení uživatelů</MainHeading>
 				<Main>
-					<ListOfPeople changingPeople={true} setId={setId} />
-					<>
-					
-						<Margin></Margin>
-						<FormContainer1>
+					<ListOfPeople
+						changingPeople={true}
+						setId={setId}
+						reload={reload}
+						setReload={setReload}
+					/>
+					{id && (
+						<>
+							<Margin></Margin>
+							<FormContainer1>
 						<FormRadio onChange={e => setWhichPeople(e.target.value)}>
 							<H2>Vyberte stav:</H2>
 							<div>
@@ -100,253 +146,180 @@ const ChangingPeople = props => {
 										value="teacher"
 									/>
 								</Div>
-								
 								<Div>
 									<Label htmlFor="radio4">Administrátor: </Label>
 									<Radio
 										type="radio"
 										name="radio"
 										id="radio4"
-										value="admin"
+										value="administrator"
 									/>
 								</Div>
 							</div>
 						</FormRadio>
-						<Formik
-							initialValues={{
-								firstName: '',
-								lastName: '',
-								email: '',
-								phoneNumber: '',
-								yearOfEntry: '',
-							}}
-							onSubmit={async (values, {setSubmiting, resetForm}) => {
-								setSubmiting(true)
+						{whichPeople === 'student' ? (
+							<Form onSubmit={handleSubmit} style={{ margin: 0 }}>
+								<FormDiv>
+									<Label htmlFor="firstName">Jméno: </Label>
+									<Input
+										type="text"
+										placeholder="Jméno"
+										id="firstName"
+										name="firstName"
+										defaultValue={dataID?.name}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="lastName">Příjmení: </Label>
+									<Input
+										type="text"
+										placeholder="Příjmení"
+										id="lastName"
+										name="lastName"
+										defaultValue={dataID?.surname}
 
-								let dataChange = {}
-								dataChange.name = values.firstName
-								dataChange.surname = values.lastName
-								dataChange.email = values.email
-								dataChange.telephone_number = values.phoneNumber
-								if(whichPeople === 'student') {
-									dataChange.entry_year = values.yearOfEntry
-								}
-								fetch(`../../../api/users/${id}`, {
-									method: 'POST',
-									headers: {
-										'content-type': 'application/json'
-									},
-									body: JSON.stringify(dataChange)
-								})
-								.then(res => {
-									if(!res.ok) {
-										console.error(res.status);
-									}
-								})
-							}}>
-							{() => {
-								switch (whichPeople) {
-									case 'student': {
-										return (
-											<Form  style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.name}
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-													defaultValue={dataID?.surname}
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.email}
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.telephone_number}
-														type="text"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<FormDiv>
-													{/* TODO: show entry year */}
-													<Label htmlFor="yearOfEntry">
-														Rok nástupu:
-													</Label>
-													<Input
-														defaultValue={dataID?.entry_year}
-														type="number"
-														min="1990"
-														max={new Date().getFullYear()}
-														id="yearOfEntry"
-														name="yearOfEntry"
-													/>
-												</FormDiv>
-											
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Change"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
-									case 'teacher': {
-										return (
-											<Form style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.name}
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.surname}
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.email}
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:
-													</Label>
-													<Input
-														defaultValue={dataID?.telephone_number}
-														type="text"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Change"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
-									
-									case 'admin': {
-										return (
-											<Form style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.name}
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.surname}
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														defaultValue={dataID?.email}
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:
-													</Label>
-													<Input
-														defaultValue={dataID?.telephone_number}
-														type="text"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Change"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
-								}
-							}}
-						</Formik>
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="email">E-mail: </Label>
+									<Input
+										type="email"
+										placeholder="E-mail"
+										id="email"
+										name="email"
+										defaultValue={dataID?.email}
+
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="phoneNumber">Telefon: </Label>
+									<Input
+										type="number"
+										placeholder="Telefon"
+										id="phoneNumber"
+										name="phoneNumber"
+										defaultValue={dataID?.telephone_number}
+
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="yearOfEntry">Rok nástupu:</Label>
+									<Input
+										type="number"
+										min="1990"
+										max={new Date().getFullYear()}
+										id="yearOfEntry"
+										name="yearOfEntry"
+										defaultValue={dataID?.entry_year}
+									/>
+								</FormDiv>
+
+								<ButtonDiv>
+									<SubmitButton type="submit" value="Add" />
+								</ButtonDiv>
+							</Form>
+						) : whichPeople === 'teacher' ? (
+							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
+								<FormDiv>
+									<Label htmlFor="firstName">Jméno: </Label>
+									<Input
+										type="text"
+										placeholder="Jméno"
+										id="firstName"
+										name="firstName"
+										defaultValue={dataID?.name}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="lastName">Příjmení: </Label>
+									<Input
+										type="text"
+										placeholder="Příjmení"
+										id="lastName"
+										name="lastName"
+										defaultValue={dataID?.surname}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="email">E-mail: </Label>
+									<Input
+										type="email"
+										placeholder="E-mail"
+										id="email"
+										name="email"
+										defaultValue={dataID?.email}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="phoneNumber">Telefon:</Label>
+									<Input
+										type="number"
+										placeholder="Telefon"
+										id="phoneNumber"
+										name="phoneNumber"
+										defaultValue={dataID?.telephone_number}
+									/>
+								</FormDiv>
+								<ButtonDiv>
+									<SubmitButton type="submit" value="Add" />
+								</ButtonDiv>
+							</Form>
+						) : whichPeople === 'administrator' ? (
+							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
+								<FormDiv>
+									<Label htmlFor="firstName">Jméno: </Label>
+									<Input
+										type="text"
+										placeholder="Jméno"
+										id="firstName"
+										name="firstName"
+										defaultValue={dataID?.name}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="lastName">Příjmení: </Label>
+									<Input
+										type="text"
+										placeholder="Příjmení"
+										id="lastName"
+										name="lastName"
+										defaultValue={dataID?.surname}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="email">E-mail: </Label>
+									<Input
+										type="email"
+										placeholder="E-mail"
+										id="email"
+										name="email"
+										defaultValue={dataID?.email}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="phoneNumber">Telefon:</Label>
+									<Input
+										type="number"
+										placeholder="Telefon"
+										id="phoneNumber"
+										name="phoneNumber"
+										defaultValue={dataID?.telephone_number}
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="can_edit">Editovaní:</Label>
+									<Div2>
+										<Radio name="can_edit" type="checkbox" checked={dataID?.can_edit}/>
+									</Div2>
+								</FormDiv>
+								<ButtonDiv>
+									<SubmitButton type="submit" value="Add" />
+								</ButtonDiv>
+							</Form>
+						) : null}
 					</FormContainer1>
-					</>
+						</>
+					)}
 				</Main>
 			</ThemeProvider>
 		</>
