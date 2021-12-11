@@ -1,20 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { useFetch } from '../../hooks/useFetch'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
-import {faRedo} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 const List = styled.li`
 	display: grid;
-	
+
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	&:last-child {
 		border-bottom: none;
 	}
-	
-	`
+`
 const Paragraph = styled.p`
 	border-bottom: 1px solid #8181814c;
 	justify-self: center;
@@ -27,8 +22,8 @@ const Paragraph = styled.p`
 	margin: 0;
 	text-align: center;
 	color: ${props => props.theme.text};
-	@media screen and (max-width: 1070px) and (min-width: 0){
-		&:nth-child(3){
+	@media screen and (max-width: 1070px) and (min-width: 0) {
+		&:nth-child(3) {
 			display: none;
 		}
 	}
@@ -81,64 +76,101 @@ const Container = styled.div`
 	flex-wrap: wrap;
 	margin-left: 1rem;
 `
-export default function ListOfPeople(props) {
+export default  function ListOfPeople(props) {
 	const [reference, setReference] = useState()
-	
-	
-	const [names, status] = useFetch('../../api/users/info');
+	const [names, setNames] = useState(null)
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect( async () => {
+		let res = await fetch('../../api/users/info')
+		setNames(await res.json())
+		props.setReload(false)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.reload])
+
+	const theme = useContext(Context)
 	function handleClickChanging(id) {
-        props.setId(id)
-    }
+		props.setId(id)
+	}
 	function handleClickDeleting(id) {
-		if(confirm('Opravdu si přejete odstranit uživatele?')) {
+		if (confirm('Opravdu si přejete odstranit uživatele?')) {
 			props.setId(id)
-			alert('Uživatel byl odstraněn');
+			alert('Uživatel byl odstraněn')
 		}
 	}
 	function funcNames() {
 		let searched = []
 
-		if(!!names && !!reference){
+		if (!!names && !!reference) {
 			names?.map(name => {
-				if (`${name.name.toLowerCase()} ${name.surname.toLowerCase()} ${name.email.toLowerCase()}`.includes(reference.trim().toLowerCase()) ) {
+				if (
+					`${name.name.toLowerCase()} ${name.surname.toLowerCase()} ${name.email.toLowerCase()}`.includes(
+						reference.trim().toLowerCase(),
+					)
+				) {
 					searched.push(name)
 				}
 			})
-			return searched?.map((searchedName) => (
+			return searched?.map(searchedName => (
 				<List key={searchedName.id}>
 					<Paragraph>{searchedName.name}</Paragraph>
 					<Paragraph>{searchedName.surname}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
-					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(searchedName.id)} />}
-					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(searchedName.id)} />}
+					{props.changingPeople && (
+						<SubmitButton
+							type="submit"
+							value="Změnit"
+							onClick={() => handleClickChanging(searchedName.id)}
+						/>
+					)}
+					{props.deletingPeople && (
+						<SubmitButton
+							type="submit"
+							value="Odstranit"
+							onClick={() => handleClickDeleting(searchedName.id)}
+						/>
+					)}
 				</List>
 			))
-		}
-		else{
-			return names?.map((names, id) => (
+		} else {
+			return names?.map((names) => (
 				<List key={names.id}>
 					<Paragraph>{names.name}</Paragraph>
 					<Paragraph>{names.surname}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
-					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(names.id)} />}
-					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(names.id)} />}
+					{props.changingPeople && (
+						<SubmitButton
+							type="submit"
+							value="Změnit"
+							onClick={() => handleClickChanging(names.id)}
+						/>
+					)}
+					{props.deletingPeople && (
+						<SubmitButton
+							type="submit"
+							value="Odstranit"
+							onClick={() => handleClickDeleting(names.id)}
+						/>
+					)}
 				</List>
 			))
 		}
 	}
 	return (
-		<ThemeProvider theme={useContext(Context)}>
+		<ThemeProvider theme={theme}>
 			<Box>
 				<Settings>
 					<Container>
-						<Input onChange={(e) => setReference(e.target.value)} type="text" placeholder="Search..." />
-						<FontAwesomeIcon icon={faRedo}/>
+						<Input
+							onChange={e => setReference(e.target.value)}
+							type="text"
+							placeholder="Search..."
+						/>
+					
 					</Container>
 				</Settings>
 				<UnsortedList>{funcNames()}</UnsortedList>
 			</Box>
-			
 		</ThemeProvider>
 	)
 }
