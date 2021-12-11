@@ -3,7 +3,8 @@ import styled, { ThemeProvider } from 'styled-components'
 import { useFetch } from '../../hooks/useFetch'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
-
+import {faRedo} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const List = styled.li`
 	display: grid;
@@ -84,8 +85,7 @@ export default function ListOfPeople(props) {
 	const [reference, setReference] = useState()
 	
 	
-	const [names, status] = useFetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole');
-
+	const [names, status] = useFetch('../../api/users/info');
 
 	function handleClickChanging(id) {
         props.setId(id)
@@ -101,28 +101,28 @@ export default function ListOfPeople(props) {
 
 		if(!!names && !!reference){
 			names?.map(name => {
-				if (`${name.first.toLowerCase()} ${name.last.toLowerCase()} ${name.email.toLowerCase()}`.includes(reference.trim().toLowerCase()) ) {
+				if (`${name.name.toLowerCase()} ${name.surname.toLowerCase()} ${name.email.toLowerCase()}`.includes(reference.trim().toLowerCase()) ) {
 					searched.push(name)
 				}
 			})
-			return searched?.map((searchedName, id) => (
-				<List key={id}>
-					<Paragraph>{searchedName.first}</Paragraph>
-					<Paragraph>{searchedName.last}</Paragraph>
+			return searched?.map((searchedName) => (
+				<List key={searchedName.id}>
+					<Paragraph>{searchedName.name}</Paragraph>
+					<Paragraph>{searchedName.surname}</Paragraph>
 					<Paragraph>{searchedName.email}</Paragraph>
-					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
-					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
+					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(searchedName.id)} />}
+					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(searchedName.id)} />}
 				</List>
 			))
 		}
 		else{
 			return names?.map((names, id) => (
-				<List key={id}>
-					<Paragraph>{names.first}</Paragraph>
-					<Paragraph>{names.last}</Paragraph>
+				<List key={names.id}>
+					<Paragraph>{names.name}</Paragraph>
+					<Paragraph>{names.surname}</Paragraph>
 					<Paragraph>{names.email}</Paragraph>
-					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(id)} />}
-					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(id)} />}
+					{props.changingPeople &&  <SubmitButton type='submit' value='Změnit' onClick={() => handleClickChanging(names.id)} />}
+					{props.deletingPeople &&  <SubmitButton type='submit' value='Odstranit' onClick={() => handleClickDeleting(names.id)} />}
 				</List>
 			))
 		}
@@ -133,6 +133,7 @@ export default function ListOfPeople(props) {
 				<Settings>
 					<Container>
 						<Input onChange={(e) => setReference(e.target.value)} type="text" placeholder="Search..." />
+						<FontAwesomeIcon icon={faRedo}/>
 					</Container>
 				</Settings>
 				<UnsortedList>{funcNames()}</UnsortedList>
