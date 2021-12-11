@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
+
 const List = styled.li`
 	display: grid;
 
@@ -76,16 +77,16 @@ const Container = styled.div`
 	flex-wrap: wrap;
 	margin-left: 1rem;
 `
-export default  function ListOfPeople(props) {
+export default function ListOfPeople(props) {
 	const [reference, setReference] = useState()
 	const [names, setNames] = useState(null)
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect( async () => {
+	useEffect(async () => {
 		let res = await fetch('../../api/users/info')
 		setNames(await res.json())
 		props.setReload(false)
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.reload])
 
 	const theme = useContext(Context)
@@ -94,8 +95,18 @@ export default  function ListOfPeople(props) {
 	}
 	function handleClickDeleting(id) {
 		if (confirm('Opravdu si přejete odstranit uživatele?')) {
-			props.setId(id)
-			alert('Uživatel byl odstraněn')
+			fetch(`../../../api/users/${id}`, {
+				method: 'DELETE',
+				headers: {
+					'content-type': 'application/json',
+				},
+			}).then(res => {
+				if (!res.ok) {
+					//console.error(res.text)
+				}
+				alert('Uživatel byl odstraněn')
+				props.setReload(true)
+			})
 		}
 	}
 	function funcNames() {
@@ -133,7 +144,7 @@ export default  function ListOfPeople(props) {
 				</List>
 			))
 		} else {
-			return names?.map((names) => (
+			return names?.map(names => (
 				<List key={names.id}>
 					<Paragraph>{names.name}</Paragraph>
 					<Paragraph>{names.surname}</Paragraph>
@@ -166,7 +177,6 @@ export default  function ListOfPeople(props) {
 							type="text"
 							placeholder="Search..."
 						/>
-					
 					</Container>
 				</Settings>
 				<UnsortedList>{funcNames()}</UnsortedList>
