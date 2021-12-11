@@ -80,7 +80,7 @@ const AddingPeople = () => {
 				'content-type': 'application/json',
 			},
 			body: JSON.stringify({
-				data,
+				...data
 			}),
 		}).then(res => {
 			if (!res.ok) {
