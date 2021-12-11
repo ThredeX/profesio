@@ -74,7 +74,7 @@ const AddingPeople = () => {
 			data.entry_year = parseInt(e.target.yearOfEntry.value)
 		}
 		console.log(data)
-		fetch('../../../api/users/student', {
+		fetch(`../../../api/users/${whichPeople}`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
@@ -121,7 +121,7 @@ const AddingPeople = () => {
 										type="radio"
 										name="radio"
 										id="radio4"
-										value="admin"
+										value="administrator"
 									/>
 								</Div>
 							</div>
@@ -221,7 +221,7 @@ const AddingPeople = () => {
 									<SubmitButton type="submit" value="Add" />
 								</ButtonDiv>
 							</Form>
-						) : whichPeople === 'admin' ? (
+						) : whichPeople === 'administrator' ? (
 							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
 								<FormDiv>
 									<Label htmlFor="firstName">Jméno: </Label>
