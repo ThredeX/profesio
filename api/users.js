@@ -47,7 +47,7 @@ router.post('/teacher', async (req, res) => {
 router.post('/administrator', async (req, res) => {
 	try {
 		const user = await usergen(req.body)
-		await user.createAdministrator()
+		await user.createAdministrator({can_edit: req.body.can_edit})
 	} catch (error) {
 		res.status(500).send(error)
 	}

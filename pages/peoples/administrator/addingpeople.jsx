@@ -59,6 +59,11 @@ const FormDiv = styled.div`
 const ButtonDiv = styled.div`
 	margin-top: 1rem;
 `
+const Div2 = styled.div`
+	width: 100%;
+	margin-block: 0.3rem;
+	margin-left: -0.3rem;
+`
 
 //adding people
 const AddingPeople = () => {
@@ -72,6 +77,9 @@ const AddingPeople = () => {
 		data.telephone_number = e.target.phoneNumber.value
 		if (whichPeople === 'student') {
 			data.entry_year = parseInt(e.target.yearOfEntry.value)
+		}
+		if (whichPeople === 'administrator') {
+			data.can_edit = e.target.can_edit.checked
 		}
 		console.log(data)
 		fetch(`../../../api/users/${whichPeople}`, {
@@ -258,6 +266,12 @@ const AddingPeople = () => {
 										id="phoneNumber"
 										name="phoneNumber"
 									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="can_edit">Editovaní:</Label>
+									<Div2>
+										<Radio name="can_edit" type="checkbox" />
+									</Div2>
 								</FormDiv>
 								<ButtonDiv>
 									<SubmitButton type="submit" value="Add" />
