@@ -5,7 +5,6 @@ import NavBar from '../../../Components/NavBar'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
 
 import styled, { ThemeProvider } from 'styled-components'
-import { Formik, Field } from 'formik'
 
 import {
 	Form,
@@ -64,19 +63,36 @@ const ButtonDiv = styled.div`
 //adding people
 const AddingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState('student')
-
-	const style = {
-		width: '100%',
-		borderRadius: '20px',
-		marginBlock: '.3rem',
-		padding: '.3rem .6rem',
+	function handleSubmit(e) {
+		e.preventDefault()
+		let data = {}
+		data.name = e.target.firstName.value
+		data.surname = e.target.lastName.value
+		data.email = e.target.email.value
+		data.telephone_number = e.target.phoneNumber.value
+		if (whichPeople === 'student') {
+			data.entry_year = parseInt(e.target.yearOfEntry.value)
+		}
+		console.log(data)
+		fetch('../../../api/users/student', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify({
+				data,
+			}),
+		}).then(res => {
+			if (!res.ok) {
+				console.error(res.text)
+			}
+		})
 	}
-
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
-				<NavBar route="administrator" theme={useContext(Context)}/>
+				<NavBar route="administrator" theme={useContext(Context)} />
 				<MainHeading>Přidání lidí</MainHeading>
 				<Main>
 					<FormContainer1>
@@ -101,7 +117,6 @@ const AddingPeople = () => {
 										value="teacher"
 									/>
 								</Div>
-								
 								<Div>
 									<Label htmlFor="radio4">Administrátor: </Label>
 									<Radio
@@ -113,225 +128,144 @@ const AddingPeople = () => {
 								</Div>
 							</div>
 						</FormRadio>
-						<Formik
-							initialValues={{
-								firstName: '',
-								lastName: '',
-								email: '',
-								phoneNumber: '',
-								yearOfEntry: '',
-								study: '',
-								position: '',
-							}}
-							onSubmit={(values) => {
-								let data = {}
-								data.firstName = values.firstName
-								data.lastName = values.lastName
-								data.email = values.email
-								data.phoneNumber = values.phoneNumber
-								if(whichPeople === 'student') {
-									data.entry_year = values.yearOfEntry
-								}
+						{whichPeople === 'student' ? (
+							<Form onSubmit={handleSubmit} style={{ margin: 0 }}>
+								<FormDiv>
+									<Label htmlFor="firstName">Jméno: </Label>
+									<Input
+										type="text"
+										placeholder="Jméno"
+										id="firstName"
+										name="firstName"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="lastName">Příjmení: </Label>
+									<Input
+										type="text"
+										placeholder="Příjmení"
+										id="lastName"
+										name="lastName"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="email">E-mail: </Label>
+									<Input
+										type="email"
+										placeholder="E-mail"
+										id="email"
+										name="email"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="phoneNumber">Telefon: </Label>
+									<Input
+										type="number"
+										placeholder="Telefon"
+										id="phoneNumber"
+										name="phoneNumber"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="yearOfEntry">Rok nástupu:</Label>
+									<Input
+										type="number"
+										min="1990"
+										max={new Date().getFullYear()}
+										id="yearOfEntry"
+										name="yearOfEntry"
+									/>
+								</FormDiv>
 
-								fetch('../../../api/users/student', {
-									headers: {
-										'content-type': 'application/json'
-									},
-									body: JSON.stringify(data)
-								})
-								.then(res => {
-									if(!res.ok) {
-										console.error(res.status);
-									}
-								})
-							}}>
-							{() => {
-								switch (whichPeople) {
-									case 'student': {
-										return (
-											<Form style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:{' '}
-													</Label>
-													<Input
-														type="number"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="yearOfEntry">
-														Rok nástupu:
-													</Label>
-													<Input
-														type="number"
-														min="1990"
-														max={new Date().getFullYear()}
-														id="yearOfEntry"
-														name="yearOfEntry"
-													/>
-												</FormDiv>
-											
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Add"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
-									case 'teacher': {
-										return (
-											<Form style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:
-													</Label>
-													<Input
-														type="number"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Add"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
-									
-									case 'admin': {
-										return (
-											<Form style={{ margin: 0 }}>
-												<FormDiv>
-													<Label htmlFor="firstName">
-														Jméno:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Jméno"
-														id="firstName"
-														name="firstName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="lastName">
-														Příjmení:{' '}
-													</Label>
-													<Input
-														type="text"
-														placeholder="Příjmení"
-														id="lastName"
-														name="lastName"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="email">
-														E-mail:{' '}
-													</Label>
-													<Input
-														type="email"
-														placeholder="E-mail"
-														id="email"
-														name="email"
-													/>
-												</FormDiv>
-												<FormDiv>
-													<Label htmlFor="phoneNumber">
-														Telefon:
-													</Label>
-													<Input
-														type="number"
-														placeholder="Telefon"
-														id="phoneNumber"
-														name="phoneNumber"
-													/>
-												</FormDiv>
-												<ButtonDiv>
-													<SubmitButton
-														type="submit"
-														value="Add"
-													/>
-												</ButtonDiv>
-											</Form>
-										)
-									}
-								}
-							}}
-						</Formik>
+								<ButtonDiv>
+									<SubmitButton type="submit" value="Add" />
+								</ButtonDiv>
+							</Form>
+						) : whichPeople === 'teacher' ? (
+							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
+								<FormDiv>
+									<Label htmlFor="firstName">Jméno: </Label>
+									<Input
+										type="text"
+										placeholder="Jméno"
+										id="firstName"
+										name="firstName"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="lastName">Příjmení: </Label>
+									<Input
+										type="text"
+										placeholder="Příjmení"
+										id="lastName"
+										name="lastName"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="email">E-mail: </Label>
+									<Input
+										type="email"
+										placeholder="E-mail"
+										id="email"
+										name="email"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="phoneNumber">Telefon:</Label>
+									<Input
+										type="number"
+										placeholder="Telefon"
+										id="phoneNumber"
+										name="phoneNumber"
+									/>
+								</FormDiv>
+								<ButtonDiv>
+									<SubmitButton type="submit" value="Add" />
+								</ButtonDiv>
+							</Form>
+						) : whichPeople === 'admin' ? (
+							<Form style={{ margin: 0 }} onSubmit={handleSubmit}>
+								<FormDiv>
+									<Label htmlFor="firstName">Jméno: </Label>
+									<Input
+										type="text"
+										placeholder="Jméno"
+										id="firstName"
+										name="firstName"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="lastName">Příjmení: </Label>
+									<Input
+										type="text"
+										placeholder="Příjmení"
+										id="lastName"
+										name="lastName"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="email">E-mail: </Label>
+									<Input
+										type="email"
+										placeholder="E-mail"
+										id="email"
+										name="email"
+									/>
+								</FormDiv>
+								<FormDiv>
+									<Label htmlFor="phoneNumber">Telefon:</Label>
+									<Input
+										type="number"
+										placeholder="Telefon"
+										id="phoneNumber"
+										name="phoneNumber"
+									/>
+								</FormDiv>
+								<ButtonDiv>
+									<SubmitButton type="submit" value="Add" />
+								</ButtonDiv>
+							</Form>
+						) : null}
 					</FormContainer1>
 					<ListOfPeople />
 				</Main>

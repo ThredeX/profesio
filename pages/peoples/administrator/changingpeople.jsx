@@ -120,7 +120,9 @@ const ChangingPeople = props => {
 								phoneNumber: '',
 								yearOfEntry: '',
 							}}
-							onSubmit={(values) => {
+							onSubmit={async (values, {setSubmiting, resetForm}) => {
+								setSubmiting(true)
+
 								let dataChange = {}
 								dataChange.name = values.firstName
 								dataChange.surname = values.lastName
@@ -130,6 +132,7 @@ const ChangingPeople = props => {
 									dataChange.entry_year = values.yearOfEntry
 								}
 								fetch(`../../../api/users/${id}`, {
+									method: 'POST',
 									headers: {
 										'content-type': 'application/json'
 									},
