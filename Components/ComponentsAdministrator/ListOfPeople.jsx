@@ -3,6 +3,8 @@ import styled, { ThemeProvider } from 'styled-components'
 import { useFetch } from '../../hooks/useFetch'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
+import {faRedo} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const List = styled.li`
 	display: grid;
@@ -131,6 +133,7 @@ export default function ListOfPeople(props) {
 				<Settings>
 					<Container>
 						<Input onChange={(e) => setReference(e.target.value)} type="text" placeholder="Search..." />
+						<FontAwesomeIcon icon={faRedo}/>
 					</Container>
 				</Settings>
 				<UnsortedList>{funcNames()}</UnsortedList>

@@ -3,9 +3,7 @@ import styled from 'styled-components'
 export const Form = styled.form`
 	width: clamp(20rem, 20vw, 80vw);
 `
-export const Form3 = styled.div`
-	width: clamp(20rem, 20vw, 80vw);
-`
+
 export const Form2 = styled.form`
 	width: clamp(15rem, 80%, 80vw);
 	margin-left: 1rem;
