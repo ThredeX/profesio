@@ -11,7 +11,8 @@ import {
 	faGear,
 	faGears,
 	faUser,
-	faTable
+	faTable,
+	faFileAlt
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { Context } from '../pages/_app'
@@ -215,6 +216,23 @@ export default function NavBar({ route, name }) {
 										</Div>
 										<Paragraph className="noneOpen">
 											Odebrat studenta/zaměstnance
+										</Paragraph>
+									</A>
+								</Link>
+								<Line></Line>
+								<Link
+									href={`/peoples/${route}/subjectmodify`}
+									passHref>
+									<A>
+										<Div>
+											<FontAwesomeIcon
+												style={faIconSize}
+												icon={faFileAlt}
+												color={theme.color}
+											/>
+										</Div>
+										<Paragraph className="noneOpen">
+											Přidat/odebrat předmět
 										</Paragraph>
 									</A>
 								</Link>
