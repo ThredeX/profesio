@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 	Student.associate = function (models) {
 		Student.belongsTo(models.Specialization)
 		Student.belongsTo(models.User)
-		Student.belongsToMany(models.Lecture, { through: 'Participation' })
+		Student.belongsToMany(models.Lecture, { through: models.Participation })
 	}
 
 	return Student
