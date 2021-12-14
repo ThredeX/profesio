@@ -8,16 +8,16 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 				autoIncrement: true,
 			},
-			topic: {
-				type: DataTypes.STRING,
-				allowNull: false,
-			},
 			beginning: {
-				type: DataTypes.DATE,
+				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
 			end: {
-				type: DataTypes.DATE,
+				type: DataTypes.INTEGER,
+				allowNull: false,
+			},
+			days: {
+				type: DataTypes.STRING,
 				allowNull: false,
 			},
 		},
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 		Lecture.belongsTo(models.Teacher)
 		Lecture.belongsTo(models.Room)
 		Lecture.belongsTo(models.Faculty)
-		Lecture.belongsToMany(models.Student, { through: 'Participation' })
+		Lecture.belongsToMany(models.Student, { through: models.Participation })
 	}
 
 	return Lecture
