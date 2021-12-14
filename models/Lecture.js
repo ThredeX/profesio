@@ -13,11 +13,15 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 			},
 			beginning: {
-				type: DataTypes.DATE,
+				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
 			end: {
-				type: DataTypes.DATE,
+				type: DataTypes.INTEGER,
+				allowNull: false,
+			},
+			days: {
+				type: DataTypes.STRING,
 				allowNull: false,
 			},
 		},
