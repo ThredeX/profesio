@@ -9,18 +9,6 @@ router.get('/info', async (req, res) => {
 })
 
 // AUTHENTICATION REQUIRED
-// Update school timetable closing time to date
-router.post('/timetableend', async (req, res) => {
-	try {
-		const school = await School.findOne()
-		await school.update(req.body)
-		res.status(200).json({ message: 'School time table close time updated' })
-	} catch (error) {
-		res.status(500).send(error)
-	}
-})
-
-// AUTHENTICATION REQUIRED
 // Update school info
 router.post('/info', async (req, res) => {
 	try {

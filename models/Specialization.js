@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Specialization.associate = function (models) {
 		Specialization.hasOne(models.Student)
-		Specialization.belongsTo(models.Faculty)
+		//Specialization.belongsTo(models.Faculty)
 	}
 
 	return Specialization
