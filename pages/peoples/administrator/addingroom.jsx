@@ -136,7 +136,7 @@ const AddingRoom = props => {
 					<Box>
 					<Margin></Margin>
 						<Select2 name="fakulty" onClick={e => setState(e.target.value)}>
-							{fakulty.map((fakulta, i) => (
+							{fakulty?.map((fakulta, i) => (
 								<Option value={i} key={i}>
 									{fakulta.name}
 								</Option>
