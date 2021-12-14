@@ -9,8 +9,27 @@ const Administrator = require('../models').Administrator
 // AUTHENTICATION REQUIRED
 // Get all users in the database
 router.get('/info', async (req, res) => {
-	const users = await User.findAll()
-	res.json(users.map(user => user.toJSON()))
+	try {
+		const students = await Student.findAll({
+			attributes: { exclude: ['password'] },
+			include: [User],
+		})
+		const teachers = await Teacher.findAll({
+			attributes: { exclude: ['password'] },
+			include: [User],
+		})
+		const administrators = await Administrator.findAll({
+			attributes: { exclude: ['password'] },
+			include: [User],
+		})
+		res.json({
+			students: students.map(student => student.toJSON()),
+			teachers: teachers.map(teacher => teacher.toJSON()),
+			administrators: administrators.map(administrator => administrator.toJSON()),
+		})
+	} catch (err) {
+		res.status(500).json({ error: err.message })
+	}
 })
 
 // AUTHENTICATION REQUIRED
@@ -18,12 +37,12 @@ router.get('/info', async (req, res) => {
 router.post('/student', async (req, res) => {
 	try {
 		const user = await usergen(req.body)
-		await user.createStudent({entry_year: req.body.entry_year})
+		await user.createStudent({ entry_year: req.body.entry_year })
 		res.status(204).json({
 			message: 'User created',
 		})
 	} catch (error) {
-		console.error(error);
+		console.error(error)
 		res.status(500).send(error)
 	}
 })
@@ -47,7 +66,7 @@ router.post('/teacher', async (req, res) => {
 router.post('/administrator', async (req, res) => {
 	try {
 		const user = await usergen(req.body)
-		await user.createAdministrator({can_edit: req.body.can_edit})
+		await user.createAdministrator({ can_edit: req.body.can_edit })
 	} catch (error) {
 		res.status(500).send(error)
 	}
@@ -80,6 +99,5 @@ router.post('/:id', async (req, res) => {
 		res.status(500).send(error)
 	}
 })
-
 
 module.exports = router
