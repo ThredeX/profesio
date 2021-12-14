@@ -67,6 +67,9 @@ router.post('/administrator', async (req, res) => {
 	try {
 		const user = await usergen(req.body)
 		await user.createAdministrator({ can_edit: req.body.can_edit })
+		res.status(204).json({
+			message: 'User created',
+		})
 	} catch (error) {
 		res.status(500).send(error)
 	}
@@ -77,10 +80,10 @@ router.post('/administrator', async (req, res) => {
 router.delete('/:id', async (req, res) => {
 	try {
 		const user = await User.findByPk(req.params.id)
+		await user.destroy()
 		res.status(204).json({
 			message: 'User deleted',
 		})
-		await user.destroy()
 	} catch (error) {
 		res.status(500).send(error)
 	}
