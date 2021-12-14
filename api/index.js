@@ -3,6 +3,7 @@ const router = express.Router()
 
 const userRouter = require('./users')
 const schoolRouter = require('./school')
+const adminRouter = require('./admin')
 
 router.use(express.json())
 
