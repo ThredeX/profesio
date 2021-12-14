@@ -20,18 +20,6 @@ router.post('/info', async (req, res) => {
 	}
 })
 
-// AUTHENTICATION REQUIRED
-// Update school timetable closing time to date
-router.post('/timetable', async (req, res) => {
-	try {
-		const school = await School.findOne()
-		await school.update(req.body)
-		res.status(200).json({ message: 'School time table close time updated' })
-	} catch (error) {
-		res.status(500).send(error)
-	}
-})
-
 // Return all subjects
 router.get('/subject', async (req, res) => {
 	const subjects = await Subject.findAll()
