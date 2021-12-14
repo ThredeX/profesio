@@ -9,6 +9,12 @@ assignees: ''
 
 * Method: (metoda)  
 
-* Data:  (data, které jsou žádány / posílány)  
+* Data:  (data, které jsou žádány / posílány) 
+
+* Format: 
+```json
+
+
+```
 
 * Administrator:  (true: je zapotřebí být admin, aby , false:  není třeba)
