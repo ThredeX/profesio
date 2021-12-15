@@ -60,7 +60,7 @@ const AddingRoom = props => {
 	const handleClick = e => {
 		e.preventDefault()
 		if (confirm('Opravdu si přejete odstranit fakultu?')) {
-			fetch(`../../../api/faculty${facultyDelete}`, {
+			fetch(`../../../api/faculty/${facultyDelete}`, {
 				method: 'DELETE',
 				headers: {
 					'content-type': 'application/json'
