@@ -33,13 +33,15 @@ const Info = styled.div`
 	opacity: 0;
 	background-color: #383838;
 	height: auto;
-	border-radius: 10px;
+	border-radius: 8px;
 	z-index: 10;
-	width: auto;
+	width: 15rem;
+	font-size: .8rem;
 	position: absolute;
 	transition: opacity 1s;
 	transform: translateY(-40%);
-	padding: 2rem;
+	padding: .5rem;
+	border-left: ${props => props.theme.color} 5px solid;
 	@media screen and (max-width: 500px) {
 		width: auto;
 	}
@@ -126,13 +128,10 @@ const ChangingTimetable = () => {
 																			{e.shortNameSubject}
 																		</p>
 																		<Info ref={(element) => showInfoRefOver.current[i][key] = element}>
-																			<span>
-																				{e.subjectName} <br />{' '}
-																			</span>
-																			{e.name} <br />{' '}
-																			{e.shortNameFaculty}{' '}
+																			Předmět: {e.subjectName} <br />{' '}
+																			Fakulta: {e.name} ({e.shortNameFaculty})
 																			<br /> 
-																			{e.class}
+																			Třída: {e.class}
 																		</Info>
 																	</Div2>
 																</Td>

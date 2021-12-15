@@ -102,10 +102,13 @@ export default function ListOfPeople(props) {
 				},
 			}).then(res => {
 				if (!res.ok) {
-					//console.error(res.text)
+					console.error(res.text)
+					alert('error - uživatel nebyl odstraněn')
 				}
-				alert('Uživatel byl odstraněn')
-				props.setReload(true)
+				else {
+					alert('Uživatel byl odstraněn')
+					props.setReload(true)
+				}
 			})
 		}
 	}
@@ -144,23 +147,23 @@ export default function ListOfPeople(props) {
 				</List>
 			))
 		} else {
-			return names?.map(names => (
-				<List key={names.id}>
-					<Paragraph>{names.name}</Paragraph>
-					<Paragraph>{names.surname}</Paragraph>
-					<Paragraph>{names.email}</Paragraph>
+			return names?.map(name => (
+				<List key={name.id}>
+					<Paragraph>{name.name}</Paragraph>
+					<Paragraph>{name.surname}</Paragraph>
+					<Paragraph>{name.email}</Paragraph>
 					{props.changingPeople && (
 						<SubmitButton
 							type="submit"
 							value="Změnit"
-							onClick={() => handleClickChanging(names.id)}
+							onClick={() => handleClickChanging(name.id)}
 						/>
 					)}
 					{props.deletingPeople && (
 						<SubmitButton
 							type="submit"
 							value="Odstranit"
-							onClick={() => handleClickDeleting(names.id)}
+							onClick={() => handleClickDeleting(name.id)}
 						/>
 					)}
 				</List>

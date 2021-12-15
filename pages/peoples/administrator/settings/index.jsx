@@ -7,7 +7,6 @@ import { ThemeProvider } from 'styled-components'
 import { Context } from '../../../_app'
 import { MainHeading, Main} from '../../../../theme'
 import PasswordChange from '../../../../Components/PasswordChange'
-import ThemeChange from '../../../../Components/ThemeChange'
 
 
 const Index = () => {
@@ -20,7 +19,6 @@ const Index = () => {
             <MainHeading>Nastavení uživatele</MainHeading>
             <Main>
                 <PasswordChange />
-                <ThemeChange />
             </Main>
         </ThemeProvider>
     </>
