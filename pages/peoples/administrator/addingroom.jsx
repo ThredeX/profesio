@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
 import Header from '../../../Components/Header'
@@ -46,12 +46,26 @@ const Margin = styled.div`
 `
 const AddingRoom = props => {
 	const [state, setState] = useState(0)
+	const [faculties, setFaculties] = useState(null)
 	const [faculty, setFaculty] = useState(null)
 	const [facultyDelete, setFacultyDelete] = useState(null)
+
+	useEffect(() => {
+		async () => {
+			let res = await fetch('../../../api/faculty/all')
+			setFaculties(await res.json());
+		}
+	}, [])
 
 	const handleClick = e => {
 		e.preventDefault()
 		if (confirm('Opravdu si přejete odstranit fakultu?')) {
+			fetch(`../../../api/faculty${facultyDelete}`, {
+				method: 'DELETE',
+				headers: {
+					'content-type': 'application/json'
+				}
+			})
 			alert('Fakulta byla odstraněna')
 		}
 	}
@@ -88,10 +102,10 @@ const AddingRoom = props => {
 							) : (
 								<Form>
 									<FormDiv>
-										<Select2 name="fakulty" onClick={e => setFacultyDelete(e.target.value)}>
-											{fakulty.map((fakulta, i) => (
-												<Option value={i} key={i}>
-													{fakulta.name}
+										<Select2 name="faculty" onClick={e => setFacultyDelete(e.target.value)}>
+											{faculties?.map((faculty) => (
+												<Option value={faculty.id} key={faculty.id}>
+													{faculty.name}
 												</Option>
 											))}
 										</Select2>
@@ -103,16 +117,16 @@ const AddingRoom = props => {
 					</Box>
 					<Box>
 						<Margin></Margin>
-						<Select2 name="fakulty" onClick={e => setState(e.target.value)}>
-							{fakulty?.map((fakulta, i) => (
-								<Option value={i} key={i}>
-									{fakulta.name}
+						<Select2 name="faculty" onClick={e => setState(e.target.value)}>
+							{faculties?.map((faculty) => (
+								<Option value={faculty.id} key={faculty.id}>
+									{faculty.name}
 								</Option>
 							))}
 						</Select2>
 						<Input style={{ maxWidth: '10rem' }} placeholder="Název budovy" title="Budova, do které budete přidávat místnosti/rozvrhy" />
 					</Box>
-					<TimetableComp faculty={fakulty[state]} changeTT={false} />
+					<TimetableComp changeTT={false} />
 				</Main>
 			</ThemeProvider>
 		</>
@@ -120,91 +134,3 @@ const AddingRoom = props => {
 }
 export default AddingRoom
 
-const table = {
-	time: [
-		{
-			start: '8:00',
-			end: '9:30',
-		},
-		{
-			start: '10:00',
-			end: '10:30',
-		},
-		{
-			start: '10:00',
-			end: '10:30',
-		},
-		{
-			start: '11:00',
-			end: '12:30',
-		},
-		{
-			start: '13:00',
-			end: '14:30',
-		},
-		{
-			start: '15:00',
-			end: '16:30',
-		},
-	],
-	subjects: [
-		[
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-		],
-		[
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-		],
-		[
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-		],
-		[
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-		],
-		[
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-			{ name: 'Linearni algebra', shortName: 'La', teacher: 'PhD. Kozajska' },
-		],
-	],
-}
-
-const fakulty = [
-	{
-		name: 'Fakulta informačních technologií',
-		shortName: 'FIT',
-		timetable: table,
-	},
-	{
-		name: 'Fakulta Stavební',
-		shortName: 'FAST',
-		timetable: table,
-	},
-	{
-		name: 'Fakulta Podnikatelská',
-		shortName: 'FP',
-		timetable: table,
-	},
-]

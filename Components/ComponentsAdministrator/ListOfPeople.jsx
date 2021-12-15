@@ -87,8 +87,8 @@ export default function ListOfPeople(props) {
 			let res = await fetch('../../api/users/info')
 			setNames(await res.json())
 			props.setReload(false)
-			// eslint-disable-next-line react-hooks/exhaustive-deps
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[props.reload],
 	)
 

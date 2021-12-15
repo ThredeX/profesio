@@ -101,7 +101,7 @@ const Textarea = styled.textarea`
 	font-size: 1rem;
 	padding-inline: 0.5rem;
 `
-export default function TimetableAdding({ changeTT }, props) {
+export default function TimetableAdding({ changeTT }) {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const timeRef = useRef(null)
@@ -291,7 +291,7 @@ export default function TimetableAdding({ changeTT }, props) {
 			console.log(timeData);
 		}
 		console.log({
-			fakulta: changeTT ? timetableState.fakulta.shortName : props.faculty,
+			fakulta: changeTT ? timetableState.fakulta.shortName : '',
 			timetable: { subject: subjectData, time: timeData, room: room},
 		})
 		alert('Uloženo')
