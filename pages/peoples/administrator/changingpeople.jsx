@@ -104,8 +104,12 @@ const ChangingPeople = props => {
 		})
 	}
 	useEffect(() => {
-		setDataID(dataFetch[id - 1])
-		console.log(dataFetch[id - 1]);
+		for (let i = 0; i < dataFetch.length; i++) {
+			if (dataFetch[i]?.UserId === id) {
+				console.log(dataFetch[i])
+				setDataID(dataFetch[i])
+			}
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id])
 
@@ -170,7 +174,7 @@ const ChangingPeople = props => {
 												placeholder="Jméno"
 												id="firstName"
 												name="firstName"
-												defaultValue={dataID?.name}
+												defaultValue={dataID?.User.name}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -180,7 +184,7 @@ const ChangingPeople = props => {
 												placeholder="Příjmení"
 												id="lastName"
 												name="lastName"
-												defaultValue={dataID?.surname}
+												defaultValue={dataID?.User.surname}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -190,7 +194,7 @@ const ChangingPeople = props => {
 												placeholder="E-mail"
 												id="email"
 												name="email"
-												defaultValue={dataID?.email}
+												defaultValue={dataID?.User.email}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -202,7 +206,7 @@ const ChangingPeople = props => {
 												placeholder="Telefon"
 												id="phoneNumber"
 												name="phoneNumber"
-												defaultValue={dataID?.telephone_number}
+												defaultValue={dataID?.User.telephone_number}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -215,7 +219,7 @@ const ChangingPeople = props => {
 												max={new Date().getFullYear()}
 												id="yearOfEntry"
 												name="yearOfEntry"
-												defaultValue={dataID?.entry_year}
+												defaultValue={dataID?.User.entry_year}
 											/>
 										</FormDiv>
 
@@ -232,7 +236,7 @@ const ChangingPeople = props => {
 												placeholder="Jméno"
 												id="firstName"
 												name="firstName"
-												defaultValue={dataID?.name}
+												defaultValue={dataID?.User.name}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -242,7 +246,7 @@ const ChangingPeople = props => {
 												placeholder="Příjmení"
 												id="lastName"
 												name="lastName"
-												defaultValue={dataID?.surname}
+												defaultValue={dataID?.User.surname}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -252,7 +256,7 @@ const ChangingPeople = props => {
 												placeholder="E-mail"
 												id="email"
 												name="email"
-												defaultValue={dataID?.email}
+												defaultValue={dataID?.User.email}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -264,7 +268,7 @@ const ChangingPeople = props => {
 												placeholder="Telefon"
 												id="phoneNumber"
 												name="phoneNumber"
-												defaultValue={dataID?.telephone_number}
+												defaultValue={dataID?.User.telephone_number}
 											/>
 										</FormDiv>
 										<ButtonDiv>
@@ -280,7 +284,7 @@ const ChangingPeople = props => {
 												placeholder="Jméno"
 												id="firstName"
 												name="firstName"
-												defaultValue={dataID?.name}
+												defaultValue={dataID?.User.name}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -290,7 +294,7 @@ const ChangingPeople = props => {
 												placeholder="Příjmení"
 												id="lastName"
 												name="lastName"
-												defaultValue={dataID?.surname}
+												defaultValue={dataID?.User.surname}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -300,7 +304,7 @@ const ChangingPeople = props => {
 												placeholder="E-mail"
 												id="email"
 												name="email"
-												defaultValue={dataID?.email}
+												defaultValue={dataID?.User.email}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -312,7 +316,7 @@ const ChangingPeople = props => {
 												placeholder="Telefon"
 												id="phoneNumber"
 												name="phoneNumber"
-												defaultValue={dataID?.telephone_number}
+												defaultValue={dataID?.User.telephone_number}
 											/>
 										</FormDiv>
 										<FormDiv>
@@ -321,7 +325,7 @@ const ChangingPeople = props => {
 												<Radio
 													name="can_edit"
 													type="checkbox"
-													checked={dataID?.can_edit}
+													checked={dataID?.User.can_edit}
 												/>
 											</Div2>
 										</FormDiv>

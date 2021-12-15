@@ -36,16 +36,15 @@ const Info = styled.div`
 	border-radius: 8px;
 	z-index: 10;
 	width: 15rem;
-	font-size: .8rem;
+	font-size: 0.8rem;
 	position: absolute;
 	transition: opacity 1s;
 	transform: translateY(-40%);
-	padding: .5rem;
+	padding: 0.5rem;
 	border-left: ${props => props.theme.color} 5px solid;
 	@media screen and (max-width: 500px) {
 		width: auto;
 	}
-	
 `
 const Div2 = styled.div`
 	color: ${props => props.theme.text};
@@ -57,26 +56,25 @@ const Div2 = styled.div`
 		font-size: 0.6rem;
 	}
 	position: relative;
-	
 `
 
 const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
-	const showInfoRefClick = useRef([...new Array(5)].map(() => []));
-	const showInfoRefOver = useRef([...new Array(5)].map(() => []));
-	
+	const showInfoRefClick = useRef([...new Array(5)].map(() => []))
+	const showInfoRefOver = useRef([...new Array(5)].map(() => []))
+
 	useEffect(() => {
-		setTimetableState({fakulta})
+		setTimetableState({ fakulta })
 	}, [])
 	useEffect(() => {
-		for(let i = 0;i < showInfoRefClick.current.length;i++) {
-			for(let j = 0;j < showInfoRefClick.current[i].length;j++) {
+		for (let i = 0; i < showInfoRefClick.current.length; i++) {
+			for (let j = 0; j < showInfoRefClick.current[i].length; j++) {
 				showInfoRefClick.current[i][j].onclick = () => {
-					showInfoRefOver.current[i][j].style.opacity = '1';
+					showInfoRefOver.current[i][j].style.opacity = '1'
 				}
 				showInfoRefOver.current[i][j].onmouseleave = () => {
-					showInfoRefOver.current[i][j].style.opacity = '0';
+					showInfoRefOver.current[i][j].style.opacity = '0'
 				}
 			}
 		}
@@ -97,19 +95,17 @@ const ChangingTimetable = () => {
 										<Tr>
 											<Th></Th>
 											{!!timetableState.fakulta &&
-												timetableState.fakulta.timetable.time.map(
-													(value, i) => (
-														<Th key={i}>
-															<Paragraph>
-																{value.start}
-																<br />
-																-
-																<br />
-																{value.end}
-															</Paragraph>
-														</Th>
-													),
-												)}
+												timetableState.fakulta.timetable.time.map((value, i) => (
+													<Th key={i}>
+														<Paragraph>
+															{value.start}
+															<br />
+															-
+															<br />
+															{value.end}
+														</Paragraph>
+													</Th>
+												))}
 										</Tr>
 									</Thead>
 									<Tbody>
@@ -118,19 +114,14 @@ const ChangingTimetable = () => {
 												<Tr key={i}>
 													<Td>{day}</Td>
 													{timetableState.fakulta &&
-														timetableState.fakulta.timetable.subject[
-															i
-														].map((e, key) => {
+														timetableState.fakulta.timetable.subject[i].map((e, key) => {
 															return (
 																<Td key={key}>
-																	<Div2 ref={(element) => showInfoRefClick.current[i][key] = element}>
-																		<p>
-																			{e.shortNameSubject}
-																		</p>
-																		<Info ref={(element) => showInfoRefOver.current[i][key] = element}>
-																			Předmět: {e.subjectName} <br />{' '}
-																			Fakulta: {e.name} ({e.shortNameFaculty})
-																			<br /> 
+																	<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
+																		<p>{e.shortNameSubject}</p>
+																		<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
+																			Předmět: {e.subjectName} <br /> Fakulta: {e.name} ({e.shortNameFaculty})
+																			<br />
 																			Třída: {e.class}
 																		</Info>
 																	</Div2>

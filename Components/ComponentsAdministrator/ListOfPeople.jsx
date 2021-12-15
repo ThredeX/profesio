@@ -81,13 +81,16 @@ export default function ListOfPeople(props) {
 	const [reference, setReference] = useState()
 	const [names, setNames] = useState(null)
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(async () => {
-		let res = await fetch('../../api/users/info')
-		setNames(await res.json())
-		props.setReload(false)
+	useEffect(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.reload])
+		async () => {
+			let res = await fetch('../../api/users/info')
+			setNames(await res.json())
+			props.setReload(false)
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		},
+		[props.reload],
+	)
 
 	const theme = useContext(Context)
 	function handleClickChanging(id) {
@@ -104,8 +107,7 @@ export default function ListOfPeople(props) {
 				if (!res.ok) {
 					console.error(res.text)
 					alert('error - uživatel nebyl odstraněn')
-				}
-				else {
+				} else {
 					alert('Uživatel byl odstraněn')
 					props.setReload(true)
 				}
@@ -118,56 +120,66 @@ export default function ListOfPeople(props) {
 		if (!!names && !!reference) {
 			names?.map(name => {
 				if (
-					`${name.name.toLowerCase()} ${name.surname.toLowerCase()} ${name.email.toLowerCase()}`.includes(
+					`${name.User.name.toLowerCase()} ${name.User.surname.toLowerCase()} ${name.User.email.toLowerCase()}`.includes(
 						reference.trim().toLowerCase(),
 					)
 				) {
 					searched.push(name)
 				}
 			})
-			return searched?.map(searchedName => (
-				<List key={searchedName.id}>
-					<Paragraph>{searchedName.name}</Paragraph>
-					<Paragraph>{searchedName.surname}</Paragraph>
-					<Paragraph>{searchedName.email}</Paragraph>
-					{props.changingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Změnit"
-							onClick={() => handleClickChanging(searchedName.id)}
-						/>
-					)}
-					{props.deletingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Odstranit"
-							onClick={() => handleClickDeleting(searchedName.id)}
-						/>
-					)}
-				</List>
-			))
+			return searched?.map(
+				searchedName =>
+					searchedName.User && (
+						<List key={searchedName.UserId}>
+							<Paragraph>{searchedName.User.name}</Paragraph>
+							<Paragraph>{searchedName.User.surname}</Paragraph>
+							<Paragraph>{searchedName.User.email}</Paragraph>
+							{props.changingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Změnit"
+									onClick={() =>
+										handleClickChanging(searchedName.UserId)
+									}
+								/>
+							)}
+							{props.deletingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Odstranit"
+									onClick={() =>
+										handleClickDeleting(searchedName.UserId)
+									}
+								/>
+							)}
+						</List>
+					),
+			)
 		} else {
-			return names?.map(name => (
-				<List key={name.id}>
-					<Paragraph>{name.name}</Paragraph>
-					<Paragraph>{name.surname}</Paragraph>
-					<Paragraph>{name.email}</Paragraph>
-					{props.changingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Změnit"
-							onClick={() => handleClickChanging(name.id)}
-						/>
-					)}
-					{props.deletingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Odstranit"
-							onClick={() => handleClickDeleting(name.id)}
-						/>
-					)}
-				</List>
-			))
+			return names?.map(
+				name =>
+					name.User && (
+						<List key={name.UserId}>
+							<Paragraph>{name.User.name}</Paragraph>
+							<Paragraph>{name.User.surname}</Paragraph>
+							<Paragraph>{name.User.email}</Paragraph>
+							{props.changingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Změnit"
+									onClick={() => handleClickChanging(name.UserId)}
+								/>
+							)}
+							{props.deletingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Odstranit"
+									onClick={() => handleClickDeleting(name.UserId)}
+								/>
+							)}
+						</List>
+					),
+			)
 		}
 	}
 	return (

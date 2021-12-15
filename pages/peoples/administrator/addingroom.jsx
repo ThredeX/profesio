@@ -4,18 +4,7 @@ import TimetableComp from '../../../Components/ComponentsAdministrator/Timetable
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 
-import {
-	MainHeading,
-	Main,
-	Select2,
-	Option,
-	Box,
-	Input,
-	SubmitButton,
-	Form,
-	Label,
-	Radio,
-} from '../../../theme'
+import { MainHeading, Main, Select2, Option, Box, Input, SubmitButton, Form, Label, Radio } from '../../../theme'
 import { Context } from '../../_app'
 const FormRadio = styled.form`
 	width: 20rem;
@@ -53,7 +42,7 @@ const FormDiv = styled.div`
 	align-items: center;
 `
 const Margin = styled.div`
-margin-block: 1rem;
+	margin-block: 1rem;
 `
 const AddingRoom = props => {
 	const [state, setState] = useState(0)
@@ -81,42 +70,25 @@ const AddingRoom = props => {
 								<div>
 									<Div>
 										<Label htmlFor="radio1">Přídání: </Label>
-										<Radio
-											type="radio"
-											name="radio"
-											id="radio1"
-											value="add"
-										/>
+										<Radio type="radio" name="radio" id="radio1" value="add" />
 									</Div>
 									<Div>
 										<Label htmlFor="radio2">Odstranění: </Label>
-										<Radio
-											type="radio"
-											name="radio"
-											id="radio2"
-											value="delete"
-										/>
+										<Radio type="radio" name="radio" id="radio2" value="delete" />
 									</Div>
 								</div>
 							</FormRadio>
 							{faculty === 'add' ? (
 								<Form>
 									<FormDiv>
-										<Input
-											type="text"
-											placeholder="Přidat fakultu"
-										/>
+										<Input type="text" placeholder="Přidat fakultu" />
 									</FormDiv>
 									<SubmitButton type="submit" value="Přidat" />
 								</Form>
 							) : (
 								<Form>
 									<FormDiv>
-										<Select2
-											name="fakulty"
-											onClick={e =>
-												setFacultyDelete(e.target.value)
-											}>
+										<Select2 name="fakulty" onClick={e => setFacultyDelete(e.target.value)}>
 											{fakulty.map((fakulta, i) => (
 												<Option value={i} key={i}>
 													{fakulta.name}
@@ -124,17 +96,13 @@ const AddingRoom = props => {
 											))}
 										</Select2>
 									</FormDiv>
-									<SubmitButton
-										onClick={handleClick}
-										type="submit"
-										value="Odstranit"
-									/>
+									<SubmitButton onClick={handleClick} type="submit" value="Odstranit" />
 								</Form>
 							)}
 						</Container>
 					</Box>
 					<Box>
-					<Margin></Margin>
+						<Margin></Margin>
 						<Select2 name="fakulty" onClick={e => setState(e.target.value)}>
 							{fakulty?.map((fakulta, i) => (
 								<Option value={i} key={i}>
@@ -142,7 +110,7 @@ const AddingRoom = props => {
 								</Option>
 							))}
 						</Select2>
-						<Input style={{ maxWidth: '10rem' }} placeholder="Název budovy" title='Budova, do které budete přidávat místnosti/rozvrhy' />
+						<Input style={{ maxWidth: '10rem' }} placeholder="Název budovy" title="Budova, do které budete přidávat místnosti/rozvrhy" />
 					</Box>
 					<TimetableComp faculty={fakulty[state]} changeTT={false} />
 				</Main>
