@@ -69,6 +69,16 @@ const AddingRoom = () => {
 			alert('Fakulta byla odstraněna')
 		}
 	}
+	function addFaculty(e) {
+		e.preventDefault()
+		fetch('../../../api/faculty', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/app'
+			},
+			body: JSON.stringify(e.target.faculty_name.value,e.target.faculty_shortName.value)
+		})
+	}
 	return (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
@@ -93,9 +103,12 @@ const AddingRoom = () => {
 								</div>
 							</FormRadio>
 							{faculty === 'add' ? (
-								<Form>
+								<Form onSubmit={addFaculty}>
 									<FormDiv>
-										<Input type="text" placeholder="Přidat fakultu" />
+										<Input type="text" name='faculty_name' placeholder="Název fakulty" />
+									</FormDiv>
+									<FormDiv>
+										<Input type="text" name='faculty_shortName' placeholder="Zkratka fakulty" />
 									</FormDiv>
 									<SubmitButton type="submit" value="Přidat" />
 								</Form>
