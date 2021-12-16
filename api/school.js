@@ -4,7 +4,7 @@ const Subject = require('../models').Subject
 
 // Get all schools info
 router.get('/info', async (req, res) => {
-	const school = await School.findAll()
+	const school = await School.findOne()
 	res.json(school.toJSON())
 })
 

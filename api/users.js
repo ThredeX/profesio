@@ -22,11 +22,11 @@ router.get('/info', async (req, res) => {
 			attributes: { exclude: ['password'] },
 			include: [User],
 		})
-		res.json(
-			students.map(student => student.toJSON()),
-			teachers.map(teacher => teacher.toJSON()),
-			administrators.map(administrator => administrator.toJSON()),
-		)
+		res.json({
+			students: students.map(student => student.toJSON()),
+			teachers: teachers.map(teacher => teacher.toJSON()),
+			administrators: administrators.map(administrator => administrator.toJSON()),
+		})
 	} catch (err) {
 		res.status(500).json({ error: err.message })
 	}
