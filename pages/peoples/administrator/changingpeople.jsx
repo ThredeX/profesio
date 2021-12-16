@@ -17,6 +17,7 @@ import {
 } from '../../../theme'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
 import { useFetch } from '../../../hooks/useFetch'
+import { userDataReformat } from '../../../utils/userDataReformat'
 
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
@@ -72,9 +73,9 @@ const Margin = styled.div`
 const ChangingPeople = props => {
 	const [id, setId] = useState(null)
 
-	const [dataFetch, status] = useFetch('../../../api/users/info')
+	const [dataFetch, setDataFetch] = useState([]);
 	const [whichPeople, setWhichPeople] = useState('student')
-	const [dataID, setDataID] = useState({})
+	const [dataID, setDataID] = useState()
 	const [reload, setReload] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault()
@@ -90,7 +91,6 @@ const ChangingPeople = props => {
 		if (whichPeople === 'administrator') {
 			data.can_edit = e.target.can_edit.checked
 		}
-		console.log(data)
 		fetch(`../../../api/users/${id}`, {
 			method: 'POST',
 			headers: {
@@ -104,7 +104,16 @@ const ChangingPeople = props => {
 		})
 	}
 	useEffect(() => {
+		fetch('../../../api/users/info')
+			.then(res => res.json())
+			.then(data => {
+				setDataFetch(userDataReformat(data))
+			})
+			.catch(err => console.error(err))
+	}, [])
+	useEffect(() => {
 		for (let i = 0; i < dataFetch.length; i++) {
+			console.log(i);
 			if (dataFetch[i]?.UserId === id) {
 				console.log(dataFetch[i])
 				setDataID(dataFetch[i])

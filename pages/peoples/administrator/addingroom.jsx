@@ -44,7 +44,7 @@ const FormDiv = styled.div`
 const Margin = styled.div`
 	margin-block: 1rem;
 `
-const AddingRoom = props => {
+const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
 	const [faculty, setFaculty] = useState(null)

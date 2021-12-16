@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
-
+import { userDataReformat } from '../../utils/userDataReformat'
 const List = styled.li`
 	display: grid;
 
@@ -80,19 +80,20 @@ const Container = styled.div`
 export default function ListOfPeople(props) {
 	const [reference, setReference] = useState()
 	const [names, setNames] = useState(null)
+	const theme = useContext(Context)
 
 	useEffect(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		async () => {
 			let res = await fetch('../../api/users/info')
-			setNames(await res.json())
+			let data = await res.json()
+			setNames(userDataReformat(data))
 			props.setReload(false)
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[props.reload],
 	)
 
-	const theme = useContext(Context)
 	function handleClickChanging(id) {
 		props.setId(id)
 	}
