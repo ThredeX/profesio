@@ -6,7 +6,7 @@ const Faculty = require('../models/').Faculty
 router.get('/', async (req, res) => {
 	try {
 		const faculties = await Faculty.findAll()
-		res.json(faculties.toJSON())
+		res.json(faculties.map(faculty => faculty.toJSON()))
 	} catch (err) {
 		res.status(500).json({ error: err.message })
 	}
