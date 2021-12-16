@@ -89,7 +89,7 @@ export const Select = styled.select`
 `
 export const Option = styled.option`
 	border: none;
-	color: ${props => props.theme.text};
+	color: #333;
 `
 export const Select2 = styled.select`
 	width: 100%;
