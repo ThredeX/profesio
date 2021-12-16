@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 import Draggable from 'react-draggable'
 import styled, { ThemeProvider } from 'styled-components'
@@ -17,8 +17,7 @@ const Form = styled.form`
 	width: 100%;
 `
 export default function TimetableEnd() {
-    const [adresa, setAdresa] = useState();
-    const [web, setWeb] = useState();
+    const [schoolInfo, setSchoolInfo] = useState();
 	const [state, setState] = useState({
 		activeDrags: 0,
 		deltaPosition: {
@@ -30,10 +29,24 @@ export default function TimetableEnd() {
 			y: 200,
 		},
 	})
-
-	function setSchool(e) {
+	useEffect(() => {
+		async () => {
+			let res = await fetch('../../api/school/info');
+			setSchoolInfo(await res.json())
+		} 
+	}, [])
+	useEffect(() => {
+		fetch('../../api/school/info', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({})
+		})
+	})
+	function handleSubmitSchoolInfo(e) {
         e.preventDefault()
-        alert(adresa + ' ' + web)
+        console.log(e.target.adress.value + ' ' + e.target.web.value);
     }
 	const onStart = () => {
 		setState({ activeDrags: ++state.activeDrags })
@@ -48,16 +61,15 @@ export default function TimetableEnd() {
 				<ThemeProvider theme={useContext(Context)}>
 					<Box>
 						<Margin m="1rem 0 0 0"></Margin>
-						<Form>
+						<Form onSubmit={handleSubmitSchoolInfo}>
 							<Label>Informace o škole: </Label>
 							<Margin m="1rem 0 0 0"></Margin>
 							<Label htmlFor="adresa">Adresa školy: </Label>
-							<Input onChange={(e) => setAdresa(e.target.value)} type="text" name="adresa" id="adresa" />
+							<Input type="text" name="adress" />
 							<Label htmlFor="web">Webové stránky školy: </Label>
-							<Input onChange={(e) => setWeb(e.target.value)} type="url" name="web" id="web" />
+							<Input type="url" name="web" />
 							<SubmitButton
 								type="submit"
-								onClick={setSchool}
 								value="Uložit"
 								/>
 						</Form>

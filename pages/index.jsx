@@ -2,12 +2,10 @@ import styled, { ThemeProvider } from 'styled-components'
 import Header from '../Components/Header'
 import { useRouter } from 'next/router'
 import { Formik } from 'formik'
-import { Form, Input, Pol, SubmitButton, MainHeading} from '../theme'
+import { Form, Input, SubmitButton} from '../theme'
 import Link from 'next/link'
 import { Context } from './_app'
-import React, {useContext} from 'react'
-
-//login page and header PROFESIO and menu stay for all pages
+import {useContext} from 'react'
 
 const Container = styled.div`
 	display: flex;

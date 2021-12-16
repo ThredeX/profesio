@@ -156,8 +156,8 @@ export const Td = styled.td`
 	padding: 0.4rem;
 `
 export const Tr = styled.tr`
-	height: 8rem;
-	width: 8rem;
+	height: 5rem;
+	width: 5rem;
 	@media screen and (max-width: 500px) {
 		width: 2rem;
 		font-size: 0.6rem;

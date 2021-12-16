@@ -4,8 +4,20 @@ const Subject = require('../models').Subject
 
 // Get all schools info
 router.get('/info', async (req, res) => {
-	const school = await School.findAll()
+	const school = await School.findOne()
 	res.json(school.toJSON())
+})
+
+// AUTHENTICATION REQUIRED
+// Update school timetable closing time to date
+router.post('/timetableend', async (req, res) => {
+	try {
+		const school = await School.findOne()
+		await school.update(req.body)
+		res.status(200).json({ message: 'School time table close time updated' })
+	} catch (error) {n
+		res.status(500).send(error)
+	}
 })
 
 // AUTHENTICATION REQUIRED

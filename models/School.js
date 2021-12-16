@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 			website: {
 				type: DataTypes.STRING,
 			},
+			timetable_start: {
+				type: DataTypes.DATE,
+				allowNull: false,
+			},
 			timetable_end: {
 				type: DataTypes.DATE,
 				allowNull: false,

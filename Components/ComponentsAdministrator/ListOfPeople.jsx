@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
-
+import { userDataReformat } from '../../utils/userDataReformat'
 const List = styled.li`
 	display: grid;
 
@@ -80,16 +80,20 @@ const Container = styled.div`
 export default function ListOfPeople(props) {
 	const [reference, setReference] = useState()
 	const [names, setNames] = useState(null)
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(async () => {
-		let res = await fetch('../../api/users/info')
-		setNames(await res.json())
-		props.setReload(false)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.reload])
-
 	const theme = useContext(Context)
+
+	useEffect(
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		async () => {
+			let res = await fetch('../../api/users/info')
+			let data = await res.json()
+			setNames(userDataReformat(data))
+			props.setReload(false)
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[props.reload],
+	)
+
 	function handleClickChanging(id) {
 		props.setId(id)
 	}
@@ -102,10 +106,12 @@ export default function ListOfPeople(props) {
 				},
 			}).then(res => {
 				if (!res.ok) {
-					//console.error(res.text)
+					console.error(res.text)
+					alert('error - uživatel nebyl odstraněn')
+				} else {
+					alert('Uživatel byl odstraněn')
+					props.setReload(true)
 				}
-				alert('Uživatel byl odstraněn')
-				props.setReload(true)
 			})
 		}
 	}
@@ -115,56 +121,66 @@ export default function ListOfPeople(props) {
 		if (!!names && !!reference) {
 			names?.map(name => {
 				if (
-					`${name.name.toLowerCase()} ${name.surname.toLowerCase()} ${name.email.toLowerCase()}`.includes(
+					`${name.User.name.toLowerCase()} ${name.User.surname.toLowerCase()} ${name.User.email.toLowerCase()}`.includes(
 						reference.trim().toLowerCase(),
 					)
 				) {
 					searched.push(name)
 				}
 			})
-			return searched?.map(searchedName => (
-				<List key={searchedName.id}>
-					<Paragraph>{searchedName.name}</Paragraph>
-					<Paragraph>{searchedName.surname}</Paragraph>
-					<Paragraph>{searchedName.email}</Paragraph>
-					{props.changingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Změnit"
-							onClick={() => handleClickChanging(searchedName.id)}
-						/>
-					)}
-					{props.deletingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Odstranit"
-							onClick={() => handleClickDeleting(searchedName.id)}
-						/>
-					)}
-				</List>
-			))
+			return searched?.map(
+				searchedName =>
+					searchedName.User && (
+						<List key={searchedName.UserId}>
+							<Paragraph>{searchedName.User.name}</Paragraph>
+							<Paragraph>{searchedName.User.surname}</Paragraph>
+							<Paragraph>{searchedName.User.email}</Paragraph>
+							{props.changingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Změnit"
+									onClick={() =>
+										handleClickChanging(searchedName.UserId)
+									}
+								/>
+							)}
+							{props.deletingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Odstranit"
+									onClick={() =>
+										handleClickDeleting(searchedName.UserId)
+									}
+								/>
+							)}
+						</List>
+					),
+			)
 		} else {
-			return names?.map(names => (
-				<List key={names.id}>
-					<Paragraph>{names.name}</Paragraph>
-					<Paragraph>{names.surname}</Paragraph>
-					<Paragraph>{names.email}</Paragraph>
-					{props.changingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Změnit"
-							onClick={() => handleClickChanging(names.id)}
-						/>
-					)}
-					{props.deletingPeople && (
-						<SubmitButton
-							type="submit"
-							value="Odstranit"
-							onClick={() => handleClickDeleting(names.id)}
-						/>
-					)}
-				</List>
-			))
+			return names?.map(
+				name =>
+					name.User && (
+						<List key={name.UserId}>
+							<Paragraph>{name.User.name}</Paragraph>
+							<Paragraph>{name.User.surname}</Paragraph>
+							<Paragraph>{name.User.email}</Paragraph>
+							{props.changingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Změnit"
+									onClick={() => handleClickChanging(name.UserId)}
+								/>
+							)}
+							{props.deletingPeople && (
+								<SubmitButton
+									type="submit"
+									value="Odstranit"
+									onClick={() => handleClickDeleting(name.UserId)}
+								/>
+							)}
+						</List>
+					),
+			)
 		}
 	}
 	return (
