@@ -3,8 +3,18 @@ import styled, { ThemeProvider } from 'styled-components'
 import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
-
-import { MainHeading, Main, Select2, Option, Box, Input, SubmitButton, Form, Label, Radio } from '../../../theme'
+import {
+	MainHeading,
+	Main,
+	Select2,
+	Option,
+	Box,
+	Input,
+	SubmitButton,
+	Form,
+	Label,
+	Radio,
+} from '../../../theme'
 import { Context } from '../../_app'
 const FormRadio = styled.form`
 	width: 20rem;
@@ -47,27 +57,44 @@ const Margin = styled.div`
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
-	const [faculty, setFaculty] = useState(null)
-	const [facultyDelete, setFacultyDelete] = useState(null)
+	const [facultySet, setFacultySet] = useState(null)
+	const [reload, setReload] = useState(0);
 
 	useEffect(() => {
-		async () => {
-			let res = await fetch('../../../api/faculty/all')
-			setFaculties(await res.json());
-		}
-	}, [])
+		fetch('../../../api/faculty')
+			.then(res => res.json())
+			.then(data => {
+				setFaculties(data)
+			})
+			.catch(err => console.error(err))
+	}, [ , reload, facultySet])
 
-	const handleClick = e => {
+	function deleteFaculty(e) {
 		e.preventDefault()
 		if (confirm('Opravdu si přejete odstranit fakultu?')) {
-			fetch(`../../../api/faculty/${facultyDelete}`, {
+			fetch(`../../../api/faculty/${e.target.faculty_deleteID.value}`, {
 				method: 'DELETE',
 				headers: {
-					'content-type': 'application/json'
-				}
+					'content-type': 'application/json',
+				},
 			})
 			alert('Fakulta byla odstraněna')
+			setReload(e.target.faculty_deleteID.value)
 		}
+	}
+	function addFaculty(e) {
+		e.preventDefault()
+		fetch('../../../api/faculty', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify({
+				name: e.target.faculty_name.value,
+				shortcut: e.target.faculty_shortName.value,
+			}),
+		})
+		setReload(true)
 	}
 	return (
 		<>
@@ -79,38 +106,61 @@ const AddingRoom = () => {
 					<Box>
 						<H2>Fakulty: </H2>
 						<Container>
-							<FormRadio onChange={e => setFaculty(e.target.value)}>
+							<FormRadio onChange={e => setFacultySet(e.target.value)}>
 								<H3>Vyberte operaci: </H3>
 								<div>
 									<Div>
 										<Label htmlFor="radio1">Přídání: </Label>
-										<Radio type="radio" name="radio" id="radio1" value="add" />
+										<Radio
+											type="radio"
+											name="radio"
+											id="radio1"
+											value="add"
+										/>
 									</Div>
 									<Div>
 										<Label htmlFor="radio2">Odstranění: </Label>
-										<Radio type="radio" name="radio" id="radio2" value="delete" />
+										<Radio
+											type="radio"
+											name="radio"
+											id="radio2"
+											value="delete"
+										/>
 									</Div>
 								</div>
 							</FormRadio>
-							{faculty === 'add' ? (
-								<Form>
+							{facultySet === 'add' ? (
+								<Form onSubmit={addFaculty}>
 									<FormDiv>
-										<Input type="text" placeholder="Přidat fakultu" />
+										<Input
+											type="text"
+											name="faculty_name"
+											placeholder="Název fakulty"
+										/>
+									</FormDiv>
+									<FormDiv>
+										<Input
+											type="text"
+											name="faculty_shortName"
+											placeholder="Zkratka fakulty"
+										/>
 									</FormDiv>
 									<SubmitButton type="submit" value="Přidat" />
 								</Form>
 							) : (
-								<Form>
+								<Form onSubmit={deleteFaculty}>
 									<FormDiv>
-										<Select2 name="faculty" onClick={e => setFacultyDelete(e.target.value)}>
-											{faculties?.map((faculty) => (
-												<Option value={faculty.id} key={faculty.id}>
-													{faculty.name}
+										<Select2 name="faculty_deleteID">
+											{faculties?.map(faculty => (
+												<Option
+													value={faculty.id}
+													key={faculty.id}>
+													{faculty.name} ({faculty.shortcut})
 												</Option>
 											))}
 										</Select2>
 									</FormDiv>
-									<SubmitButton onClick={handleClick} type="submit" value="Odstranit" />
+									<SubmitButton type="submit" value="Odstranit" />
 								</Form>
 							)}
 						</Container>
@@ -118,13 +168,17 @@ const AddingRoom = () => {
 					<Box>
 						<Margin></Margin>
 						<Select2 name="faculty" onClick={e => setState(e.target.value)}>
-							{faculties?.map((faculty) => (
+							{faculties?.map(faculty => (
 								<Option value={faculty.id} key={faculty.id}>
-									{faculty.name}
+									{faculty.name} ({faculty.shortcut})
 								</Option>
 							))}
 						</Select2>
-						<Input style={{ maxWidth: '10rem' }} placeholder="Název budovy" title="Budova, do které budete přidávat místnosti/rozvrhy" />
+						<Input
+							style={{ maxWidth: '10rem' }}
+							placeholder="Název budovy"
+							title="Budova, do které budete přidávat místnosti/rozvrhy"
+						/>
 					</Box>
 					<TimetableComp changeTT={false} />
 				</Main>
@@ -133,4 +187,3 @@ const AddingRoom = () => {
 	)
 }
 export default AddingRoom
-
