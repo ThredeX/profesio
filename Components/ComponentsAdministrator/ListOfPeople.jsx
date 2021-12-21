@@ -120,12 +120,14 @@ export default function ListOfPeople(props) {
 
 		if (!!names && !!reference) {
 			names?.map(name => {
-				if (
-					`${name.User.name.toLowerCase()} ${name.User.surname.toLowerCase()} ${name.User.email.toLowerCase()}`.includes(
-						reference.trim().toLowerCase(),
-					)
-				) {
-					searched.push(name)
+				if (!!name.User) {
+					if (
+						`${name.User.name.toLowerCase()} ${name.User.surname.toLowerCase()} ${name.User.email.toLowerCase()}`.includes(
+							reference.trim().toLowerCase(),
+						)
+					) {
+						searched.push(name)
+					}
 				}
 			})
 			return searched?.map(

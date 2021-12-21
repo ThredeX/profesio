@@ -67,7 +67,7 @@ const Div2 = styled.div`
 
 //adding people
 const AddingPeople = () => {
-	const [whichPeople, setWhichPeople] = useState('student')
+	const [whichPeople, setWhichPeople] = useState(null)
 	const [reload, setReload] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault()

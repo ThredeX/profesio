@@ -11,7 +11,7 @@ export const Form2 = styled.form`
 export const Input = styled.input`
 	width: 100%;
 	border: 1px ${props => props.theme.text} solid;
-	border-radius: 20px;
+	border-radius: 4px;
 	margin-block: 0.3rem;
 	padding: 0.3rem 0.6rem;
 	&::placeholder {
@@ -77,6 +77,8 @@ export const Label = styled.label`
 	font-weight: 100;
 	width: 10rem;
 	padding: 0 0.5rem;
+	display: flex;
+	align-items: center;
 	color: ${props => props.theme.text};
 `
 export const Select = styled.select`
