@@ -106,9 +106,8 @@ export const Paragraph = styled.p`
 export const Box = styled.div`
 	font-weight: 100;
 	margin: 1.5rem 0rem 0rem 1rem;
-	padding-inline: 10px;
-	border-radius: 20px;
-	padding-bottom: 1.5rem;
+	padding: 10px;
+	border-radius: 8px;
 	position: relative;
 	overflow: hidden;
 	box-shadow: 0 0 5px 3px ${props => props.theme.shadow};
