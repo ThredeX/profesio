@@ -72,6 +72,8 @@ export const Label = styled.label`
 	font-weight: 100;
 	width: 10rem;
 	padding: 0 0.5rem;
+	display: flex;
+	align-items: center;
 	color: ${props => props.theme.text};
 `
 export const Select = styled.select`
