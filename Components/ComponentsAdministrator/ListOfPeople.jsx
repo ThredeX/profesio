@@ -4,21 +4,28 @@ import { Context } from '../../pages/_app'
 import { Box, SubmitButton } from '../../theme'
 import { userDataReformat } from '../../utils/userDataReformat'
 const List = styled.li`
-	display: grid;
+	display: flex;
 	align-items: center;
-	gap: .5rem;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
-	&:last-child {
-		border-bottom: none;
-	}
+	justify-content: space-around;
+	width: 100%;
 `
+const InList = styled.div`
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding-right: 2rem;
+	padding-left: 40px;
+	width: 100%;
+	`
+const Span = styled.span`
+	color: #ff0000;
+	font-weight: 400;
+	`
 const Paragraph = styled.p`
-	justify-self: center;
-	max-width: 20vw;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-
+	width: 9rem;
 	padding: 0.6rem 0.1rem;
 	margin: 0;
 	text-align: center;
@@ -27,6 +34,25 @@ const Paragraph = styled.p`
 		&:nth-child(3) {
 			display: none;
 		}
+	}
+	`
+const Paragraph2 = styled.p`
+	padding: 0.6rem 0.1rem;
+	width: 9rem;
+	margin: 0;
+
+	text-align: center;
+	color: ${props => props.theme.text};
+	&::after{
+		content: '';
+		height: 1px;
+		display: block;
+		position: relative;
+		transform: translateX(-50%);
+		left: 50%;
+		width: 85px;
+		top: 5px;
+		background-color: #464545;
 	}
 `
 const UnsortedList = styled.ul`
@@ -87,7 +113,7 @@ export default function ListOfPeople(props) {
 		async () => {
 			let res = await fetch('../../api/users/info')
 			let data = await res.json()
-			console.log(userDataReformat(data));
+			console.log(userDataReformat(data))
 			setNames(userDataReformat(data))
 			props.setReload(false)
 		},
@@ -122,7 +148,7 @@ export default function ListOfPeople(props) {
 		if (!!names && !!reference) {
 			names?.map(name => {
 				if (
-					`${name.User.name.toLowerCase()} ${name.User.surname.toLowerCase()} ${name.User.email.toLowerCase()}`.includes(
+					`${name.User.name.toLowerCase()} ${name.User.surname.toLowerCase()} ${name.User.email.toLowerCase()} ${name.User.role.toLowerCase()}`.includes(
 						reference.trim().toLowerCase(),
 					)
 				) {
@@ -135,7 +161,15 @@ export default function ListOfPeople(props) {
 						<List key={searchedName.UserId}>
 							<Paragraph>{searchedName.User.name}</Paragraph>
 							<Paragraph>{searchedName.User.surname}</Paragraph>
+							<Paragraph>{searchedName.User.username}</Paragraph>
 							<Paragraph>{searchedName.User.email}</Paragraph>
+							<Paragraph>{searchedName.User.telephone_number}</Paragraph>
+							<Paragraph>{searchedName.User.role}</Paragraph>
+							<Paragraph>
+								{searchedName.entry_year
+									? 'Rok nást. ' + searchedName.entry_year
+									: searchedName.can_edit && <Span>Editování</Span>}
+							</Paragraph>
 							{props.changingPeople && (
 								<SubmitButton
 									type="submit"
@@ -165,9 +199,16 @@ export default function ListOfPeople(props) {
 							<Paragraph>{name.User.name}</Paragraph>
 							<Paragraph>{name.User.surname}</Paragraph>
 							<Paragraph>{name.User.username}</Paragraph>
-							<Paragraph>{name.User.email}</Paragraph>
+							<Paragraph title={name.User.email}>
+								{name.User.email}
+							</Paragraph>
 							<Paragraph>{name.User.telephone_number}</Paragraph>
 							<Paragraph>{name.User.role}</Paragraph>
+							<Paragraph>
+								{name.entry_year
+									? 'Rok nást. ' + name.entry_year
+									: name.can_edit && <Span>Editování</Span>}
+							</Paragraph>
 							{props.changingPeople && (
 								<SubmitButton
 									type="submit"
@@ -199,6 +240,18 @@ export default function ListOfPeople(props) {
 						/>
 					</Container>
 				</Settings>
+				<InList>
+					<Paragraph2>Jméno</Paragraph2>
+					<Paragraph2>Příjmení</Paragraph2>
+					<Paragraph2>User</Paragraph2>
+					<Paragraph2>E-mail</Paragraph2>
+					<Paragraph2>Tel. číslo</Paragraph2>
+					<Paragraph2>Role</Paragraph2>
+					<Paragraph2>Ostatní</Paragraph2>
+					{props.changingPeople || props.deletingPeople ? (
+						<Paragraph></Paragraph>
+					) : null}
+				</InList>
 				<UnsortedList>{funcNames()}</UnsortedList>
 			</Box>
 		</ThemeProvider>
