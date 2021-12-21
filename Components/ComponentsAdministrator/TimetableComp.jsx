@@ -69,7 +69,10 @@ const Container = styled.div`
 	height: 120%;
 `
 const Container2 = styled.div`
-	margin-top: 1.5rem;
+	margin-block: .5rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center
 `
 const WindowTime = styled.div`
 	position: absolute;
@@ -404,7 +407,7 @@ export default function TimetableAdding({ changeTT }) {
 			</Box>
 			<Box>
 				<Container2>
-				
+			
 					<SubmitButton
 						type="submit"
 						onClick={handleSubmit}
