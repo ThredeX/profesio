@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
 
 	let theme = {}
 
-	if (!true) {
+	if (true) {
 		theme = {
 			bg: BG_DARK,
 			text: TEXT_DARK,
