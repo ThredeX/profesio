@@ -22,10 +22,10 @@ import { userDataReformat } from '../../../utils/userDataReformat'
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
 	display: flex;
-	box-shadow: 0 0 5px 3px #dddddd;
+	box-shadow: 0 0 5px 3px ${props => props.theme.shadow};
 	align-items: center;
 	flex-wrap: wrap;
-	border-radius: 20px;
+	border-radius: 8px;
 	padding-left: 3rem;
 	margin-left: 1rem;
 	justify-content: space-evenly;

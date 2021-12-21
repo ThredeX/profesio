@@ -22,13 +22,13 @@ const FormContainer1 = styled.div`
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	border-radius: 20px;
+	border-radius: 8px;
 	padding-left: 3rem;
 	margin-left: 1rem;
 	justify-content: space-evenly;
 	background-color: ${props => props.theme.box};
 	min-height: 20rem;
-	box-shadow: 0 0 5px 3px #dddddd;
+	box-shadow: 0 0 5px 3px ${props => props.theme.shadow};
 `
 const FormRadio = styled.form`
 	width: 20rem;
