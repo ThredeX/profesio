@@ -5,16 +5,16 @@ import { Box, SubmitButton } from '../../theme'
 import { userDataReformat } from '../../utils/userDataReformat'
 const List = styled.li`
 	display: grid;
-
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	align-items: center;
+	gap: .5rem;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
 	&:last-child {
 		border-bottom: none;
 	}
 `
 const Paragraph = styled.p`
-	border-bottom: 1px solid #8181814c;
 	justify-self: center;
-	width: 25vw;
+	max-width: 20vw;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -87,6 +87,7 @@ export default function ListOfPeople(props) {
 		async () => {
 			let res = await fetch('../../api/users/info')
 			let data = await res.json()
+			console.log(userDataReformat(data));
 			setNames(userDataReformat(data))
 			props.setReload(false)
 		},
@@ -163,7 +164,10 @@ export default function ListOfPeople(props) {
 						<List key={name.UserId}>
 							<Paragraph>{name.User.name}</Paragraph>
 							<Paragraph>{name.User.surname}</Paragraph>
+							<Paragraph>{name.User.username}</Paragraph>
 							<Paragraph>{name.User.email}</Paragraph>
+							<Paragraph>{name.User.telephone_number}</Paragraph>
+							<Paragraph>{name.User.role}</Paragraph>
 							{props.changingPeople && (
 								<SubmitButton
 									type="submit"

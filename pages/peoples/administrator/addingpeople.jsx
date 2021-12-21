@@ -184,7 +184,6 @@ const AddingPeople = () => {
 										name="yearOfEntry"
 									/>
 								</FormDiv>
-
 								<ButtonDiv>
 									<SubmitButton type="submit" value="Add" />
 								</ButtonDiv>
