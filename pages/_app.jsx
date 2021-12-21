@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
 	const TEXT_DARK = '#fff'
 
 	// box
-	const BOX_LIGHT = '#f1f1f1'
+	const BOX_LIGHT = '#eeeeee'
 	const BOX_DARK = '#1E1E1E'
 	
 	//shadow
@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
 
 	let theme = {}
 
-	if (true) {
+	if (!true) {
 		theme = {
 			bg: BG_DARK,
 			text: TEXT_DARK,

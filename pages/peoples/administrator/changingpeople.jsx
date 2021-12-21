@@ -22,7 +22,7 @@ import { userDataReformat } from '../../../utils/userDataReformat'
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
 	display: flex;
-	box-shadow: 0 0 1px 2px #0f0f0fc1 inset;
+	box-shadow: 0 0 5px 3px #dddddd;
 	align-items: center;
 	flex-wrap: wrap;
 	border-radius: 20px;
