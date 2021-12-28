@@ -11,7 +11,7 @@ export const Form2 = styled.form`
 export const Input = styled.input`
 	width: 100%;
 	border: 1px ${props => props.theme.text} solid;
-	border-radius: 20px;
+	border-radius: 4px;
 	margin-block: 0.3rem;
 	padding: 0.3rem 0.6rem;
 	&::placeholder {
@@ -19,7 +19,8 @@ export const Input = styled.input`
 	}
 `
 export const SubmitButton = styled.input`
-	border-radius: 20px;
+	margin-top: .2rem;
+	border-radius: 4px;
 	border: none;
 	padding: 0.5rem 3rem;
 	height: 1.95rem;
@@ -27,36 +28,31 @@ export const SubmitButton = styled.input`
 	color: #fff;
 	cursor: pointer;
 	float: right;
+	box-shadow: 0 0px 0 1px ${props => props.theme.color};
+	&:hover {
+		opacity: .7;
+	}
+	&:active{
+		box-shadow: unset;
+	}
 `
 export const Radio = styled.input`
 	cursor: pointer;
-	width: 15px;
-	height: 15px;
 	&:after {
-		width: 15px;
-		height: 15px;
-		border-radius: 15px;
+		content: '';
+		width: 13px;
+		height: 13px;
+		border-radius: 8px;
 		top: -2px;
 		left: -1px;
 		position: relative;
 		background-color: #fff;
-		content: '';
 		display: inline-block;
 		visibility: visible;
 		border: 2px solid ${props => props.theme.text};
 	}
 	&:checked:after {
-		width: 15px;
-		height: 15px;
-		border-radius: 15px;
-		top: -2px;
-		left: -1px;
-		position: relative;
 		background-color: ${props => props.theme.color};
-		content: '';
-		display: inline-block;
-		visibility: visible;
-		border: 2px solid ${props => props.theme.text};
 	}
 `
 export const MainHeading = styled.h1`
@@ -70,13 +66,14 @@ export const Heading2 = styled.h2`
 	text-align: center;
 	font-size: clamp(1.5rem, 2vw, 2rem);
 	font-weight: 100;
-
 	color: ${props => props.theme.text};
 `
 export const Label = styled.label`
 	font-weight: 100;
 	width: 10rem;
 	padding: 0 0.5rem;
+	display: flex;
+	align-items: center;
 	color: ${props => props.theme.text};
 `
 export const Select = styled.select`
@@ -111,14 +108,13 @@ export const Paragraph = styled.p`
 export const Box = styled.div`
 	font-weight: 100;
 	margin: 1.5rem 0rem 0rem 1rem;
-	padding-inline: 10px;
-	border-radius: 20px;
-	padding-bottom: 1.5rem;
+	padding: 10px;
+	border-radius: 8px;
 	position: relative;
 	overflow: hidden;
 	box-shadow: 0 0 5px 3px ${props => props.theme.shadow};
 	background-color: ${props => props.theme.box};
-	
+
 	&::-webkit-scrollbar {
 		height: 10px;
 	}
@@ -128,7 +124,6 @@ export const Box = styled.div`
 		background-color: ${props => props.theme.color};
 		border-radius: 10px;
 	}
-	
 `
 export const Table = styled.table`
 	color: ${props => props.theme.text};

@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
 	const TEXT_DARK = '#fff'
 
 	// box
-	const BOX_LIGHT = '#f1f1f1'
+	const BOX_LIGHT = '#eeeeee'
 	const BOX_DARK = '#1E1E1E'
 	
 	//shadow

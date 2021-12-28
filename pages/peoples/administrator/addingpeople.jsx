@@ -20,15 +20,15 @@ import { Context } from '../../_app'
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
 	display: flex;
-	box-shadow: 0 0 1px 2px #0f0f0fc1 inset;
 	align-items: center;
 	flex-wrap: wrap;
-	border-radius: 20px;
+	border-radius: 8px;
 	padding-left: 3rem;
 	margin-left: 1rem;
 	justify-content: space-evenly;
 	background-color: ${props => props.theme.box};
 	min-height: 20rem;
+	box-shadow: 0 0 5px 3px ${props => props.theme.shadow};
 `
 const FormRadio = styled.form`
 	width: 20rem;
@@ -57,7 +57,10 @@ const FormDiv = styled.div`
 	align-items: center;
 `
 const ButtonDiv = styled.div`
-	margin-top: 1rem;
+margin-top: .5rem;
+	display: flex;
+	justify-content: end;
+height: 2.8rem;
 `
 const Div2 = styled.div`
 	width: 100%;
@@ -67,7 +70,7 @@ const Div2 = styled.div`
 
 //adding people
 const AddingPeople = () => {
-	const [whichPeople, setWhichPeople] = useState('student')
+	const [whichPeople, setWhichPeople] = useState(null)
 	const [reload, setReload] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault()
@@ -184,7 +187,6 @@ const AddingPeople = () => {
 										name="yearOfEntry"
 									/>
 								</FormDiv>
-
 								<ButtonDiv>
 									<SubmitButton type="submit" value="Add" />
 								</ButtonDiv>
