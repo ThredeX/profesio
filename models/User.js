@@ -62,6 +62,8 @@ module.exports = (sequelize, DataTypes) => {
 		User.hasOne(models.Teacher)
 		User.hasOne(models.Administrator)
 	}
-
+	User.prototype.comparePassword = function (password) {
+		return bcrypt.compare(password, this.password)
+	}
 	return User
 }
