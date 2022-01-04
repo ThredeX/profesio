@@ -2,6 +2,15 @@ const router = require('express').Router()
 
 const User = require('../models/').User
 
+// Return logged in user
+router.get('/me', async (req, res) => {
+	try {
+		res.json(req.session.user)
+	} catch (err) {
+		res.status(500).json({ error: err.message })
+	}
+})
+
 // Login route using sessions
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body
