@@ -1,5 +1,6 @@
 const express = require('express')
 const next = require('next')
+const sessions = require('express-session')
 const apiRouter = require('./api/')
 
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -12,6 +13,15 @@ app.prepare().then(() => {
 	sequelize.sync({ force: true }).then(() => {
 		const server = express()
 
+		server.use(
+			sessions({
+				secret: process.env.SESSION_SECRET,
+				cookie: {
+					maxAge: 86400000, // 1 day in milliseconds
+					httpOnly: true,
+				},
+			}),
+		)
 		server.use('/api', apiRouter)
 
 		server.all('*', (req, res) => {
