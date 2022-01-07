@@ -10,6 +10,8 @@ const Administrator = require('../models').Administrator
 // Get all users in the database
 router.get('/info', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
+
 		const students = await Student.findAll({
 			attributes: { exclude: ['password'] },
 			include: [User],
@@ -36,7 +38,8 @@ router.get('/info', async (req, res) => {
 // Create a new student in the database
 router.post('/student', async (req, res) => {
 	try {
-		const user = await usergen(req.body)
+		if (!req.session.user.administrator.can_edit) return res.status(401)
+		const user = await usergen(req.body, '.s')
 		await user.createStudent({ entry_year: req.body.entry_year })
 		res.status(204).json({
 			message: 'User created',
@@ -51,7 +54,8 @@ router.post('/student', async (req, res) => {
 // Create a new teacher in the database
 router.post('/teacher', async (req, res) => {
 	try {
-		const user = await usergen(req.body)
+		if (!req.session.user.administrator.can_edit) return res.status(401)
+		const user = await usergen(req.body, '.t')
 		await user.createTeacher()
 		res.status(204).json({
 			message: 'User created',
@@ -65,7 +69,8 @@ router.post('/teacher', async (req, res) => {
 // Create a new administrator in the database
 router.post('/administrator', async (req, res) => {
 	try {
-		const user = await usergen(req.body)
+		if (!req.session.user.administrator.can_edit) return res.status(401)
+		const user = await usergen(req.body, '.a')
 		await user.createAdministrator({ can_edit: req.body.can_edit })
 		res.status(204).json({
 			message: 'User created',
@@ -79,6 +84,7 @@ router.post('/administrator', async (req, res) => {
 // Delete a user from the database by id
 router.delete('/:id', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		const user = await User.findByPk(req.params.id)
 		await user.destroy()
 		res.status(204).json({
@@ -93,6 +99,7 @@ router.delete('/:id', async (req, res) => {
 // Update a user in the database by id
 router.post('/:id', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		const user = await User.findByPk(req.params.id)
 		await user.update(req.body)
 		res.status(204).json({
