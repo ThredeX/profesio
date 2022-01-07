@@ -12,10 +12,11 @@ router.get('/info', async (req, res) => {
 // Update school timetable closing time to date
 router.post('/timetableend', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		const school = await School.findOne()
 		await school.update(req.body)
 		res.status(200).json({ message: 'School time table close time updated' })
-	} catch (error) {n
+	} catch (error) {
 		res.status(500).send(error)
 	}
 })
@@ -24,6 +25,7 @@ router.post('/timetableend', async (req, res) => {
 // Update school info
 router.post('/info', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		const school = await School.findOne()
 		await school.update(req.body)
 		res.status(200).json({ message: 'School info updated' })
@@ -42,6 +44,7 @@ router.get('/subject', async (req, res) => {
 // Add new subject
 router.post('/subject', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		await Subject.create(req.body)
 		res.status(200).json({ message: 'Subject created' })
 	} catch (error) {
@@ -53,6 +56,7 @@ router.post('/subject', async (req, res) => {
 // Delete subject
 router.delete('/subject/:id', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		const subject = await Subject.findByPk(req.params.id)
 		await subject.destroy()
 		res.status(200).json({ message: 'Subject deleted' })

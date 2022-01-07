@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
 // Create a new faculty
 router.post('/', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		await Faculty.create(req.body)
 		res.status(204).json({ message: 'Faculty created' })
 	} catch (err) {
@@ -27,6 +28,7 @@ router.post('/', async (req, res) => {
 // Remove a faculty by id
 router.delete('/:id', async (req, res) => {
 	try {
+		if (!req.session.user.administrator.can_edit) return res.status(401)
 		const faculty = await Faculty.findByPk(req.params.id)
 		await faculty.destroy()
 		res.status(204).json({ message: 'Faculty deleted' })
