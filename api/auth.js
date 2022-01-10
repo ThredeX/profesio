@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const User = require('../models/').User
+const { User, Administrator: ad, Student: st, Teacher: tch } = require('../models/')
 
 // Return logged in user
 router.get('/me', async (req, res) => {
@@ -15,7 +15,10 @@ router.get('/me', async (req, res) => {
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body
 	try {
-		const user = await User.findOne({ where: { username } })
+		const user = await User.findOne({
+			where: { username },
+			include: [ad, tch, st],
+		})
 		if (!user) {
 			return res.status(401).json({ error: 'Invalid credentials' })
 		}
@@ -23,17 +26,23 @@ router.post('/login', async (req, res) => {
 		if (!isPasswordValid) {
 			return res.status(401).json({ error: 'Invalid credentials' })
 		}
+		const {
+			username: uname,
+			email,
+			name,
+			surname,
+			Administrator: administrator,
+			Teacher: teacher,
+			Student: student,
+		} = user.toJSON()
 		req.session.user = {
-			id: user.id,
-			username: user.username,
-		}
-		switch (user.username[-1]) {
-			case 's':
-				req.session.user.student = await user.getStudent().toJSON()
-			case 't':
-				req.session.user.teacher = await user.getTeacher().toJSON()
-			case 'a':
-				req.session.user.administrator = await user.getAdministrator().toJSON()
+			username: uname,
+			email,
+			name,
+			surname,
+			administrator,
+			teacher,
+			student,
 		}
 		res.status(200).json({ message: 'Successfull Login!' })
 	} catch (err) {

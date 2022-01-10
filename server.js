@@ -13,7 +13,6 @@ app.prepare().then(() => {
 	sequelize.sync({ force: true }).then(() => {
 		const server = express()
 
-		/*
     server.use(
 			sessions({
 				secret: process.env.SESSION_SECRET,
@@ -22,7 +21,7 @@ app.prepare().then(() => {
 					httpOnly: true,
 				},
 			}),
-		)*/
+		)
 		server.use('/api', apiRouter)
 
 		server.all('*', (req, res) => {
