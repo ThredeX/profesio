@@ -4,6 +4,7 @@ module.exports = async function (userinfo, postfix) {
 	try {
 		console.log(userinfo)
 		const user = await User.create({
+			...userinfo,
 			username: `${userinfo.name}${userinfo.surname}.${postfix}`,
 			password: '123456',
 		})
