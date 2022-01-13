@@ -13,9 +13,11 @@ app.prepare().then(() => {
 	sequelize.sync({ force: true }).then(() => {
 		const server = express()
 
-    server.use(
+		server.use(
 			sessions({
 				secret: process.env.SESSION_SECRET,
+				resave: false,
+				saveUninitialized: false,
 				cookie: {
 					maxAge: 86400000, // 1 day in milliseconds
 					httpOnly: true,
