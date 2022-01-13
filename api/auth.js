@@ -1,14 +1,11 @@
 const router = require('express').Router()
 
-const { User, Administrator: ad, Student: st, Teacher: tch } = require('../models/')
-
+const { User, Administrator, Student, Teacher } = require('../models/')
+const parseUser = require('../utils/parseUser.js')
 // Return logged in user
 router.get('/me', async (req, res) => {
-	try {
-		res.json(req.session.user)
-	} catch (err) {
-		res.status(500).json({ error: err.message })
-	}
+	if (!req.session.user) return res.status(401).json({ message: 'Not logged in!' })
+	return res.json(req.session.user)
 })
 
 // Login route using sessions
@@ -17,33 +14,22 @@ router.post('/login', async (req, res) => {
 	try {
 		const user = await User.findOne({
 			where: { username },
-			include: [ad, tch, st],
+			attributes: ['username', 'password'],
 		})
-		if (!user) {
-			return res.status(401).json({ error: 'Invalid credentials' })
-		}
+
+		if (!user) return res.status(401).json({ error: 'Invalid credentials' })
+
 		const isPasswordValid = await user.comparePassword(password)
-		if (!isPasswordValid) {
+		if (!isPasswordValid)
 			return res.status(401).json({ error: 'Invalid credentials' })
-		}
-		const {
-			username: uname,
-			email,
-			name,
-			surname,
-			Administrator: administrator,
-			Teacher: teacher,
-			Student: student,
-		} = user.toJSON()
-		req.session.user = {
-			username: uname,
-			email,
-			name,
-			surname,
-			administrator,
-			teacher,
-			student,
-		}
+
+		const userData = await User.findOne({
+			where: { username },
+			include: [Administrator, Teacher, Student],
+			attributes: ['username', 'email', 'name', 'surname'],
+		})
+		req.session.user = parseUser(userData.toJSON())
+		console.log(req.session.user)
 		res.status(200).json({ message: 'Successfull Login!' })
 	} catch (err) {
 		res.status(500).json({ error: err.message })
