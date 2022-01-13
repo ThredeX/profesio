@@ -2,9 +2,11 @@ const router = require('express').Router()
 
 const { User, Administrator, Student, Teacher } = require('../models/')
 const parseUser = require('../utils/parseUser.js')
+const UserChecker = require('../utils/userChecker.js')
 // Return logged in user
 router.get('/me', async (req, res) => {
-	if (!req.session.user) return res.status(401).json({ message: 'Not logged in!' })
+	if (!UserChecker.doesExist(req.session.user))
+		return res.status(401).json({ message: 'Not logged in!' })
 	return res.json(req.session.user)
 })
 
@@ -29,7 +31,6 @@ router.post('/login', async (req, res) => {
 			attributes: ['username', 'email', 'name', 'surname'],
 		})
 		req.session.user = parseUser(userData.toJSON())
-		console.log(req.session.user)
 		res.status(200).json({ message: 'Successfull Login!' })
 	} catch (err) {
 		res.status(500).json({ error: err.message })
