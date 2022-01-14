@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
-
 import {
 	MainHeading,
 	Main,
@@ -11,14 +10,19 @@ import {
 	Option,
 	Box,
 } from '../../../theme'
+import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
 
 const ChangingRoom = () => {
+	const [load, setLoad] = useState(false);
 	const [state, setState] = useState(0)
-
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
 	
 
-	return (
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />

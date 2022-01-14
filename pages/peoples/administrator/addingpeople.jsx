@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect} from 'react'
 
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
-
 import styled, { ThemeProvider } from 'styled-components'
 
 import {
@@ -16,6 +15,7 @@ import {
 	Main,
 } from '../../../theme'
 import { Context } from '../../_app'
+import { logged } from '../../../utils/logged'
 
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
@@ -72,6 +72,7 @@ const Div2 = styled.div`
 const AddingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState(null)
 	const [reload, setReload] = useState(false)
+	const [load, setLoad] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault()
 		setReload(true)
@@ -98,8 +99,11 @@ const AddingPeople = () => {
 				console.error(res.text)
 			}
 		})
-	}
-	return (
+	}	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
