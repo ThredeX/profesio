@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -98,11 +98,20 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({ route, name }) {
+export default function NavBar({ route }) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
+	const [name, setName] = useState('')
 	const theme = useContext(Context)
+	useEffect(
+		async () => {
+			let res = await fetch('../api/auth/me')
+			let data = await res.json()
+			console.log(data);
+			setName(data.surname)
+		
+	}, [])
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
 		if (state === false) {
