@@ -131,7 +131,7 @@ const SubjectModify = () => {
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
-	})
+	}, [])
 	
 	return load && (
 		<>

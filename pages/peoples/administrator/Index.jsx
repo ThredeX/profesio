@@ -26,7 +26,7 @@ const Index = () => {
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
-	})
+	}, [])
 	return load &&  (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
