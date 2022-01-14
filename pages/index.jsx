@@ -94,6 +94,7 @@ const Index = () => {
 						</Form>
 					</Formik>
 				</Main>
+				
 			</ThemeProvider>
 		</>
 	)
