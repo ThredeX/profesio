@@ -14,6 +14,7 @@ import {
 	Input,
 	Label,
 } from '../../../theme'
+import { logged } from '../../../utils/logged'
 
 const List = styled.li`
 	display: grid;
@@ -82,6 +83,8 @@ const UnsortedList = styled.ul`
 const SubjectModify = () => {
 	const [reload, setReload] = useState(null)
 	const [subjects, setSubjects] = useState(null)
+	const [load, setLoad] = useState(false);
+	
 
 	function deleteSubject(id) {
 		if (confirm('Opravdu chcete odstranit předmět?')) {
@@ -125,7 +128,12 @@ const SubjectModify = () => {
 			})
 	}, [reload])
 	console.log(subjects)
-	return (
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
+	
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />

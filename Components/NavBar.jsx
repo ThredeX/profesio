@@ -12,11 +12,11 @@ import {
 	faGears,
 	faUser,
 	faTable,
-	faFileAlt
+	faFileAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { Context } from '../pages/_app'
-
+import { logged } from '../utils/logged'
 const Container = styled.div`
 	&::-webkit-scrollbar {
 		width: 0px;
@@ -104,13 +104,11 @@ export default function NavBar({ route }) {
 	const navRef = useRef(null)
 	const [name, setName] = useState('')
 	const theme = useContext(Context)
-	useEffect(
-		async () => {
-			let res = await fetch('../api/auth/me')
-			let data = await res.json()
-			console.log(data);
+	useEffect(() => {
+		let data = logged()
+		if (data) {
 			setName(data.surname)
-		
+		}
 	}, [])
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
@@ -229,9 +227,7 @@ export default function NavBar({ route }) {
 									</A>
 								</Link>
 								<Line></Line>
-								<Link
-									href={`/peoples/${route}/subjectmodify`}
-									passHref>
+								<Link href={`/peoples/${route}/subjectmodify`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon
