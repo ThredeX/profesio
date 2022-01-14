@@ -1,17 +1,22 @@
 //settings menu
-import React, { useContext, useState } from 'react'
-
+import React, { useContext, useState, useEffect } from 'react'
 import Header from '../../../../Components/Header'
 import NavBar from '../../../../Components/NavBar'
 import { ThemeProvider } from 'styled-components'
 import { Context } from '../../../_app'
 import { MainHeading, Main} from '../../../../theme'
 import PasswordChange from '../../../../Components/PasswordChange'
-import ThemeChange from '../../../../Components/ThemeChange'
+import { logged } from '../../../../utils/logged'
 
 
 const Index = () => {
-    return (
+	const [load, setLoad] = useState(false);
+
+    useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	}, [])
+    return load && (
 
         <>
         <ThemeProvider theme={useContext(Context)}>
@@ -20,7 +25,6 @@ const Index = () => {
             <MainHeading>Nastavení</MainHeading>
             <Main>
                 <PasswordChange />
-                <ThemeChange />
             </Main>
         </ThemeProvider>
     </>

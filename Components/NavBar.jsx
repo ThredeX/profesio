@@ -104,8 +104,8 @@ export default function NavBar({ route }) {
 	const navRef = useRef(null)
 	const [name, setName] = useState('')
 	const theme = useContext(Context)
-	useEffect(() => {
-		let data = logged()
+	useEffect(async () => {
+		let data = await logged()
 		if (data) {
 			setName(data.surname)
 		}
