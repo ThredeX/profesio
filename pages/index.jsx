@@ -37,6 +37,7 @@ const Button = styled.button`
 ` 
 
 const Index = () => {
+
 	var router = useRouter()
 	return (
 		<>
@@ -52,8 +53,22 @@ const Index = () => {
 							name: '',
 							password: '',
 						}}
-						onSubmit={() => {
-							router.push('peoples/administrator')
+						onSubmit={(values) => {
+							fetch("http://localhost:3000/api/auth/login", {
+								method: "POST",
+								headers: {
+									"content-type": "application/json"
+								},
+								body: JSON.stringify({username: values.name, password: values.password})
+							})
+							.catch(err => {
+								console.error(err)
+							})
+							.finally(()=>{
+
+
+							router.push('peoples/administrator/')
+							})
 						}}>
 						<Form>
 							<Input
@@ -72,7 +87,7 @@ const Index = () => {
 								<Button>
 									Zapomenuté heslo?
 								</Button>
-								<Link href="/peoples/teacher" passHref>
+								<Link href="../peoples/administrator" passHref>
 									<SubmitButton value='Login' type='submit'/>
 								</Link>
 							</Container>

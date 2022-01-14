@@ -94,10 +94,8 @@ const AddingPeople = () => {
 			},
 			body: JSON.stringify(data),
 		}).then(res => {
-			if (!res.ok) {
-				console.error(res.text)
-			}
-		})
+			return res.json()
+		}).then(res => console.log(res))
 	}
 	return (
 		<>

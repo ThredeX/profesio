@@ -40,7 +40,7 @@ app.prepare().then(() => {
 						name: 'dominik',
 						surname: 'vyroubal',
 					},
-					'a',
+					'a'
 				)
 				await defaultDevAdmin.createAdministrator({ can_edit: true })
 			}
