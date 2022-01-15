@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const generator = require('generate-password')
-const {User} = require("../models")
+const { User } = require('../models')
 // TODO: password generate
 module.exports = async function (userinfo, postfix) {
 	try {
