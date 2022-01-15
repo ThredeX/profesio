@@ -55,14 +55,26 @@ const FormDiv = styled.div`
 const Margin = styled.div`
 	margin-block: 1rem;
 `
+const FormBuild = styled.form`
+	display: flex;
+	margin-top: 1rem;
+	& > select{
+		width: 10rem;
+	}
+	& > select, input{
+		margin-right: 2rem;
+		
+	}
+
+`
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
 	const [buildings, setBuildings] = useState(null)
 	const [facultySet, setFacultySet] = useState(null)
-	const [reload, setReload] = useState(0);
-	const [load, setLoad] = useState(false);
-	const [build, setBuild] = useState(null);
+	const [reload, setReload] = useState(0)
+	const [load, setLoad] = useState(false)
+	const [build, setBuild] = useState(null)
 
 	useEffect(() => {
 		fetch('../../../api/faculty')
@@ -77,7 +89,7 @@ const AddingRoom = () => {
 				setBuildings(data)
 			})
 			.catch(err => console.error(err))
-	}, [ , reload])
+	}, [, reload])
 
 	function deleteFaculty(e) {
 		e.preventDefault()
@@ -111,122 +123,141 @@ const AddingRoom = () => {
 		setLoad(!!data)
 	})
 	function addBuild() {
-		console.log(state, build);
+		console.log(state, build)
 		fetch('../../../api/school/building', {
-			method: "POST", 
+			method: 'POST',
 			headers: {
-				'content-type': 'application/json'
+				'content-type': 'application/json',
 			},
-			body: JSON.stringify({id: state, address: build})
-		})
-		.catch((err)=> {
-			console.error(err);
+			body: JSON.stringify({ id: state, address: build }),
+		}).catch(err => {
+			console.error(err)
 		})
 	}
-	function deleteBuild(){
+	function deleteBuild() {
 		fetch(`/api/school/building/${state}`, {
-			method: "DELETE", 
+			method: 'DELETE',
 		})
 	}
-	return load && (
-		<>
-			<ThemeProvider theme={useContext(Context)}>
-				<Header />
-				<NavBar route="administrator" />
-				<MainHeading>Přidání Rozvrhů</MainHeading>
-				<Main>
-					<Box>
-						<H2>Fakulty: </H2>
-						<Container>
-							<FormRadio onChange={e => setFacultySet(e.target.value)}>
-								<H3>Vyberte operaci: </H3>
-								<div>
-									<Div>
-										<Label htmlFor="radio1">Přídání: </Label>
-										<Radio
-											type="radio"
-											name="radio"
-											id="radio1"
-											value="add"
-										/>
-									</Div>
-									<Div>
-										<Label htmlFor="radio2">Odstranění: </Label>
-										<Radio
-											type="radio"
-											name="radio"
-											id="radio2"
-											value="delete"
-										/>
-									</Div>
-								</div>
-							</FormRadio>
-							{facultySet === 'add' ? (
-								<Form onSubmit={addFaculty}>
-									<FormDiv>
-										<Input
-											type="text"
-											name="faculty_name"
-											placeholder="Název fakulty"
-										/>
-									</FormDiv>
-									<FormDiv>
-										<Input
-											type="text"
-											name="faculty_shortName"
-											placeholder="Zkratka fakulty"
-										/>
-									</FormDiv>
-									<SubmitButton type="submit" value="Přidat" />
-								</Form>
-							) : (
-								<Form onSubmit={deleteFaculty}>
-									<FormDiv>
-										<Select2 name="faculty_deleteID">
-											{faculties?.map(faculty => (
-												<Option
-													value={faculty.id}
-													key={faculty.id}>
-													{faculty.name} ({faculty.shortcut})
-												</Option>
-											))}
-										</Select2>
-									</FormDiv>
-									<SubmitButton type="submit" value="Odstranit" />
-								</Form>
-							)}
-						</Container>
-					</Box>
-					<Box>
-						<Margin></Margin>
-						<Select2 name="faculty" onClick={e => setState(e.target.value)}>
-							{faculties?.map(faculty => (
-								<Option value={faculty.id} key={faculty.id}>
-									{faculty.name}
-								</Option>
-							))}
-						</Select2>
-						<div>
-							<Input onChange={(e) => setBuild(e.target.value)}
-								style={{ maxWidth: '10rem' }}
-								placeholder="Název budovy"
-								title="Budova, do které budete přidávat místnosti/rozvrhy"
-							/>
-							<SubmitButton value="Přidat budovu" onClick={addBuild} />
-							<Select2 name="faculty" onClick={e => setState(e.target.value)}>
-							{buildings?.map(building => (
-								<Option value={building.id} key={building.id}>
-									{building.address}
-								</Option>
-							))}
-						</Select2>
-							<SubmitButton value="Odebrat budovu" onClick={deleteBuild} />
-						</div>
-					</Box>
-					<TimetableComp changeTT={false} />
-				</Main>
-			</ThemeProvider>
-		</>
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={useContext(Context)}>
+					<Header />
+					<NavBar route="administrator" />
+					<MainHeading>Přidání Rozvrhů</MainHeading>
+					<Main>
+						<Box>
+							<H2>Fakulty: </H2>
+							<Container>
+								<FormRadio
+									onChange={e => setFacultySet(e.target.value)}>
+									<H3>Vyberte operaci: </H3>
+									<div>
+										<Div>
+											<Label htmlFor="radio1">Přídání: </Label>
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio1"
+												value="add"
+											/>
+										</Div>
+										<Div>
+											<Label htmlFor="radio2">Odstranění: </Label>
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio2"
+												value="delete"
+											/>
+										</Div>
+									</div>
+								</FormRadio>
+								{facultySet === 'add' ? (
+									<Form onSubmit={addFaculty}>
+										<FormDiv>
+											<Input
+												type="text"
+												name="faculty_name"
+												placeholder="Název fakulty"
+											/>
+										</FormDiv>
+										<FormDiv>
+											<Input
+												type="text"
+												name="faculty_shortName"
+												placeholder="Zkratka fakulty"
+											/>
+										</FormDiv>
+										<SubmitButton type="submit" value="Přidat" />
+									</Form>
+								) : (
+									<Form onSubmit={deleteFaculty}>
+										<FormDiv>
+											<Select2 name="faculty_deleteID">
+												{faculties?.map(faculty => (
+													<Option
+														value={faculty.id}
+														key={faculty.id}>
+														{faculty.name} (
+														{faculty.shortcut})
+													</Option>
+												))}
+											</Select2>
+										</FormDiv>
+										<SubmitButton type="submit" value="Odstranit" />
+									</Form>
+								)}
+							</Container>
+						</Box>
+						<Box>
+							<Margin></Margin>
+							<Select2
+								name="faculty"
+								onChange={e => setState(e.target.value)}>
+								<Option>-</Option>
+								{faculties?.map(faculty => (
+									<Option value={faculty.id} key={faculty.id}>
+										{faculty.name}
+									</Option>
+								))}
+							</Select2>
+							<FormBuild>
+								<Input
+									onChange={e => setBuild(e.target.value)}
+									style={{ maxWidth: '10rem' }}
+									placeholder="Název budovy"
+									title="Budova, do které budete přidávat místnosti/rozvrhy"
+								/>
+								<SubmitButton
+								type='button'
+									value="Přidat budovu"
+									onClick={addBuild}
+								/>
+							</FormBuild>
+							<FormBuild>
+								<Select2
+									name="faculty"
+									onClick={e => setState(e.target.value)}>
+									{buildings?.map(building => (
+										<Option value={building.id} key={building.id}>
+											{building.address}
+										</Option>
+									))}
+								</Select2>
+								<SubmitButton
+								type='button'
+									value="Odebrat budovu"
+									onClick={deleteBuild}
+								/>
+							</FormBuild>
+						</Box>
+						<TimetableComp changeTT={false} />
+					</Main>
+				</ThemeProvider>
+			</>
+		)
 	)
 }
 export default AddingRoom
