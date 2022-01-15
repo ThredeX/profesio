@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const { Faculty, Lecture, Room } = require('../models/')
 const UserChecker = require('../utils/userChecker.js')
+const { fromDB } = require('../utils/lectureParser.js')
 
 // Returns all faculties
 router.get('/', async (req, res) => {
@@ -52,7 +53,7 @@ router.get('/room/:id', async (req, res) => {
 			RoomId: req.params.id,
 		},
 	})
-	res.json(lect.map(l => l.toJSON()))
+	res.json(fromDB(lect.map(l => l.toJSON())))
 })
 
 router.get('/teacher/:id', async (req, res) => {
