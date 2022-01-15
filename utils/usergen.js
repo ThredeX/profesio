@@ -1,6 +1,6 @@
 const User = require('../models').User
 // TODO: password generate
-module.wexports = async function (userinfo, postfix) {
+module.exports = async function (userinfo, postfix) {
 	try {
 		console.log(userinfo)
 		const user = await User.create({
