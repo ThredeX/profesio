@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { School, Subject, Lecture } = require('../models')
+const { Faculty, Building, School, Subject, Lecture } = require('../models')
 
 const UserChecker = require('../utils/userChecker.js')
 
@@ -54,6 +54,21 @@ router.post('/lecture', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	await Lecture.create(req.body)
 	res.status(200).json({ message: 'Lecture created' })
+})
+
+router.post('/building', async (req, res) => {
+	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
+	const faculty = await Faculty.findByPK(req.body.id)
+	await faculty.createBuilding({ address: req.body.address })
+	res.status(200).json({ message: 'Building created' })
+})
+
+router.delete('/building/:id', async (req, res) => {
+	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
+	const building = await Building.findByPk(req.params.id)
+	if (!building) return res.status(404).send()
+	await building.destroy()
+	res.status(200).json({ message: 'Building destroyed' })
 })
 
 module.exports = router

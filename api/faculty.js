@@ -27,10 +27,20 @@ router.delete('/:id', async (req, res) => {
 })
 
 router.get('/room/:id', async (req, res) => {
-	if (UserChecker.canEdit(req.session.user)) return res.status(401).send()
+	if (UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const lect = await Lecture.findAll({
 		where: {
 			RoomId: req.params.id,
+		},
+	})
+	res.json(lect.map(l => l.toJSON()))
+})
+
+router.get('/teacher/:id', async (req, res) => {
+	if (UserChecker.doesExist(req.session.user)) return res.status(401).send()
+	const lect = await Lecture.findAll({
+		where: {
+			TeacherId: req.params.id,
 		},
 	})
 	res.json(lect.map(l => l.toJSON()))
