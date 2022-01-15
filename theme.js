@@ -78,7 +78,7 @@ export const Label = styled.label`
 `
 export const Select = styled.select`
 	width: 100%;
-	border-radius: 20px;
+	border-radius: 4px;
 	margin-block: 0.3rem;
 	padding: 0.3rem 0.6rem;
 	font-weight: 100;
@@ -91,7 +91,7 @@ export const Option = styled.option`
 export const Select2 = styled.select`
 	width: 100%;
 	border: 1px ${props => props.theme.text} solid;
-	border-radius: 20px;
+	border-radius: 4px;
 	margin-block: 0.3rem;
 	padding: 0.3rem 0.6rem;
 	&::placeholder {
