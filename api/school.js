@@ -56,9 +56,15 @@ router.post('/lecture', async (req, res) => {
 	res.status(200).json({ message: 'Lecture created' })
 })
 
+router.get('/building', async (req, res) => {
+	const buildings = await Building.findAll()
+	res.status(200).json(buildings.map(b => b.toJSON()))
+})
+
 router.post('/building', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const faculty = await Faculty.findByPk(req.body.id)
+	console.log(faculty, faculty.toJSON())
 	await faculty.createBuilding({ address: req.body.address })
 	res.status(200).json({ message: 'Building created' })
 })
