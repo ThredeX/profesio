@@ -36,6 +36,24 @@ export const SubmitButton = styled.input`
 		box-shadow: unset;
 	}
 `
+export const SubmitButton2 = styled.input`
+	margin-top: .2rem;
+	border-radius: 4px;
+	border: none;
+	height: 1rem;
+	background-color: ${props => props.theme.color};
+	color: #fff;
+	font-size: .7rem;
+	cursor: pointer;
+	float: right;
+	box-shadow: 0 0px 0 1px ${props => props.theme.color};
+	&:hover {
+		opacity: .7;
+	}
+	&:active{
+		box-shadow: unset;
+	}
+`
 export const Radio = styled.input`
 	cursor: pointer;
 	&:after {

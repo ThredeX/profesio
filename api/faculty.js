@@ -29,7 +29,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/room', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const rooms = await Room.findAll()
-	res.status(204).json(rooms.map(r => r.toJSON()))
+	res.json(rooms.map(r => r.toJSON()))
 })
 
 router.post('/room', async (req, res) => {
@@ -40,13 +40,13 @@ router.post('/room', async (req, res) => {
 
 router.delete('/room/:id', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const room = Room.findByPk(req.params.id)
+	const room = await Room.findByPk(req.params.id)
 	await room.destroy()
 	res.status(204).json({ message: 'Room deleted' })
 })
 
 router.get('/room/:id', async (req, res) => {
-	if (UserChecker.doesExist(req.session.user)) return res.status(401).send()
+	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const lect = await Lecture.findAll({
 		where: {
 			RoomId: req.params.id,

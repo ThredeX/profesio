@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
+import TimetableComp from '../../../Components/ComponentsAdministrator/ChangingRoom'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import {
@@ -20,8 +20,6 @@ const ChangingRoom = () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
-	
-
 	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
