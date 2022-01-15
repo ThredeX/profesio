@@ -10,7 +10,7 @@ const Administrator = require('../models').Administrator
 // AUTHENTICATION REQUIRED
 // Get all users in the database
 router.get('/info', async (req, res) => {
-	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
+	if (!UserChecker.isAdmin(req.session.user)) return res.status(401).send()
 
 	const students = await Student.findAll({
 		attributes: { exclude: ['password'] },
@@ -30,6 +30,7 @@ router.get('/info', async (req, res) => {
 		administrators: administrators.map(administrator => administrator.toJSON()),
 	})
 })
+
 
 // AUTHENTICATION REQUIRED
 // Create a new student in the database
