@@ -83,13 +83,17 @@ const AddingRoom = () => {
 				setFaculties(data)
 			})
 			.catch(err => console.error(err))
+	
+	}, [,reload])
+	useEffect(() => {
 		fetch('../../../api/school/building')
 			.then(res => res.json())
 			.then(data => {
 				setBuildings(data)
+				console.log(data);
 			})
 			.catch(err => console.error(err))
-	}, [, reload])
+	}, [, reload, facultySet])
 
 	function deleteFaculty(e) {
 		e.preventDefault()
@@ -133,11 +137,15 @@ const AddingRoom = () => {
 		}).catch(err => {
 			console.error(err)
 		})
+		setReload(state)
+
 	}
 	function deleteBuild() {
 		fetch(`/api/school/building/${state}`, {
 			method: 'DELETE',
 		})
+		setReload(state)
+
 	}
 	return (
 		load && (
@@ -239,7 +247,9 @@ const AddingRoom = () => {
 							<FormBuild>
 								<Select2
 									name="faculty"
-									onClick={e => setState(e.target.value)}>
+									onChange={e => setState(e.target.value)}>
+								<Option>-</Option>
+
 									{buildings?.map(building => (
 										<Option value={building.id} key={building.id}>
 											{building.address}
