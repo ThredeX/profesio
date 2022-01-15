@@ -58,7 +58,7 @@ router.post('/lecture', async (req, res) => {
 
 router.post('/building', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const faculty = await Faculty.findByPK(req.body.id)
+	const faculty = await Faculty.findByPk(req.body.id)
 	await faculty.createBuilding({ address: req.body.address })
 	res.status(200).json({ message: 'Building created' })
 })

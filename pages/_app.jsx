@@ -1,8 +1,8 @@
 import React from 'react'
 import '../styles/globals.css'
 import { createContext, useEffect } from 'react'
-
-export const Context = createContext(null)
+import { ThemeProvider } from 'styled-components'
+export const Context = createContext({})
 
 function MyApp({ Component, pageProps }) {
 	// colors to switch
@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
 	// box
 	const BOX_LIGHT = '#eeeeee'
 	const BOX_DARK = '#1E1E1E'
-	
+
 	//shadow
 	const SHADOW_LIGHT = '#dddddd'
 	const SHADOW_DARK = '#131313'
@@ -38,7 +38,6 @@ function MyApp({ Component, pageProps }) {
 	//table border
 	const TABLE_LINE_LIGHT = '#b3b3b3'
 	const TABLE_LINE_DARK = '#444'
-
 
 	let theme = {}
 
@@ -67,12 +66,24 @@ function MyApp({ Component, pageProps }) {
 	}
 	useEffect(() => {
 		document.body.style.backgroundColor = `${theme.bg}`
-	})
+	}, [])
 
 	return (
-		<Context.Provider value={theme}>
-			<Component {...pageProps} />
-		</Context.Provider>
+		<ThemeProvider theme={theme}>
+			<Context.Provider
+				value={{
+					bg: BG_DARK,
+					text: TEXT_DARK,
+					color: RED,
+					nav: NAV_DARK,
+					box: BOX_DARK,
+					shadow: SHADOW_DARK,
+					tableLine: TABLE_LINE_DARK,
+					border: BORDER_DARK,
+				}}>
+				<Component {...pageProps} />
+			</Context.Provider>
+		</ThemeProvider>
 	)
 }
 export default MyApp

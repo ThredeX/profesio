@@ -23,13 +23,13 @@ const Main = styled.main`
 `
 const Index = () => {
 	const [load, setLoad] = useState(false);
+	const nevim = useContext(Context)
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
-	return load &&  (
-		<>
-			<ThemeProvider theme={useContext(Context)}>
+	return load && nevim && (
+			<ThemeProvider theme={nevim}>
 				<Header />
 				<Main>
 					<Container>
@@ -40,7 +40,6 @@ const Index = () => {
 					<NavBar route='administrator' name='Admin'/>
 				</Main>
 			</ThemeProvider>
-		</>
 	)
 }
 export default Index

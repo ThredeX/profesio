@@ -34,14 +34,15 @@ app.prepare().then(() => {
 			if (err) throw err
 			if (dev) {
 				const usergen = require('./utils/usergen.js')
-				const defaultDevAdmin = await usergen(
+				const [defaultDevAdmin, pw] = await usergen(
 					{
 						email: 'werfmon@thredex.eu',
 						name: 'dominik',
 						surname: 'vyroubal',
 					},
-					'a',
+					'a'
 				)
+				console.log(pw)
 				await defaultDevAdmin.createAdministrator({ can_edit: true })
 			}
 			console.log(`> Ready on http://localhost:${port}`)
