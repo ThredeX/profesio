@@ -4,7 +4,7 @@ import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import fakulta from '../../../teacherTimetable.json'
 import { Box, Table, Th, Td, Tr, Tbody, MainHeading, Main, Thead } from '../../../theme'
-
+import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
 const Div = styled.div`
 	display: grid;
@@ -63,9 +63,14 @@ const ChangingTimetable = () => {
 	const [timetableState, setTimetableState] = useState([null])
 	const showInfoRefClick = useRef([...new Array(5)].map(() => []))
 	const showInfoRefOver = useRef([...new Array(5)].map(() => []))
+	const [load, setLoad] = useState(false);
 
 	useEffect(() => {
 		setTimetableState({ fakulta })
+	}, [])
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
 	}, [])
 	useEffect(() => {
 		for (let i = 0; i < showInfoRefClick.current.length; i++) {
@@ -80,7 +85,7 @@ const ChangingTimetable = () => {
 		}
 	}, [timetableState])
 
-	return (
+	return load &&(
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />

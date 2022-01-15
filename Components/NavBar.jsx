@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -12,11 +12,13 @@ import {
 	faGears,
 	faUser,
 	faTable,
-	faFileAlt
+	faFileAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { Context } from '../pages/_app'
-
+import { logged } from '../utils/logged'
+import { SubmitButton } from '../theme'
+import logout from '../utils/logout'
 const Container = styled.div`
 	&::-webkit-scrollbar {
 		width: 0px;
@@ -98,11 +100,18 @@ const DivHeading = styled.div`
 	align-items: center;
 	margin-left: 2rem;
 `
-export default function NavBar({ route, name }) {
+export default function NavBar({ route }) {
 	const faIconSize = { width: '19px', height: '19px' }
 	const [state, setState] = useState(false)
 	const navRef = useRef(null)
+	const [name, setName] = useState('')
 	const theme = useContext(Context)
+	useEffect(async () => {
+		let data = await logged()
+		if (data) {
+			setName(data.surname)
+		}
+	}, [])
 	function navHandling() {
 		let displayMenuOpen = document.getElementsByClassName('noneOpen')
 		if (state === false) {
@@ -126,6 +135,7 @@ export default function NavBar({ route, name }) {
 					<DivHeading className="noneOpen">
 						<FontAwesomeIcon size="2x" icon={faUser} color={theme.color} />
 						<Heading1>{name}</Heading1>
+						<SubmitButton type='submit' onClick={logout} value="Odhlásit se" />
 					</DivHeading>
 					<>
 						{route == 'administrator' ? (
@@ -220,9 +230,7 @@ export default function NavBar({ route, name }) {
 									</A>
 								</Link>
 								<Line></Line>
-								<Link
-									href={`/peoples/${route}/subjectmodify`}
-									passHref>
+								<Link href={`/peoples/${route}/subjectmodify`} passHref>
 									<A>
 										<Div>
 											<FontAwesomeIcon

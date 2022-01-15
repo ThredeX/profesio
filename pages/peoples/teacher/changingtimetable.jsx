@@ -17,6 +17,7 @@ import {
 	Input,
 	Radio,
 } from '../../../theme'
+import { logged } from '../../../utils/logged'
 
 import { Context } from '../../_app'
 const Div = styled.div`
@@ -83,13 +84,20 @@ const Div3 = styled.div`
 const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
+	const [load, setLoad] = useState(false);
+	
 	useEffect(() => {
 		setTimetableState({
 			fakulta,
 		})
+
+	}, [])
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
 	}, [])
 
-	return (
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
