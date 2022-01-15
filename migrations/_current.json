@@ -1,0 +1,490 @@
+{
+    "tables": {
+        "Administrator": {
+            "tableName": "Administrator",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "can_edit": {
+                    "allowNull": false,
+                    "field": "can_edit",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "User",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Building": {
+            "tableName": "Building",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "address": {
+                    "field": "address",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "deletedAt": {
+                    "field": "deletedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Faculty": {
+            "tableName": "Faculty",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "allowNull": false,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "shortcut": {
+                    "allowNull": false,
+                    "field": "shortcut",
+                    "seqType": "Sequelize.STRING"
+                }
+            },
+            "indexes": []
+        },
+        "Lecture": {
+            "tableName": "Lecture",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "beginning": {
+                    "allowNull": false,
+                    "field": "beginning",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "end": {
+                    "allowNull": false,
+                    "field": "end",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "days": {
+                    "allowNull": false,
+                    "field": "days",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "deletedAt": {
+                    "field": "deletedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "FacultyId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Faculty",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "FacultyId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "SubjectId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Subject",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "SubjectId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "TeacherId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Teacher",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "TeacherId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "RoomId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Room",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "RoomId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Participations": {
+            "tableName": "Participations",
+            "schema": {
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "LectureId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Lecture",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "field": "LectureId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "StudentId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Student",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "field": "StudentId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Room": {
+            "tableName": "Room",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "label": {
+                    "allowNull": false,
+                    "field": "label",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "BuildingId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Building",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "BuildingId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "School": {
+            "tableName": "School",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "adress": {
+                    "field": "adress",
+                    "seqType": "Sequelize.STRING"
+                },
+                "website": {
+                    "field": "website",
+                    "seqType": "Sequelize.STRING"
+                },
+                "timetable_start": {
+                    "allowNull": false,
+                    "field": "timetable_start",
+                    "seqType": "Sequelize.DATE"
+                },
+                "timetable_end": {
+                    "allowNull": false,
+                    "field": "timetable_end",
+                    "seqType": "Sequelize.DATE"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "deletedAt": {
+                    "field": "deletedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Specialization": {
+            "tableName": "Specialization",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "allowNull": false,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "type": {
+                    "allowNull": false,
+                    "field": "type",
+                    "seqType": "Sequelize.STRING"
+                }
+            },
+            "indexes": []
+        },
+        "Student": {
+            "tableName": "Student",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "entry_year": {
+                    "allowNull": false,
+                    "field": "entry_year",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "SpecializationId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Specialization",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "SpecializationId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "User",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Subject": {
+            "tableName": "Subject",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "allowNull": false,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "short": {
+                    "allowNull": false,
+                    "field": "short",
+                    "seqType": "Sequelize.STRING"
+                },
+                "TeacherId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Teacher",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "TeacherId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Teacher": {
+            "tableName": "Teacher",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "User",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "User": {
+            "tableName": "User",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "username": {
+                    "allowNull": false,
+                    "field": "username",
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "allowNull": false,
+                    "field": "password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "allowNull": false,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "name": {
+                    "allowNull": false,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "surname": {
+                    "allowNull": false,
+                    "field": "surname",
+                    "seqType": "Sequelize.STRING"
+                },
+                "telephone_number": {
+                    "field": "telephone_number",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "deletedAt": {
+                    "field": "deletedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "BuildingInfo": {
+            "tableName": "BuildingInfo",
+            "schema": {
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "BuildingId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Building",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "field": "BuildingId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "FacultyId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Faculty",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "field": "FacultyId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

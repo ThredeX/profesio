@@ -14,15 +14,51 @@ router.get('/info', async (req, res) => {
 
 	const students = await Student.findAll({
 		attributes: { exclude: ['password'] },
-		include: [User],
+		include: [
+			{
+				model: User,
+				attributes: [
+					'id',
+					'username',
+					'name',
+					'surname',
+					'email',
+					'telephone_number',
+				],
+			},
+		],
 	})
 	const teachers = await Teacher.findAll({
 		attributes: { exclude: ['password'] },
-		include: [User],
+		include: [
+			{
+				model: User,
+				attributes: [
+					'id',
+					'username',
+					'name',
+					'surname',
+					'email',
+					'telephone_number',
+				],
+			},
+		],
 	})
 	const administrators = await Administrator.findAll({
 		attributes: { exclude: ['password'] },
-		include: [User],
+		include: [
+			{
+				model: User,
+				attributes: [
+					'id',
+					'username',
+					'name',
+					'surname',
+					'email',
+					'telephone_number',
+				],
+			},
+		],
 	})
 	res.json({
 		students: students.map(student => student.toJSON()),
@@ -30,7 +66,6 @@ router.get('/info', async (req, res) => {
 		administrators: administrators.map(administrator => administrator.toJSON()),
 	})
 })
-
 
 // AUTHENTICATION REQUIRED
 // Create a new student in the database

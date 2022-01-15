@@ -29,6 +29,7 @@ router.post('/info', async (req, res) => {
 
 // Return all subjects
 router.get('/subject', async (req, res) => {
+	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const subjects = await Subject.findAll()
 	res.json(subjects.map(sub => sub.toJSON()))
 })
@@ -57,6 +58,7 @@ router.post('/lecture', async (req, res) => {
 })
 
 router.get('/building', async (req, res) => {
+	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const buildings = await Building.findAll()
 	res.status(200).json(buildings.map(b => b.toJSON()))
 })
@@ -64,7 +66,6 @@ router.get('/building', async (req, res) => {
 router.post('/building', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const faculty = await Faculty.findByPk(req.body.id)
-	console.log(faculty, faculty.toJSON())
 	await faculty.createBuilding({ address: req.body.address })
 	res.status(200).json({ message: 'Building created' })
 })

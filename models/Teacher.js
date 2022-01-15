@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 		},
 		{
-			timestamps: false,
+			timestamps: true,
 			paranoid: true,
 			freezeTableName: true,
 		},
