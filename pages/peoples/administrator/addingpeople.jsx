@@ -85,7 +85,8 @@ const AddingPeople = () => {
 			data.entry_year = parseInt(e.target.yearOfEntry.value)
 		}
 		if (whichPeople === 'administrator') {
-			data.can_edit = e.target.can_edit.checked
+			// data.can_edit = e.target.can_edit.checked
+			data.can_edit = true;
 		}
 		console.log(data)
 		fetch(`../../../api/users/${whichPeople}`, {
@@ -275,12 +276,12 @@ const AddingPeople = () => {
 										name="phoneNumber"
 									/>
 								</FormDiv>
-								<FormDiv>
+								{/* <FormDiv>
 									<Label htmlFor="can_edit">Editovaní:</Label>
 									<Div2>
 										<Radio name="can_edit" type="checkbox" />
 									</Div2>
-								</FormDiv>
+								</FormDiv> */}
 								<ButtonDiv>
 									<SubmitButton type="submit" value="Add" />
 								</ButtonDiv>

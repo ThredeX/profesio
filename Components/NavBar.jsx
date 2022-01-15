@@ -17,6 +17,8 @@ import {
 import Link from 'next/link'
 import { Context } from '../pages/_app'
 import { logged } from '../utils/logged'
+import { SubmitButton } from '../theme'
+import logout from '../utils/logout'
 const Container = styled.div`
 	&::-webkit-scrollbar {
 		width: 0px;
@@ -133,6 +135,7 @@ export default function NavBar({ route }) {
 					<DivHeading className="noneOpen">
 						<FontAwesomeIcon size="2x" icon={faUser} color={theme.color} />
 						<Heading1>{name}</Heading1>
+						<SubmitButton type='submit' onClick={logout} value="Odhlásit se" />
 					</DivHeading>
 					<>
 						{route == 'administrator' ? (
