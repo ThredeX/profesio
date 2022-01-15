@@ -15,7 +15,7 @@ class UserChecker {
 		return this.doesExist(user) && user.student ? true : false
 	}
 
-	static canEdit(user) {
+  static canEdit(user) {
 		return this.doesExist(user) && this.isAdmin(user) && user.administrator.can_edit
 	}
 }
