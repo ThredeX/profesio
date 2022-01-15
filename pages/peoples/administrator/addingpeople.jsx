@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect} from 'react'
 
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
-
 import styled, { ThemeProvider } from 'styled-components'
 
 import {
@@ -16,6 +15,7 @@ import {
 	Main,
 } from '../../../theme'
 import { Context } from '../../_app'
+import { logged } from '../../../utils/logged'
 
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
@@ -72,6 +72,7 @@ const Div2 = styled.div`
 const AddingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState(null)
 	const [reload, setReload] = useState(false)
+	const [load, setLoad] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault()
 		setReload(true)
@@ -84,7 +85,8 @@ const AddingPeople = () => {
 			data.entry_year = parseInt(e.target.yearOfEntry.value)
 		}
 		if (whichPeople === 'administrator') {
-			data.can_edit = e.target.can_edit.checked
+			// data.can_edit = e.target.can_edit.checked
+			data.can_edit = true;
 		}
 		console.log(data)
 		fetch(`../../../api/users/${whichPeople}`, {
@@ -94,10 +96,15 @@ const AddingPeople = () => {
 			},
 			body: JSON.stringify(data),
 		}).then(res => {
-			return res.json()
-		}).then(res => console.log(res))
-	}
-	return (
+			if (!res.ok) {
+				console.error(res.text)
+			}
+		})
+	}	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
@@ -269,12 +276,12 @@ const AddingPeople = () => {
 										name="phoneNumber"
 									/>
 								</FormDiv>
-								<FormDiv>
+								{/* <FormDiv>
 									<Label htmlFor="can_edit">Editovaní:</Label>
 									<Div2>
 										<Radio name="can_edit" type="checkbox" />
 									</Div2>
-								</FormDiv>
+								</FormDiv> */}
 								<ButtonDiv>
 									<SubmitButton type="submit" value="Add" />
 								</ButtonDiv>

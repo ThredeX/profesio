@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useState,useEffect,  useContext } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
+import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
-
 const Heading = styled.h1`
 	color: ${props => props.theme.text};
 	font-size: clamp(3rem, 10vw, 10rem);
@@ -22,7 +22,12 @@ const Main = styled.main`
 	height: calc(100vh - 5.2rem);
 `
 const Index = () => {
-	return (
+	const [load, setLoad] = useState(false);
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	}, [])
+	return load &&  (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />

@@ -4,6 +4,7 @@ import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 
 import { MainHeading, Main, Select2, Option, Box, SubmitButton } from '../../../theme'
+import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
 
 
@@ -63,6 +64,7 @@ const Margin = styled.div`
 const DeletingRoom = () => {
 	const [fakulta, setFakulta] = useState(0)
 	const [mistnost, setMistnost] = useState()
+	const [load, setLoad] = useState(false);
 
     function handleSubmit() {
         try {
@@ -74,8 +76,11 @@ const DeletingRoom = () => {
             alert('Nebyla vybrána žádná místnost')
         }
     }
-
-	return (
+    useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />

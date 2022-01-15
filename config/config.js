@@ -3,7 +3,7 @@ module.exports = {
 		username: 'root',
 		password: null,
 		database: 'profesio',
-		host: ':memory:',
+		host: 'db.sqlite',
 		dialect: 'sqlite',
 	},
 	production: {

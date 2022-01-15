@@ -1,9 +1,9 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Context } from '../../_app'
-
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import styled, { ThemeProvider } from 'styled-components'
+import { logged } from '../../../utils/logged'
 
 const Heading = styled.h1`
 	color: ${props => props.theme.text};
@@ -25,7 +25,13 @@ const Main = styled.main`
 
 const TimetableCreate = (props) => {
 
-    return (
+	const [load, setLoad] = useState(false);
+
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	}, [])
+    return load && (
         <>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />

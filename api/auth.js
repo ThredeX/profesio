@@ -13,32 +13,27 @@ router.get('/me', async (req, res) => {
 // Login route using sessions
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body
-	try {
-		const user = await User.findOne({
-			where: { username },
-			attributes: ['username', 'password'],
-		})
+	const user = await User.findOne({
+		where: { username },
+		attributes: ['username', 'password'],
+	})
 
-		if (!user) return res.status(401).json({ error: 'Invalid credentials' })
+	if (!user) return res.status(401).json({ error: 'Invalid credentials' })
 
-		const isPasswordValid = await user.comparePassword(password)
-		if (!isPasswordValid)
-			return res.status(401).json({ error: 'Invalid credentials' })
+	const isPasswordValid = await user.comparePassword(password)
+	if (!isPasswordValid) return res.status(401).json({ error: 'Invalid credentials' })
 
-		const userData = await User.findOne({
-			where: { username },
-			include: [Administrator, Teacher, Student],
-			attributes: ['username', 'email', 'name', 'surname'],
-		})
-		req.session.user = parseUser(userData.toJSON())
-		res.status(200).json({ message: 'Successfull Login!' })
-	} catch (err) {
-		res.status(500).json({ error: err.message })
-	}
+	const userData = await User.findOne({
+		where: { username },
+		include: [Administrator, Teacher, Student],
+		attributes: ['username', 'email', 'name', 'surname'],
+	})
+	req.session.user = parseUser(userData.toJSON())
+	res.status(200).json({ message: 'Successfull Login!' })
 })
 
 router.post('/logout', async (req, res) => {
-	res.session.destroy()
+	req.session.destroy()
 	res.status(200).json({ message: 'Logged out successfully' })
 })
 

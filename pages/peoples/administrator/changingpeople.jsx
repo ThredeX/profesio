@@ -16,8 +16,8 @@ import {
 	SubmitButton,
 } from '../../../theme'
 import ListOfPeople from '../../../Components/ComponentsAdministrator/ListOfPeople'
-import { useFetch } from '../../../hooks/useFetch'
 import { userDataReformat } from '../../../utils/userDataReformat'
+import { logged } from '../../../utils/logged'
 
 const FormContainer1 = styled.div`
 	padding-right: 3rem;
@@ -71,6 +71,7 @@ const Margin = styled.div`
 	margin-block: 1rem;
 `
 const ChangingPeople = props => {
+	const [load, setLoad] = useState(false);
 	const [id, setId] = useState(null)
 
 	const [dataFetch, setDataFetch] = useState([]);
@@ -121,8 +122,11 @@ const ChangingPeople = props => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id])
-
-	return (
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
@@ -137,6 +141,7 @@ const ChangingPeople = props => {
 					/>
 					{id && (
 						<>
+						
 							<Margin></Margin>
 							<FormContainer1>
 								<FormRadio

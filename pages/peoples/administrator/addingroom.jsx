@@ -15,6 +15,7 @@ import {
 	Label,
 	Radio,
 } from '../../../theme'
+import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
 const FormRadio = styled.form`
 	width: 20rem;
@@ -59,6 +60,7 @@ const AddingRoom = () => {
 	const [faculties, setFaculties] = useState(null)
 	const [facultySet, setFacultySet] = useState(null)
 	const [reload, setReload] = useState(0);
+	const [load, setLoad] = useState(false);
 
 	useEffect(() => {
 		fetch('../../../api/faculty')
@@ -96,7 +98,11 @@ const AddingRoom = () => {
 		})
 		setReload(true)
 	}
-	return (
+	useEffect(async () => {
+		let data = await logged()
+		setLoad(!!data)
+	})
+	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
