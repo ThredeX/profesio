@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const { Faculty, Lecture, Room } = require('../models/')
 const UserChecker = require('../utils/userChecker.js')
+const { fromDB } = require('../utils/lectureParser.js')
 
 // Returns all faculties
 router.get('/', async (req, res) => {
@@ -40,7 +41,7 @@ router.post('/room', async (req, res) => {
 
 router.delete('/room/:id', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const room = Room.findByPk(req.params.id)
+	const room = await Room.findByPk(req.params.id)
 	await room.destroy()
 	res.status(204).json({ message: 'Room deleted' })
 })
@@ -52,7 +53,7 @@ router.get('/room/:id', async (req, res) => {
 			RoomId: req.params.id,
 		},
 	})
-	res.json(lect.map(l => l.toJSON()))
+	res.json(fromDB(lect.map(l => l.toJSON())))
 })
 
 router.get('/teacher/:id', async (req, res) => {
