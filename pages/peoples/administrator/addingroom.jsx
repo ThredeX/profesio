@@ -58,6 +58,7 @@ const Margin = styled.div`
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
+	const [buildings, setBuildings] = useState(null)
 	const [facultySet, setFacultySet] = useState(null)
 	const [reload, setReload] = useState(0);
 	const [load, setLoad] = useState(false);
@@ -70,7 +71,13 @@ const AddingRoom = () => {
 				setFaculties(data)
 			})
 			.catch(err => console.error(err))
-	}, [ , reload, facultySet])
+		fetch('../../../api/school/building')
+			.then(res => res.json())
+			.then(data => {
+				setBuildings(data)
+			})
+			.catch(err => console.error(err))
+	}, [ , reload])
 
 	function deleteFaculty(e) {
 		e.preventDefault()
@@ -104,21 +111,21 @@ const AddingRoom = () => {
 		setLoad(!!data)
 	})
 	function addBuild() {
-		fetch('/api/school/building', {
+		console.log(state, build);
+		fetch('../../../api/school/building', {
 			method: "POST", 
 			headers: {
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify({id: 1, address: ""})
+			body: JSON.stringify({id: state, address: build})
+		})
+		.catch((err)=> {
+			console.error(err);
 		})
 	}
 	function deleteBuild(){
 		fetch(`/api/school/building/${state}`, {
 			method: "DELETE", 
-			headers: {
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify({id: 1, address: "" })
 		})
 	}
 	return load && (
@@ -195,21 +202,26 @@ const AddingRoom = () => {
 						<Select2 name="faculty" onClick={e => setState(e.target.value)}>
 							{faculties?.map(faculty => (
 								<Option value={faculty.id} key={faculty.id}>
-									{faculty.name} ({faculty.shortcut})
+									{faculty.name}
 								</Option>
 							))}
 						</Select2>
 						<div>
-
-						<Input onChange={(e) => setBuild(e.target.value)}
-							style={{ maxWidth: '10rem' }}
-							placeholder="Název budovy"
-							title="Budova, do které budete přidávat místnosti/rozvrhy"
-						/>
-						<SubmitButton value="Přidat budovu" onClick={addBuild} />
-						<SubmitButton value="Odebrat budovu" onClick={deleteBuild} />
+							<Input onChange={(e) => setBuild(e.target.value)}
+								style={{ maxWidth: '10rem' }}
+								placeholder="Název budovy"
+								title="Budova, do které budete přidávat místnosti/rozvrhy"
+							/>
+							<SubmitButton value="Přidat budovu" onClick={addBuild} />
+							<Select2 name="faculty" onClick={e => setState(e.target.value)}>
+							{buildings?.map(building => (
+								<Option value={building.id} key={building.id}>
+									{building.address}
+								</Option>
+							))}
+						</Select2>
+							<SubmitButton value="Odebrat budovu" onClick={deleteBuild} />
 						</div>
-
 					</Box>
 					<TimetableComp changeTT={false} />
 				</Main>
