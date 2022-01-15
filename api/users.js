@@ -35,10 +35,11 @@ router.get('/info', async (req, res) => {
 // Create a new student in the database
 router.post('/student', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const user = await usergen(req.body, 's')
+	const [user, pw] = await usergen(req.body, 's')
 	await user.createStudent({ entry_year: req.body.entry_year })
 	res.status(204).json({
-		message: 'User created',
+		username: user.username,
+		password: pw,
 	})
 })
 
@@ -46,10 +47,11 @@ router.post('/student', async (req, res) => {
 // Create a new teacher in the database
 router.post('/teacher', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const user = await usergen(req.body, 't')
+	const [user, pw] = await usergen(req.body, 't')
 	await user.createTeacher()
 	res.status(204).json({
-		message: 'User created',
+		username: user.username,
+		password: pw,
 	})
 })
 
@@ -57,10 +59,11 @@ router.post('/teacher', async (req, res) => {
 // Create a new administrator in the database
 router.post('/administrator', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const user = await usergen(req.body, 'a')
+	const [user, pw] = await usergen(req.body, 'a')
 	await user.createAdministrator({ can_edit: req.body.can_edit })
 	res.status(204).json({
-		message: 'User created',
+		username: user.username,
+		password: pw,
 	})
 })
 
@@ -79,7 +82,7 @@ router.delete('/:id', async (req, res) => {
 // Update a user in the database by id
 router.post('/:id', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const user = await User.findByPk(req.params.id)
+	const [user, pw] = await User.findByPk(req.params.id)
 	await user.update(req.body)
 	res.status(204).json({
 		message: 'User updated',
