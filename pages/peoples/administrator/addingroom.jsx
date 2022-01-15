@@ -61,6 +61,7 @@ const AddingRoom = () => {
 	const [facultySet, setFacultySet] = useState(null)
 	const [reload, setReload] = useState(0);
 	const [load, setLoad] = useState(false);
+	const [build, setBuild] = useState(null);
 
 	useEffect(() => {
 		fetch('../../../api/faculty')
@@ -102,6 +103,24 @@ const AddingRoom = () => {
 		let data = await logged()
 		setLoad(!!data)
 	})
+	function addBuild() {
+		fetch('/api/school/building', {
+			method: "POST", 
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({id: 1, address: ""})
+		})
+	}
+	function deleteBuild(){
+		fetch(`/api/school/building/${state}`, {
+			method: "DELETE", 
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({id: 1, address: "" })
+		})
+	}
 	return load && (
 		<>
 			<ThemeProvider theme={useContext(Context)}>
@@ -180,11 +199,17 @@ const AddingRoom = () => {
 								</Option>
 							))}
 						</Select2>
-						<Input
+						<div>
+
+						<Input onChange={(e) => setBuild(e.target.value)}
 							style={{ maxWidth: '10rem' }}
 							placeholder="Název budovy"
 							title="Budova, do které budete přidávat místnosti/rozvrhy"
 						/>
+						<SubmitButton value="Přidat budovu" onClick={addBuild} />
+						<SubmitButton value="Odebrat budovu" onClick={deleteBuild} />
+						</div>
+
 					</Box>
 					<TimetableComp changeTT={false} />
 				</Main>

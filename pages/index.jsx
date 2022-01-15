@@ -1,9 +1,6 @@
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../Components/Header'
 import { useRouter } from 'next/router'
-import { Formik } from 'formik'
-import { Form, Input, SubmitButton } from '../theme'
-import Link from 'next/link'
 import { Context } from './_app'
 import { useContext } from 'react'
 
@@ -16,6 +13,37 @@ const Container = styled.div`
 const Div = styled.div`
 	margin: 0 auto;
 	width: 100vw;
+`
+ const Form = styled.form`
+	width: clamp(20rem, 20vw, 80vw);
+`
+ const Input = styled.input`
+	width: 100%;
+	border: 1px ${props => props.theme.text} solid;
+	border-radius: 4px;
+	margin-block: 0.3rem;
+	padding: 0.3rem 0.6rem;
+	&::placeholder {
+		color: #999;
+	}
+`
+const SubmitButton = styled.input`
+	margin-top: .2rem;
+	border-radius: 4px;
+	border: none;
+	padding: 0.5rem 3rem;
+	height: 1.95rem;
+	background-color: ${props => props.theme.color};
+	color: #fff;
+	cursor: pointer;
+	float: right;
+	box-shadow: 0 0px 0 1px ${props => props.theme.color};
+	&:hover {
+		opacity: .7;
+	}
+	&:active{
+		box-shadow: unset;
+	}
 `
 const Main = styled.main`
 	margin: 0 auto;

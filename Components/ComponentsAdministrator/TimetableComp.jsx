@@ -72,7 +72,7 @@ const Container2 = styled.div`
 	margin-block: .5rem;
 	display: flex;
 	justify-content: flex-end;
-	align-items: center
+	align-items: center;
 `
 const WindowTime = styled.div`
 	position: absolute;

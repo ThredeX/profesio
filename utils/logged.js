@@ -3,8 +3,6 @@ export async function logged() {
 		let res = await fetch('/api/auth/me')
 		if (res.ok) {
 			let data = await res.json()
-            console.log(data);
-           
 			return data
 		}
         else{
