@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { Faculty, Building, School, Subject, Lecture } = require('../models')
 
 const UserChecker = require('../utils/userChecker.js')
+const { toDB } = require('../utils/lectureParser.js')
 
 // Get all schools info
 router.get('/info', async (req, res) => {
@@ -53,7 +54,7 @@ router.delete('/subject/:id', async (req, res) => {
 
 router.post('/lecture', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	await Lecture.create(req.body)
+	await toDB(req.body)
 	res.status(200).json({ message: 'Lecture created' })
 })
 
