@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { Faculty, Lecture, Room, Subject, Teacher, User } = require('../models/')
+const { Faculty, Lecture, Room, Subject, Teacher, User, Building } = require('../models/')
 const UserChecker = require('../utils/userChecker.js')
 const { fromDB } = require('../utils/lectureParser.js')
 
@@ -68,14 +68,16 @@ router.get('/room/:id', async (req, res) => {
 	res.json(fromDB(lect.map(l => l.toJSON())))
 })
 
-router.get('/teacher/:id', async (req, res) => {
-	if (UserChecker.doesExist(req.session.user)) return res.status(401).send()
+router.get('/teacher', async (req, res) => {
+	console.log(req.session.user)
+	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const lect = await Lecture.findAll({
 		where: {
-			TeacherId: req.params.id,
+			TeacherId: req.session.user.teacher.id,
 		},
+		include: [Subject, Faculty, {model: Room, include: Building}]
 	})
-	res.json(lect.map(l => l.toJSON()))
+	res.json(fromDB(lect.map(l => l.toJSON())))
 })
 
 module.exports = router

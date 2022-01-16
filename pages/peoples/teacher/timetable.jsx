@@ -57,7 +57,6 @@ const Div2 = styled.div`
 	}
 	position: relative;
 `
-
 const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
@@ -84,6 +83,12 @@ const ChangingTimetable = () => {
 			}
 		}
 	}, [timetableState])
+
+	useEffect(() => {
+		fetch(`../../../api/faculty/teacher`)
+		.then(res => res.json())
+		.then(data => console.log(data))
+	})
 
 	return load &&(
 		<>

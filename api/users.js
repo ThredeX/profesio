@@ -73,7 +73,7 @@ router.post('/student', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const [user, pw] = await usergen(req.body, 's')
 	await user.createStudent({ entry_year: req.body.entry_year })
-	res.status(204).json({
+	res.json({
 		username: user.username,
 		password: pw,
 	})
@@ -85,7 +85,7 @@ router.post('/teacher', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const [user, pw] = await usergen(req.body, 't')
 	await user.createTeacher()
-	res.status(204).json({
+	res.json({
 		username: user.username,
 		password: pw,
 	})
@@ -97,7 +97,7 @@ router.post('/administrator', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const [user, pw] = await usergen(req.body, 'a')
 	await user.createAdministrator({ can_edit: req.body.can_edit })
-	res.status(204).json({
+	res.json({
 		username: user.username,
 		password: pw,
 	})
@@ -109,7 +109,7 @@ router.delete('/:id', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const user = await User.findByPk(req.params.id)
 	await user.destroy()
-	res.status(204).json({
+	res.json({
 		message: 'User deleted',
 	})
 })
@@ -118,9 +118,9 @@ router.delete('/:id', async (req, res) => {
 // Update a user in the database by id
 router.post('/:id', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
-	const [user, pw] = await User.findByPk(req.params.id)
+	const user = await User.findByPk(req.params.id)
 	await user.update(req.body)
-	res.status(204).json({
+	res.json({
 		message: 'User updated',
 	})
 })
