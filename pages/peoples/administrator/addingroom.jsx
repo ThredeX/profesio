@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp'
+import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp.jsx'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import {
@@ -58,14 +58,13 @@ const Margin = styled.div`
 const FormBuild = styled.form`
 	display: flex;
 	margin-top: 1rem;
-	& > select{
+	& > select {
 		width: 10rem;
 	}
-	& > select, input{
+	& > select,
+	input {
 		margin-right: 2rem;
-		
 	}
-
 `
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
@@ -75,6 +74,12 @@ const AddingRoom = () => {
 	const [reload, setReload] = useState(0)
 	const [load, setLoad] = useState(false)
 	const [build, setBuild] = useState(null)
+	const [buildProp, setBuildProp] = useState(null)
+	const [delBuild, setDelBuild] = useState(null)
+	const [room, setRoom] = useState(null)
+	const [delRoom, setDelRoom] = useState(null)
+	const [allRoom, setAllRoom] = useState(null)
+	const [roomProp, setRoomProp] = useState(null)
 
 	useEffect(() => {
 		fetch('../../../api/faculty')
@@ -83,14 +88,22 @@ const AddingRoom = () => {
 				setFaculties(data)
 			})
 			.catch(err => console.error(err))
-	
-	}, [,reload])
+	}, [, reload])
+	useEffect(() => {
+		fetch('../../../api/faculty/room')
+			.then(res => res.json())
+			.then(data => {
+				setAllRoom(data)
+				console.log(data)
+			})
+			.catch(err => console.error(err))
+	}, [, reload, room])
 	useEffect(() => {
 		fetch('../../../api/school/building')
 			.then(res => res.json())
 			.then(data => {
 				setBuildings(data)
-				console.log(data);
+				console.log(data)
 			})
 			.catch(err => console.error(err))
 	}, [, reload, facultySet])
@@ -138,14 +151,31 @@ const AddingRoom = () => {
 			console.error(err)
 		})
 		setReload(state)
-
 	}
 	function deleteBuild() {
-		fetch(`/api/school/building/${state}`, {
+		fetch(`/api/school/building/${delBuild}`, {
 			method: 'DELETE',
 		})
 		setReload(state)
-
+	}
+	function addRoom() {
+		console.log(state, build)
+		fetch('../../../api/faculty/room', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify({ BuildingId: buildProp, label: room }),
+		}).catch(err => {
+			console.error(err)
+		})
+		setReload(buildProp)
+	}
+	function deleteRoom() {
+		fetch(`/api/faculty/room/${delRoom}`, {
+			method: 'DELETE',
+		})
+		setReload(delRoom)
 	}
 	return (
 		load && (
@@ -220,17 +250,36 @@ const AddingRoom = () => {
 							</Container>
 						</Box>
 						<Box>
-							<Margin></Margin>
-							<Select2
-								name="faculty"
-								onChange={e => setState(e.target.value)}>
-								<Option>-</Option>
-								{faculties?.map(faculty => (
-									<Option value={faculty.id} key={faculty.id}>
-										{faculty.name}
-									</Option>
-								))}
-							</Select2>
+							<FormBuild>
+								<Input
+									onChange={e => setRoom(e.target.value)}
+									style={{ maxWidth: '10rem' }}
+									placeholder="Název místnosti"
+								/>
+								<SubmitButton
+									type="button"
+									value="Přidat místnost"
+									onClick={addRoom}
+								/>
+							</FormBuild>
+							<FormBuild>
+								<Select2
+									name="room"
+									onChange={e => setDelRoom(e.target.value)}>
+									<Option>-</Option>
+
+									{allRoom?.map(room => (
+										<Option value={room.id} key={room.id}>
+											{room.label}
+										</Option>
+									))}
+								</Select2>
+								<SubmitButton
+									type="button"
+									value="Odebrat místnost"
+									onClick={deleteRoom}
+								/>
+							</FormBuild>
 							<FormBuild>
 								<Input
 									onChange={e => setBuild(e.target.value)}
@@ -239,16 +288,16 @@ const AddingRoom = () => {
 									title="Budova, do které budete přidávat místnosti/rozvrhy"
 								/>
 								<SubmitButton
-								type='button'
+									type="button"
 									value="Přidat budovu"
 									onClick={addBuild}
 								/>
 							</FormBuild>
 							<FormBuild>
 								<Select2
-									name="faculty"
-									onChange={e => setState(e.target.value)}>
-								<Option>-</Option>
+									name="building"
+									onChange={e => setDelBuild(e.target.value)}>
+									<Option>-</Option>
 
 									{buildings?.map(building => (
 										<Option value={building.id} key={building.id}>
@@ -257,13 +306,49 @@ const AddingRoom = () => {
 									))}
 								</Select2>
 								<SubmitButton
-								type='button'
+									type="button"
 									value="Odebrat budovu"
 									onClick={deleteBuild}
 								/>
 							</FormBuild>
+							<FormBuild>
+								<Select2
+									name="faculty"
+									onChange={e => setState(e.target.value)}>
+									<Option>-</Option>
+									{faculties?.map(faculty => (
+										<Option value={faculty.id} key={faculty.id}>
+											{faculty.name}
+										</Option>
+									))}
+								</Select2>
+								<Select2
+									name="setbuilding"
+									onChange={e => setBuildProp(e.target.value)}>
+									<Option>-</Option>
+
+									{buildings?.map(building => (
+										<Option value={building.id} key={building.id}>
+											{building.address}
+										</Option>
+									))}
+								</Select2>
+								<Select2
+									name="room"
+									onChange={e => setRoomProp(e.target.value)}>
+									<Option>-</Option>
+
+									{allRoom?.map(room => (
+										<Option value={room.id} key={room.id}>
+											{room.label}
+										</Option>
+									))}
+								</Select2>
+							</FormBuild>
 						</Box>
-						<TimetableComp changeTT={false} />
+						{state && buildProp && roomProp && (
+							<TimetableComp faculty={state} room={roomProp} />
+						)}
 					</Main>
 				</ThemeProvider>
 			</>

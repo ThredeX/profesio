@@ -69,7 +69,7 @@ const Container = styled.div`
 	height: 120%;
 `
 const Container2 = styled.div`
-	margin-block: .5rem;
+	margin-block: 0.5rem;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -95,169 +95,91 @@ const Paragraph = styled.p`
 	margin: 0;
 	color: ${props => props.theme.color};
 `
-const Textarea = styled.textarea`
-	resize: vertical;
-	border-radius: 8px;
-	width: 60%;
-	min-height: 1.5rem;
-	border: none;
-	font-size: 1rem;
-	padding-inline: 0.5rem;
+const SelectContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	row-gap: 10px;
 `
-export default function TimetableAdding({ changeTT }) {
+export default function TimetableAdding(props) {
+	const { changeTT } = props
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const timeRef = useRef(null)
 	const [room, setRoom] = useState(null)
+	const [subjects, setSubjects] = useState([])
+	const [teachers, setTeachers] = useState([])
+	const [subject, setSubject] = useState(null)
+	const [teacher, setTeacher] = useState(null)
+	const [lecture, setLecture] = useState(null)
+
 	useEffect(() => {
-		if (changeTT) {
-			setTimetableState({
-				//bude se fetchovat => changeTT = true
-				fakulta: {
-					name: 'Fakulta informačních technologií',
-					shortName: 'FIT',
-					timetable: {
-						subject: [
-							[
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-							],
-							[
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-							],
-							[
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-							],
-							[
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika II',
-									teacherName: 'PhD. Kozajska',
-								},
-							],
-							[
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-								{
-									id: 1,
-									subjectName: 'Matematika I',
-									teacherName: 'PhD. Kozajska',
-								},
-							],
-						],
-						time: [
-							{ start: '09:00', end: '10:30' },
-							{ start: '10:30', end: '12:00' },
-							{ start: '13:00', end: '14:30' },
-						],
-						note: '',
-					},
-				},
+		fetch('../../api/school/subject')
+			.then(res => res.json())
+			.then(data => {
+				setSubjects(data)
+				console.log(data)
 			})
-			console.log(timetableState)
-		}
+		fetch('../../api/users/info')
+			.then(res => res.json())
+			.then(data => {
+				console.log(data.teachers)
+				setTeachers(data.teachers)
+			})
+		fetch(`../../api/faculty/room/${props.room}`)
+			.then(res => res.json())
+			.then(data => {
+				setLecture(data)
+				setTimetableState([...data.subjects[0].map(_ => null), null])
+				console.log(data)
+			})
 	}, [])
+	//Lecture = beginning, end, days, FacultyId, RoomId, TeacherId, SubjectId
+	function handleSubmit() {
+		let subjectData = [[], [], [], [], []]
+		let timeData = []
+		let counter = 0
+		let length = document.getElementsByClassName('timetableSubjects').length / 5
+		console.log(length)
+		for (let i = 0; i < 5; i++) {
+			for (let j = 0; j < length; j++) {
+				subjectData[i][j] = {
+					TeacherId: parseInt(
+						document.querySelectorAll('.timetableSubjects > div')[counter]
+							.children[1].value,
+					),
+					SubjectId: parseInt(
+						document.querySelectorAll('.timetableSubjects > div')[counter]
+							.children[0].value,
+					),
+					RoomId: props.room,
+					FacultyId: props.faculty,
+				}
 
-	const subjects = [
-		//bude se fetchovat
-		{
-			id: 1,
-			subjectName: 'Matematika I',
-			teacherName: 'PhD. Kozajska',
-		},
-		{
-			id: 2,
-			subjectName: 'Matematika II',
-			teacherName: 'PhD. Kozajska',
-		},
-		{
-			id: 3,
-			subjectName: 'Programovaní I',
-			teacherName: 'PhD. Kozajska',
-		},
-		{
-			id: 4,
-			subjectName: 'Programovaní II',
-			teacherName: 'PhD. Kozajska',
-		},
-		{
-			id: 5,
-			subjectName: 'Ekonomika',
-			teacherName: 'PhD. Kozajska',
-		},
-		{
-			id: 6,
-			subjectName: 'Anglický jazyk I',
-			teacherName: 'PhD. Kozajska',
-		},
-		{
-			id: 7,
-			subjectName: 'Anglický jazyk II',
-			teacherName: 'PhD. Kozajska',
-		},
-	]
-
+				counter++
+			}
+		}
+		for (let i = 0; i < length * 2; i += 2) {
+			timeData.push({
+				start: document.querySelectorAll('.timetableTime input')[i].value,
+				end: document.querySelectorAll('.timetableTime input')[i + 1].value,
+			})
+			console.log(timeData)
+		}
+		console.log({ subject: subjectData, time: timeData })
+		fetch('../../api/school/lecture', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify({ subjects: subjectData, time: timeData }),
+		}).catch(err => console.error(err))
+		alert('Uloženo')
+	}
 	function handleClickTime(e) {
 		if (timetableState.length < 20) {
+			console.log(timetableState)
 			setTimetableState([null, ...timetableState])
 		}
 		e.target.style.display = 'none'
@@ -273,83 +195,46 @@ export default function TimetableAdding({ changeTT }) {
 			x * timetableState.length + y
 		].style.zIndex = '1'
 	}
-	function handleSubmit() {
-		let subjectData = [[], [], [], [], []]
-		let timeData = []
-		let length = document.getElementsByClassName('timetableSubjects').length / 5
-		console.log(length);
-		let counter = 0, k
-		for (let i = 0; i < 5; i++) {
-			for (let j = 0; j < length; j++) {
-				for(k = 0;k < subjects.length && subjects[k].subjectName != document.querySelectorAll('.timetableSubjects select')[counter].value;k++){ }
-				subjectData[i][j] = subjects[k - 1]
-				counter++
-			}
-		}
-		for (let i = 0; i < length * 2; i += 2) {
-			timeData.push({
-				start: document.querySelectorAll('.timetableTime input')[i].value,
-				end: document.querySelectorAll('.timetableTime input')[i + 1].value,
-			})
-			console.log(timeData);
-		}
-		console.log({
-			fakulta: changeTT ? timetableState.fakulta.shortName : '',
-			timetable: { subject: subjectData, time: timeData, room: room},
-		})
-		alert('Uloženo')
-	}
+
 	return (
 		<ThemeProvider theme={useContext(Context)}>
 			<Box style={{ overflowX: 'scroll' }}>
 				<Container>
 					<Div>
-						<Table
-							size={
-								changeTT
-									? !!timetableState.fakulta
-										? timetableState.fakulta.timetable.subject[0].length + 1
-										: null
-									: timetableState.length + 1
-							}>
+						<Table size={timetableState.length}>
 							<thead>
 								<Tr>
-									<Th>
-										<Room title='místnost rozvrhu' onChange={(e) => setRoom(e.target.value)} type='text' placeholder='room' name='room'/>
-									</Th>
-									{(!!timetableState.fakulta
-										? timetableState.fakulta.timetable.time
-										: timetableState
-									).map((value, i) => (
+									<Th></Th>
+									{timetableState.map((value, i) => (
 										<Th key={i}>
-											{!changeTT && <Button
-												onClick={handleClickTime}>
-												+
-											</Button>}
+											{i + 2 > timetableState.length && (
+												<Button onClick={handleClickTime}>
+													+
+												</Button>
+											)}
 											<WindowTime
 												className="timetableTime"
 												ref={timeRef}
-													style={
-														changeTT
-															? {display: 'flex'}
-															: null
-													}
-												>
-												{
-													changeTT 
-													? 
-														<>
-															<Input type="time" defaultValue={timetableState.fakulta ? value.start : ''}/>
-															<Paragraph>-</Paragraph>
-															<Input type="time" defaultValue={timetableState.fakulta ? value.end : ''}/>
-														</> 
-													:
-														<>
-															<Input type="time"/>
-															<Paragraph>-</Paragraph>
-															<Input type="time"/>
-														</>
-												}
+												style={
+													i < timetableState.length - 1
+														? { display: 'flex' }
+														: null
+												}>
+												<>
+													<Input
+														type="time"
+														defaultValue={
+															lecture?.time[i]?.start
+														}
+													/>
+													<Paragraph>-</Paragraph>
+													<Input
+														type="time"
+														defaultValue={
+															lecture?.time[i]?.end
+														}
+													/>
+												</>
 											</WindowTime>
 										</Th>
 									))}
@@ -360,37 +245,147 @@ export default function TimetableAdding({ changeTT }) {
 									return (
 										<Tr key={i}>
 											<Td>{`${value}`}</Td>
-											{(timetableState.fakulta
-												? timetableState.fakulta.timetable.subject[i]
-												: timetableState
-											).map((e, key) => {
+											{timetableState.map((e, key) => {
 												return (
 													<Td key={key}>
 														<WindowSubjects
-															className="timetableSubjects"
+															className={
+																'timetableSubjects'
+															}
 															style={
-																changeTT
-																	? { opacity: '1', zIndex: '1'}
- 																	: null
+																lecture?.subjects[i][
+																	key
+																]?.Teacher.User
+																	.surname ||
+																lecture?.subjects[i][
+																	key
+																]?.Teacher.User.surname
+																	? {
+																			display:
+																				'flex',
+																			opacity:
+																				'1',
+																			zIndex: '1',
+																	  }
+																	: null
 															}>
-															<Select>
-																<Option value={changeTT ? timetableState.fakulta && e.subjectName : null}>
-																	{changeTT ? timetableState.fakulta && e.subjectName : '-'}
-																</Option>
-																{subjects.map(
-																	(subject, j) => (
-																		<Option
-																			title={subject.subjectName}
-																			value={j}
-																			key={j}>
-																				{subject.subjectName}
-																		</Option>
-																	),
-																)}
-															</Select>
+															<SelectContainer>
+																<Select
+																	onChange={e =>
+																		setSubject(
+																			e.target
+																				.value,
+																		)
+																	}>
+																	<Option
+																		value={
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				? lecture
+																						?.subjects[
+																						i
+																				  ][key]
+																						.SubjectId
+																				: -1
+																		}>
+																		{
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				?.Subject
+																				.name
+																		}
+																	</Option>
+																	{subjects?.map(
+																		subject => (
+																			<Option
+																				title={
+																					subject.name
+																				}
+																				value={
+																					subject.id
+																				}
+																				key={
+																					subject.id
+																				}>
+																				{
+																					subject.name
+																				}
+																			</Option>
+																		),
+																	)}
+																</Select>
+																<Select
+																	onChange={e =>
+																		setTeacher(
+																			e.target
+																				.value,
+																		)
+																	}>
+																	<Option
+																		value={
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				? lecture
+																						?.subjects[
+																						i
+																				  ][key]
+																						.TeacherId
+																				: -1
+																		}>
+																		{
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				?.Teacher
+																				.User
+																				.surname
+																		}
+																	</Option>
+																	{teachers?.map(
+																		teacher => (
+																			<Option
+																				title={
+																					teacher
+																						.User
+																						.surname
+																				}
+																				value={
+																					teacher.id
+																				}
+																				key={
+																					teacher.id
+																				}>
+																				{
+																					teacher
+																						.User
+																						.surname
+																				}
+																			</Option>
+																		),
+																	)}
+																</Select>
+															</SelectContainer>
 														</WindowSubjects>
-														{!changeTT && (
-															<Button onClick={e => handleClickSubject(e, i, key)}>
+														{lecture?.subjects[i][key]
+															?.Teacher.User.surname ||
+														lecture?.subjects[i][key]
+															?.Teacher.User
+															.surname ? null : (
+															<Button
+																onClick={e =>
+																	handleClickSubject(
+																		e,
+																		i,
+																		key,
+																	)
+																}>
 																+
 															</Button>
 														)}
@@ -407,7 +402,6 @@ export default function TimetableAdding({ changeTT }) {
 			</Box>
 			<Box>
 				<Container2>
-			
 					<SubmitButton
 						type="submit"
 						onClick={handleSubmit}
