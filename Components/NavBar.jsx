@@ -154,20 +154,7 @@ export default function NavBar({ route }) {
 										</Paragraph>
 									</A>
 								</Link>
-								<Link href={`/peoples/${route}/changingroom`} passHref>
-									<A>
-										<Div>
-											<FontAwesomeIcon
-												style={faIconSize}
-												icon={faFolderOpen}
-												color={theme.color}
-											/>
-										</Div>
-										<Paragraph className="noneOpen">
-											Změnit nastavení učebny
-										</Paragraph>
-									</A>
-								</Link>
+								
 								<Link href={`/peoples/${route}/deletingroom`} passHref>
 									<A>
 										<Div>
