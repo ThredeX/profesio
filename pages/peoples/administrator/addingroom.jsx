@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import TimetableComp from '../../../Components/ComponentsAdministrator/addingTimetable'
+import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp.jsx'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
 import { MainHeading, Main, Select2, Option, Box, Input, SubmitButton, Form, Label, Radio } from '../../../theme'
@@ -70,7 +70,6 @@ const AddingRoom = () => {
 	const [allRoom, setAllRoom] = useState(null)
 	const [roomProp, setRoomProp] = useState(null)
 
-
 	useEffect(() => {
 		fetch('../../../api/faculty')
 			.then(res => res.json())
@@ -78,17 +77,15 @@ const AddingRoom = () => {
 				setFaculties(data)
 			})
 			.catch(err => console.error(err))
-		
 	}, [, reload])
 	useEffect(() => {
 		fetch('../../../api/faculty/room')
-				.then(res => res.json())
-				.then(data => {
-					setAllRoom(data)
-					console.log(data);
-				})
-				.catch(err => console.error(err))
-	
+			.then(res => res.json())
+			.then(data => {
+				setAllRoom(data)
+				console.log(data)
+			})
+			.catch(err => console.error(err))
 	}, [, reload, room])
 	useEffect(() => {
 		fetch('../../../api/school/building')
@@ -157,7 +154,7 @@ const AddingRoom = () => {
 			headers: {
 				'content-type': 'application/json',
 			},
-			body: JSON.stringify({BuildingId: buildProp, label: room }),
+			body: JSON.stringify({ BuildingId: buildProp, label: room }),
 		}).catch(err => {
 			console.error(err)
 		})
@@ -281,10 +278,7 @@ const AddingRoom = () => {
 								</Select2>
 							</FormBuild>
 						</Box>
-						{
-state && buildProp && roomProp &&
-						<TimetableComp faculty={state} room={roomProp} />
-						}
+						{state && buildProp && roomProp && <TimetableComp faculty={state} room={roomProp} />}
 					</Main>
 				</ThemeProvider>
 			</>

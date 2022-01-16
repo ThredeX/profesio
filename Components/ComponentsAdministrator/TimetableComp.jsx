@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react'
-import { Box, Table, Th, Td, Tr, Tbody, Option, SubmitButton, SubmitButton2 } from '../../theme'
+import { Box, Table, Th, Td, Tr, Tbody, Option, SubmitButton } from '../../theme'
 import styled, { ThemeProvider } from 'styled-components'
 import { Context } from '../../pages/_app'
 
@@ -14,6 +14,7 @@ const Div2 = styled.div`
 
 const Input = styled.input`
 	border-radius: 8px;
+	width: 60%;
 	border: none;
 	text-align: center;
 	position: relative;
@@ -21,6 +22,7 @@ const Input = styled.input`
 	background-color: rgba(0, 0, 0, 0);
 	&::-webkit-calendar-picker-indicator {
 		cursor: pointer;
+		width: 80%;
 		background: none;
 		position: absolute;
 		z-index: 0;
@@ -101,14 +103,17 @@ const SelectContainer = styled.div`
 	row-gap: 10px;
 `
 export default function TimetableAdding(props) {
+	const { changeTT } = props
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const timeRef = useRef(null)
+	const [room, setRoom] = useState(null)
 	const [subjects, setSubjects] = useState([])
 	const [teachers, setTeachers] = useState([])
 	const [subject, setSubject] = useState(null)
 	const [teacher, setTeacher] = useState(null)
 	const [lecture, setLecture] = useState(null)
+
 	useEffect(() => {
 		fetch('../../api/school/subject')
 			.then(res => res.json())
@@ -122,31 +127,53 @@ export default function TimetableAdding(props) {
 				console.log(data.teachers)
 				setTeachers(data.teachers)
 			})
-			fetch(`../../api/faculty/room/${props.room}`)
-		.then(res => res.json())
-		.then(data => {
-			console.log(data)
-			setLecture(data)
-		})
+		fetch(`../../api/faculty/room/${props.room}`)
+			.then(res => res.json())
+			.then(data => {
+				setLecture(data)
+				setTimetableState([...data.subjects[0].map(_ => null), null])
+				console.log(data)
+			})
 	}, [])
+	//Lecture = beginning, end, days, FacultyId, RoomId, TeacherId, SubjectId
+	function handleSubmit() {
+		let subjectData = [[], [], [], [], []]
+		let timeData = []
+		let counter = 0
+		let length = document.getElementsByClassName('timetableSubjects').length / 5
+		console.log(length)
+		for (let i = 0; i < 5; i++) {
+			for (let j = 0; j < length; j++) {
+				subjectData[i][j] = {
+					TeacherId: parseInt(document.querySelectorAll('.timetableSubjects > div')[counter].children[1].value),
+					SubjectId: parseInt(document.querySelectorAll('.timetableSubjects > div')[counter].children[0].value),
+					RoomId: props.room,
+					FacultyId: props.faculty,
+				}
 
-
-	function addLecture(day, time) {
-		const days = ['mo', 'tu', 'we', 'th', 'fr']
-		let allTime = document.getElementsByClassName('timetableTime')[time].children
-		let startTime = allTime[0].value.slice(-2) * 60 + allTime[0].value.slice(0, 2) * 3600
-		let endTime = allTime[2].value.slice(-2) * 60 + allTime[2].value.slice(0, 2) * 3600
-
+				counter++
+			}
+		}
+		for (let i = 0; i < length * 2; i += 2) {
+			timeData.push({
+				start: document.querySelectorAll('.timetableTime input')[i].value,
+				end: document.querySelectorAll('.timetableTime input')[i + 1].value,
+			})
+			console.log(timeData)
+		}
+		console.log({ subject: subjectData, time: timeData })
 		fetch('../../api/school/lecture', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
 			},
-			body: JSON.stringify({beginning: startTime, end: endTime, days: days[day], FacultyId: props.faculty, RoomId: props.room, TeacherId: teacher, SubjectId: subject }),
-		})
+			body: JSON.stringify({ subjects: subjectData, time: timeData }),
+		}).catch(err => console.error(err))
+		alert('Uloženo')
 	}
 	function handleClickTime(e) {
 		if (timetableState.length < 20) {
+			console.log(timetableState)
 			setTimetableState([null, ...timetableState])
 		}
 		e.target.style.display = 'none'
@@ -155,8 +182,8 @@ export default function TimetableAdding(props) {
 
 	function handleClickSubject(e, x, y) {
 		e.target.style.display = 'none'
-		document.getElementsByClassName('timetableSubjects')[x * timetableState.length + y].style.zIndex = '1'
 		document.getElementsByClassName('timetableSubjects')[x * timetableState.length + y].style.opacity = '1'
+		document.getElementsByClassName('timetableSubjects')[x * timetableState.length + y].style.zIndex = '1'
 	}
 
 	return (
@@ -167,15 +194,16 @@ export default function TimetableAdding(props) {
 						<Table size={timetableState.length}>
 							<thead>
 								<Tr>
-									<Th>
-									</Th>
+									<Th></Th>
 									{timetableState.map((value, i) => (
 										<Th key={i}>
-											 <Button onClick={handleClickTime}>+</Button>
-											<WindowTime className="timetableTime" ref={timeRef}>
-												<Input className='start' type="time" />
-												<Paragraph>-</Paragraph>
-												<Input className='end' type="time" />
+											{i + 2 > timetableState.length && <Button onClick={handleClickTime}>+</Button>}
+											<WindowTime className="timetableTime" ref={timeRef} style={i < timetableState.length - 1 ? { display: 'flex' } : null}>
+												<>
+													<Input type="time" defaultValue={lecture?.time[i]?.start} />
+													<Paragraph>-</Paragraph>
+													<Input type="time" defaultValue={lecture?.time[i]?.end} />
+												</>
 											</WindowTime>
 										</Th>
 									))}
@@ -189,28 +217,37 @@ export default function TimetableAdding(props) {
 											{timetableState.map((e, key) => {
 												return (
 													<Td key={key}>
-														<WindowSubjects className="timetableSubjects">
+														<WindowSubjects
+															className={ "timetableSubjects"}
+															style={
+																lecture?.subjects[i][key]?.Teacher.User.surname || lecture?.subjects[i][key]?.Teacher.User.surname 
+																	? {
+																		display: "flex",
+																			opacity: '1',
+																			zIndex: '1',
+																	  }
+																	: null
+															}>
 															<SelectContainer>
-																<Select onChange={(e) => setSubject(e.target.value)}>
-																	<Option value={null}>{'-'}</Option>
-																	{subjects?.map((subject) => (
+																<Select onChange={e => setSubject(e.target.value)}>
+																	<Option value={lecture?.subjects[i][key] ? lecture?.subjects[i][key].SubjectId : -1}>{lecture?.subjects[i][key]?.Subject.name}</Option>
+																	{subjects?.map(subject => (
 																		<Option title={subject.name} value={subject.id} key={subject.id}>
 																			{subject.name}
 																		</Option>
 																	))}
 																</Select>
-																<Select onChange={(e) => setTeacher(e.target.value)}>
-																	<Option value={null}>{'-'}</Option>
-																	{teachers?.map((teacher) => (
+																<Select onChange={e => setTeacher(e.target.value)}>
+																	<Option value={lecture?.subjects[i][key] ? lecture?.subjects[i][key].TeacherId : -1}>{lecture?.subjects[i][key]?.Teacher.User.surname}</Option>
+																	{teachers?.map(teacher => (
 																		<Option title={teacher.User.surname} value={teacher.id} key={teacher.id}>
 																			{teacher.User.surname}
 																		</Option>
 																	))}
 																</Select>
-																<SubmitButton2 type='button' value='přidat' onClick={() => addLecture(i, key)}/>
 															</SelectContainer>
 														</WindowSubjects>
-														<Button onClick={e => handleClickSubject(e, i, key)}>+</Button>
+														{lecture?.subjects[i][key]?.Teacher.User.surname || lecture?.subjects[i][key]?.Teacher.User.surname ? null : <Button onClick={e => handleClickSubject(e, i, key)}>+</Button>}
 													</Td>
 												)
 											})}
@@ -224,7 +261,7 @@ export default function TimetableAdding(props) {
 			</Box>
 			<Box>
 				<Container2>
-					<SubmitButton type="submit" value={'Uložit rozvrh'} />
+					<SubmitButton type="submit" onClick={handleSubmit} value={changeTT ? 'Změnit rozvrh' : 'Uložit rozvrh'} />
 				</Container2>
 			</Box>
 			<Div2></Div2>
