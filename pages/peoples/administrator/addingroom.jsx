@@ -3,7 +3,18 @@ import styled, { ThemeProvider } from 'styled-components'
 import TimetableComp from '../../../Components/ComponentsAdministrator/TimetableComp.jsx'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
-import { MainHeading, Main, Select2, Option, Box, Input, SubmitButton, Form, Label, Radio } from '../../../theme'
+import {
+	MainHeading,
+	Main,
+	Select2,
+	Option,
+	Box,
+	Input,
+	SubmitButton,
+	Form,
+	Label,
+	Radio,
+} from '../../../theme'
 import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
 const FormRadio = styled.form`
@@ -177,26 +188,45 @@ const AddingRoom = () => {
 						<Box>
 							<H2>Fakulty: </H2>
 							<Container>
-								<FormRadio onChange={e => setFacultySet(e.target.value)}>
+								<FormRadio
+									onChange={e => setFacultySet(e.target.value)}>
 									<H3>Vyberte operaci: </H3>
 									<div>
 										<Div>
 											<Label htmlFor="radio1">Přídání: </Label>
-											<Radio type="radio" name="radio" id="radio1" value="add" />
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio1"
+												value="add"
+											/>
 										</Div>
 										<Div>
 											<Label htmlFor="radio2">Odstranění: </Label>
-											<Radio type="radio" name="radio" id="radio2" value="delete" />
+											<Radio
+												type="radio"
+												name="radio"
+												id="radio2"
+												value="delete"
+											/>
 										</Div>
 									</div>
 								</FormRadio>
 								{facultySet === 'add' ? (
 									<Form onSubmit={addFaculty}>
 										<FormDiv>
-											<Input type="text" name="faculty_name" placeholder="Název fakulty" />
+											<Input
+												type="text"
+												name="faculty_name"
+												placeholder="Název fakulty"
+											/>
 										</FormDiv>
 										<FormDiv>
-											<Input type="text" name="faculty_shortName" placeholder="Zkratka fakulty" />
+											<Input
+												type="text"
+												name="faculty_shortName"
+												placeholder="Zkratka fakulty"
+											/>
 										</FormDiv>
 										<SubmitButton type="submit" value="Přidat" />
 									</Form>
@@ -205,8 +235,11 @@ const AddingRoom = () => {
 										<FormDiv>
 											<Select2 name="faculty_deleteID">
 												{faculties?.map(faculty => (
-													<Option value={faculty.id} key={faculty.id}>
-														{faculty.name} ({faculty.shortcut})
+													<Option
+														value={faculty.id}
+														key={faculty.id}>
+														{faculty.name} (
+														{faculty.shortcut})
 													</Option>
 												))}
 											</Select2>
@@ -218,11 +251,21 @@ const AddingRoom = () => {
 						</Box>
 						<Box>
 							<FormBuild>
-								<Input onChange={e => setRoom(e.target.value)} style={{ maxWidth: '10rem' }} placeholder="Název místnosti" />
-								<SubmitButton type="button" value="Přidat místnost" onClick={addRoom} />
+								<Input
+									onChange={e => setRoom(e.target.value)}
+									style={{ maxWidth: '10rem' }}
+									placeholder="Název místnosti"
+								/>
+								<SubmitButton
+									type="button"
+									value="Přidat místnost"
+									onClick={addRoom}
+								/>
 							</FormBuild>
 							<FormBuild>
-								<Select2 name="room" onChange={e => setDelRoom(e.target.value)}>
+								<Select2
+									name="room"
+									onChange={e => setDelRoom(e.target.value)}>
 									<Option>-</Option>
 
 									{allRoom?.map(room => (
@@ -231,14 +274,29 @@ const AddingRoom = () => {
 										</Option>
 									))}
 								</Select2>
-								<SubmitButton type="button" value="Odebrat místnost" onClick={deleteRoom} />
+								<SubmitButton
+									type="button"
+									value="Odebrat místnost"
+									onClick={deleteRoom}
+								/>
 							</FormBuild>
 							<FormBuild>
-								<Input onChange={e => setBuild(e.target.value)} style={{ maxWidth: '10rem' }} placeholder="Název budovy" title="Budova, do které budete přidávat místnosti/rozvrhy" />
-								<SubmitButton type="button" value="Přidat budovu" onClick={addBuild} />
+								<Input
+									onChange={e => setBuild(e.target.value)}
+									style={{ maxWidth: '10rem' }}
+									placeholder="Název budovy"
+									title="Budova, do které budete přidávat místnosti/rozvrhy"
+								/>
+								<SubmitButton
+									type="button"
+									value="Přidat budovu"
+									onClick={addBuild}
+								/>
 							</FormBuild>
 							<FormBuild>
-								<Select2 name="building" onChange={e => setDelBuild(e.target.value)}>
+								<Select2
+									name="building"
+									onChange={e => setDelBuild(e.target.value)}>
 									<Option>-</Option>
 
 									{buildings?.map(building => (
@@ -247,10 +305,16 @@ const AddingRoom = () => {
 										</Option>
 									))}
 								</Select2>
-								<SubmitButton type="button" value="Odebrat budovu" onClick={deleteBuild} />
+								<SubmitButton
+									type="button"
+									value="Odebrat budovu"
+									onClick={deleteBuild}
+								/>
 							</FormBuild>
 							<FormBuild>
-								<Select2 name="faculty" onChange={e => setState(e.target.value)}>
+								<Select2
+									name="faculty"
+									onChange={e => setState(e.target.value)}>
 									<Option>-</Option>
 									{faculties?.map(faculty => (
 										<Option value={faculty.id} key={faculty.id}>
@@ -258,7 +322,9 @@ const AddingRoom = () => {
 										</Option>
 									))}
 								</Select2>
-								<Select2 name="setbuilding" onChange={e => setBuildProp(e.target.value)}>
+								<Select2
+									name="setbuilding"
+									onChange={e => setBuildProp(e.target.value)}>
 									<Option>-</Option>
 
 									{buildings?.map(building => (
@@ -267,7 +333,9 @@ const AddingRoom = () => {
 										</Option>
 									))}
 								</Select2>
-								<Select2 name="room" onChange={e => setRoomProp(e.target.value)}>
+								<Select2
+									name="room"
+									onChange={e => setRoomProp(e.target.value)}>
 									<Option>-</Option>
 
 									{allRoom?.map(room => (
@@ -278,7 +346,9 @@ const AddingRoom = () => {
 								</Select2>
 							</FormBuild>
 						</Box>
-						{state && buildProp && roomProp && <TimetableComp faculty={state} room={roomProp} />}
+						{state && buildProp && roomProp && (
+							<TimetableComp faculty={state} room={roomProp} />
+						)}
 					</Main>
 				</ThemeProvider>
 			</>

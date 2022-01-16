@@ -145,8 +145,14 @@ export default function TimetableAdding(props) {
 		for (let i = 0; i < 5; i++) {
 			for (let j = 0; j < length; j++) {
 				subjectData[i][j] = {
-					TeacherId: parseInt(document.querySelectorAll('.timetableSubjects > div')[counter].children[1].value),
-					SubjectId: parseInt(document.querySelectorAll('.timetableSubjects > div')[counter].children[0].value),
+					TeacherId: parseInt(
+						document.querySelectorAll('.timetableSubjects > div')[counter]
+							.children[1].value,
+					),
+					SubjectId: parseInt(
+						document.querySelectorAll('.timetableSubjects > div')[counter]
+							.children[0].value,
+					),
 					RoomId: props.room,
 					FacultyId: props.faculty,
 				}
@@ -182,8 +188,12 @@ export default function TimetableAdding(props) {
 
 	function handleClickSubject(e, x, y) {
 		e.target.style.display = 'none'
-		document.getElementsByClassName('timetableSubjects')[x * timetableState.length + y].style.opacity = '1'
-		document.getElementsByClassName('timetableSubjects')[x * timetableState.length + y].style.zIndex = '1'
+		document.getElementsByClassName('timetableSubjects')[
+			x * timetableState.length + y
+		].style.opacity = '1'
+		document.getElementsByClassName('timetableSubjects')[
+			x * timetableState.length + y
+		].style.zIndex = '1'
 	}
 
 	return (
@@ -197,12 +207,33 @@ export default function TimetableAdding(props) {
 									<Th></Th>
 									{timetableState.map((value, i) => (
 										<Th key={i}>
-											{i + 2 > timetableState.length && <Button onClick={handleClickTime}>+</Button>}
-											<WindowTime className="timetableTime" ref={timeRef} style={i < timetableState.length - 1 ? { display: 'flex' } : null}>
+											{i + 2 > timetableState.length && (
+												<Button onClick={handleClickTime}>
+													+
+												</Button>
+											)}
+											<WindowTime
+												className="timetableTime"
+												ref={timeRef}
+												style={
+													i < timetableState.length - 1
+														? { display: 'flex' }
+														: null
+												}>
 												<>
-													<Input type="time" defaultValue={lecture?.time[i]?.start} />
+													<Input
+														type="time"
+														defaultValue={
+															lecture?.time[i]?.start
+														}
+													/>
 													<Paragraph>-</Paragraph>
-													<Input type="time" defaultValue={lecture?.time[i]?.end} />
+													<Input
+														type="time"
+														defaultValue={
+															lecture?.time[i]?.end
+														}
+													/>
 												</>
 											</WindowTime>
 										</Th>
@@ -218,36 +249,146 @@ export default function TimetableAdding(props) {
 												return (
 													<Td key={key}>
 														<WindowSubjects
-															className={ "timetableSubjects"}
+															className={
+																'timetableSubjects'
+															}
 															style={
-																lecture?.subjects[i][key]?.Teacher.User.surname || lecture?.subjects[i][key]?.Teacher.User.surname 
+																lecture?.subjects[i][
+																	key
+																]?.Teacher.User
+																	.surname ||
+																lecture?.subjects[i][
+																	key
+																]?.Teacher.User.surname
 																	? {
-																		display: "flex",
-																			opacity: '1',
+																			display:
+																				'flex',
+																			opacity:
+																				'1',
 																			zIndex: '1',
 																	  }
 																	: null
 															}>
 															<SelectContainer>
-																<Select onChange={e => setSubject(e.target.value)}>
-																	<Option value={lecture?.subjects[i][key] ? lecture?.subjects[i][key].SubjectId : -1}>{lecture?.subjects[i][key]?.Subject.name}</Option>
-																	{subjects?.map(subject => (
-																		<Option title={subject.name} value={subject.id} key={subject.id}>
-																			{subject.name}
-																		</Option>
-																	))}
+																<Select
+																	onChange={e =>
+																		setSubject(
+																			e.target
+																				.value,
+																		)
+																	}>
+																	<Option
+																		value={
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				? lecture
+																						?.subjects[
+																						i
+																				  ][key]
+																						.SubjectId
+																				: -1
+																		}>
+																		{
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				?.Subject
+																				.name
+																		}
+																	</Option>
+																	{subjects?.map(
+																		subject => (
+																			<Option
+																				title={
+																					subject.name
+																				}
+																				value={
+																					subject.id
+																				}
+																				key={
+																					subject.id
+																				}>
+																				{
+																					subject.name
+																				}
+																			</Option>
+																		),
+																	)}
 																</Select>
-																<Select onChange={e => setTeacher(e.target.value)}>
-																	<Option value={lecture?.subjects[i][key] ? lecture?.subjects[i][key].TeacherId : -1}>{lecture?.subjects[i][key]?.Teacher.User.surname}</Option>
-																	{teachers?.map(teacher => (
-																		<Option title={teacher.User.surname} value={teacher.id} key={teacher.id}>
-																			{teacher.User.surname}
-																		</Option>
-																	))}
+																<Select
+																	onChange={e =>
+																		setTeacher(
+																			e.target
+																				.value,
+																		)
+																	}>
+																	<Option
+																		value={
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				? lecture
+																						?.subjects[
+																						i
+																				  ][key]
+																						.TeacherId
+																				: -1
+																		}>
+																		{
+																			lecture
+																				?.subjects[
+																				i
+																			][key]
+																				?.Teacher
+																				.User
+																				.surname
+																		}
+																	</Option>
+																	{teachers?.map(
+																		teacher => (
+																			<Option
+																				title={
+																					teacher
+																						.User
+																						.surname
+																				}
+																				value={
+																					teacher.id
+																				}
+																				key={
+																					teacher.id
+																				}>
+																				{
+																					teacher
+																						.User
+																						.surname
+																				}
+																			</Option>
+																		),
+																	)}
 																</Select>
 															</SelectContainer>
 														</WindowSubjects>
-														{lecture?.subjects[i][key]?.Teacher.User.surname || lecture?.subjects[i][key]?.Teacher.User.surname ? null : <Button onClick={e => handleClickSubject(e, i, key)}>+</Button>}
+														{lecture?.subjects[i][key]
+															?.Teacher.User.surname ||
+														lecture?.subjects[i][key]
+															?.Teacher.User
+															.surname ? null : (
+															<Button
+																onClick={e =>
+																	handleClickSubject(
+																		e,
+																		i,
+																		key,
+																	)
+																}>
+																+
+															</Button>
+														)}
 													</Td>
 												)
 											})}
@@ -261,7 +402,11 @@ export default function TimetableAdding(props) {
 			</Box>
 			<Box>
 				<Container2>
-					<SubmitButton type="submit" onClick={handleSubmit} value={changeTT ? 'Změnit rozvrh' : 'Uložit rozvrh'} />
+					<SubmitButton
+						type="submit"
+						onClick={handleSubmit}
+						value={changeTT ? 'Změnit rozvrh' : 'Uložit rozvrh'}
+					/>
 				</Container2>
 			</Box>
 			<Div2></Div2>
