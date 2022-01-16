@@ -99,7 +99,9 @@ const AddingPeople = () => {
 			if (!res.ok) {
 				console.error(res.text)
 			}
+			return res.json()
 		})
+		.then(data => console.log(data))
 	}	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
