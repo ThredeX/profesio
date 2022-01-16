@@ -17,7 +17,6 @@ import {
 import Link from 'next/link'
 import { Context } from '../pages/_app'
 import { logged } from '../utils/logged'
-import { SubmitButton } from '../theme'
 import logout from '../utils/logout'
 const Container = styled.div`
 	&::-webkit-scrollbar {
@@ -38,8 +37,12 @@ const Paragraph = styled.p`
 	margin: 15px;
 `
 const Heading1 = styled.h1`
-	text-align: center;
-	margin-left: 0.5rem;
+	font-weight: 400;
+	display: flex;
+	height: 3rem;
+	align-items: center;
+	margin-top: .7rem;
+	margin-right: 2rem;
 `
 const Line = styled.div`
 	margin-block: 2rem;
@@ -94,11 +97,41 @@ const Handle = styled.div`
 	}
 `
 const DivHeading = styled.div`
-	display: flex;
-	opacity: 0;
+	background-color: #121212;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-content: center;
+	border-radius: 20rem;
 	justify-content: center;
 	align-items: center;
-	margin-left: 2rem;
+margin-bottom: 2rem;
+
+	margin-top: .4rem;
+	margin-right: 1rem;
+	height: 3rem;
+	opacity: 0;
+`
+const LogoutButton = styled.button`
+	color:${props => props.theme.color};
+	border: none;
+	height: 3rem;
+	cursor: pointer;
+	border-radius: 3rem;
+	width: 6rem;
+	background-color: #ffffff00;
+	border: 2px ${props => props.theme.color} solid ;
+
+
+`
+const UserSymbol = styled.button`
+	color: ${props => props.theme.text};
+	height: 3rem;
+	width: 3rem;
+	font-size: 1.4rem;
+	border-radius: 50%;
+	opacity: .9;
+	background-color: ${props => props.theme.color};
+	border: 2px ${props => props.theme.color} solid ;
 `
 export default function NavBar({ route }) {
 	const faIconSize = { width: '19px', height: '19px' }
@@ -133,9 +166,9 @@ export default function NavBar({ route }) {
 			<Nav ref={navRef}>
 				<Container>
 					<DivHeading className="noneOpen">
-						<FontAwesomeIcon size="2x" icon={faUser} color={theme.color} />
-						<Heading1>{name}</Heading1>
-						<SubmitButton type='submit' onClick={logout} value="Odhlásit se" />
+					<UserSymbol>{name.slice(0, 1).toUpperCase()}</UserSymbol>
+						<Heading1>{(name?.length > 6) ? name.slice(0, 7) + '..' : name}</Heading1>
+						<LogoutButton onClick={logout} >Odhlásit se</LogoutButton>
 					</DivHeading>
 					<>
 						{route == 'administrator' ? (
