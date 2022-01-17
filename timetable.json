@@ -1,0 +1,100 @@
+{
+	"name": "Fakulta informačních technologií",
+	"shortName": "FIT",
+	"timetable": {
+		"subject": [
+			[
+				{
+					"id": 1,
+					"SubjectId": "Matematika I",
+					"TeacherId": "PhD. Kozajska",
+					"RoomId": "",
+					"FacultyId": ""
+				},
+				{
+					"id": 1,
+					"subjectName": "Matematika I",
+					"teacherName": "PhD. Kozajska"
+				},
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				}
+			],
+			[
+				{
+					"id": 1,
+					"subjectName": "Matematika I",
+					"teacherName": "PhD. Kozajska"
+				},
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				},
+				{
+					"id": 1,
+					"subjectName": "Matematika I",
+					"teacherName": "PhD. Kozajska"
+				}
+			],
+			[
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				},
+				{
+					"id": 1,
+					"subjectName": "Matematika I",
+					"teacherName": "PhD. Kozajska"
+				},
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				}
+			],
+			[
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				},
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				},
+				{
+					"id": 1,
+					"subjectName": "Matematika II",
+					"teacherName": "PhD. Kozajska"
+				}
+			],
+			[
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				},
+				{
+					"id": 1,
+					"subjectName": "Matematika I",
+					"teacherName": "PhD. Kozajska"
+				},
+				{
+					"id": 1,
+					"subjectName": "",
+					"teacherName": ""
+				}
+			]
+		],
+		"time": [
+			{ "start": "09:00", "end": "10:30" },
+			{ "start": "10:30", "end": "12:00" },
+			{ "start": "13:00", "end": "14:30" }
+		]
+	}
+}
