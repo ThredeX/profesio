@@ -129,7 +129,7 @@ export default function NavBar({ route }) {
 		}
 	}
 	return (
-		<ThemeProvider theme={useContext(Context)}>
+		<ThemeProvider theme={theme}>
 			<Nav ref={navRef}>
 				<Container>
 					<DivHeading className="noneOpen">

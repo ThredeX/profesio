@@ -23,13 +23,13 @@ const Main = styled.main`
 `
 const Index = () => {
 	const [load, setLoad] = useState(false);
-	const nevim = useContext(Context)
+	const context = useContext(Context)
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
 	return load && nevim && (
-			<ThemeProvider theme={nevim}>
+			<ThemeProvider theme={context}>
 				<Header />
 				<Main>
 					<Container>

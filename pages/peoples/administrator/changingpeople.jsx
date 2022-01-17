@@ -78,6 +78,9 @@ const ChangingPeople = props => {
 	const [whichPeople, setWhichPeople] = useState('student')
 	const [dataID, setDataID] = useState()
 	const [reload, setReload] = useState(false)
+	const context = useContext(Context)
+
+
 	function handleSubmit(e) {
 		e.preventDefault()
 		setReload(true)
@@ -128,9 +131,9 @@ const ChangingPeople = props => {
 	})
 	return load && (
 		<>
-			<ThemeProvider theme={useContext(Context)}>
+			<ThemeProvider theme={context}>
 				<Header />
-				<NavBar route="administrator" theme={useContext(Context)} />
+				<NavBar route="administrator"  />
 				<MainHeading>Změna nastavení uživatelů</MainHeading>
 				<Main>
 					<ListOfPeople

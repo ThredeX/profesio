@@ -25,6 +25,7 @@ const Main = styled.main`
 
 const Timetable = (props) => {
 	const [load, setLoad] = useState(false);
+	const context = useContext(Context)
 
 	useEffect(async () => {
 		let data = await logged()
@@ -32,7 +33,7 @@ const Timetable = (props) => {
 	}, [])
     return load && (
         <>
-			<ThemeProvider theme={useContext(Context)}>
+			<ThemeProvider theme={context}>
 				<Header />
 				<Main>
 					<Container>

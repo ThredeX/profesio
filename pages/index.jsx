@@ -1,8 +1,8 @@
+import { useContext } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../Components/Header'
 import { useRouter } from 'next/router'
 import { Context } from './_app'
-import { useContext } from 'react'
 
 const Container = styled.div`
 	display: flex;
@@ -65,6 +65,7 @@ const Button = styled.button`
 `
 
 const Index = () => {
+	const context = useContext(Context)
 
 	var router = useRouter()
 	async function handleSubmit(e) {
@@ -94,8 +95,7 @@ const Index = () => {
 		})
 	}
 	return (
-		<>
-			<ThemeProvider theme={useContext(Context)}>
+			<ThemeProvider theme={context}>
 				<Header />
 				<Div>
 					<Heading>Login</Heading>
@@ -122,7 +122,6 @@ const Index = () => {
 				</Main>
 				
 			</ThemeProvider>
-		</>
 	)
 }
 

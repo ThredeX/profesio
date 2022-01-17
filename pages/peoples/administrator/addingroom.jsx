@@ -80,6 +80,7 @@ const AddingRoom = () => {
 	const [delRoom, setDelRoom] = useState(null)
 	const [allRoom, setAllRoom] = useState(null)
 	const [roomProp, setRoomProp] = useState(null)
+	const context = useContext(Context)
 
 	useEffect(() => {
 		fetch('../../../api/faculty')
@@ -180,7 +181,7 @@ const AddingRoom = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={context}>
 					<Header />
 					<NavBar route="administrator" />
 					<MainHeading>Přidání Rozvrhů</MainHeading>

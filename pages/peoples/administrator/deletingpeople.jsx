@@ -11,6 +11,8 @@ import { logged } from '../../../utils/logged'
 const DeletingPeople = () => {
 	const [reload, setReload] = useState(false)
 	const [load, setLoad] = useState(false);
+	const context = useContext(Context)
+
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
@@ -18,9 +20,9 @@ const DeletingPeople = () => {
 
 	return load && (
 		<>
-			<ThemeProvider theme={useContext(Context)}>
+			<ThemeProvider theme={context}>
 				<Header />
-				<NavBar route="administrator" theme={useContext(Context)} />
+				<NavBar route="administrator" />
 				<MainHeading>Změna nastavení uživatelů</MainHeading>
 				<Main>
 					<ListOfPeople

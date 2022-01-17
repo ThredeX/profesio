@@ -62,7 +62,9 @@ const ChangingTimetable = () => {
 	const [timetableState, setTimetableState] = useState([null])
 	const showInfoRefClick = useRef([...new Array(5)].map(() => []))
 	const showInfoRefOver = useRef([...new Array(5)].map(() => []))
-	const [load, setLoad] = useState(false);
+	const [load, setLoad] = useState(false)
+	const context = useContext(Context)
+
 
 	useEffect(() => {
 		setTimetableState({ fakulta })
@@ -85,70 +87,109 @@ const ChangingTimetable = () => {
 	}, [timetableState])
 
 	useEffect(() => {
-		fetch(`../../../api/faculty/teacher`)
-		.then(res => res.json())
-		.then(data => console.log(data))
+		fetch('../../../api/faculty/teacher')
+			.then(res => res.json())
+			.then(data => console.log(data))
 	})
 
-	return load &&(
-		<>
-			<ThemeProvider theme={useContext(Context)}>
-				<Header />
-				<NavBar route="teacher" />
-				<MainHeading>Rozvrh</MainHeading>
-				<Main>
-					<Box style={{ overflowX: 'scroll' }}>
-						<Container>
-							<Div>
-								<Table size={(timetableState.length + 1).toString()}>
-									<Thead>
-										<Tr>
-											<Th></Th>
-											{!!timetableState.fakulta &&
-												timetableState.fakulta.timetable.time.map((value, i) => (
-													<Th key={i}>
-														<Paragraph>
-															{value.start}
-															<br />
-															-
-															<br />
-															{value.end}
-														</Paragraph>
-													</Th>
-												))}
-										</Tr>
-									</Thead>
-									<Tbody>
-										{days.map((day, i) => {
-											return (
-												<Tr key={i}>
-													<Td>{day}</Td>
-													{timetableState.fakulta &&
-														timetableState.fakulta.timetable.subject[i].map((e, key) => {
-															return (
-																<Td key={key}>
-																	<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
-																		<p>{e.shortNameSubject}</p>
-																		<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
-																			Předmět: {e.subjectName} <br /> Fakulta: {e.name} ({e.shortNameFaculty})
-																			<br />
-																			Třída: {e.class}
-																		</Info>
-																	</Div2>
-																</Td>
-															)
-														})}
-												</Tr>
-											)
-										})}
-									</Tbody>
-								</Table>
-							</Div>
-						</Container>
-					</Box>
-				</Main>
-			</ThemeProvider>
-		</>
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={context}>
+					<Header />
+					<NavBar route="teacher" />
+					<MainHeading>Rozvrh</MainHeading>
+					<Main>
+						<Box style={{ overflowX: 'scroll' }}>
+							<Container>
+								<Div>
+									<Table
+										size={(timetableState.length + 1).toString()}>
+										<Thead>
+											<Tr>
+												<Th></Th>
+												{!!timetableState.fakulta &&
+													timetableState.fakulta.timetable.time.map(
+														(value, i) => (
+															<Th key={i}>
+																<Paragraph>
+																	{value.start}
+																	<br />
+																	-
+																	<br />
+																	{value.end}
+																</Paragraph>
+															</Th>
+														),
+													)}
+											</Tr>
+										</Thead>
+										<Tbody>
+											{days.map((day, i) => {
+												return (
+													<Tr key={i}>
+														<Td>{day}</Td>
+														{timetableState.fakulta &&
+															timetableState.fakulta.timetable.subject[
+																i
+															].map((e, key) => {
+																return (
+																	<Td key={key}>
+																		<Div2
+																			ref={element =>
+																				(showInfoRefClick.current[
+																					i
+																				][key] =
+																					element)
+																			}>
+																			<p>
+																				{
+																					e.shortNameSubject
+																				}
+																			</p>
+																			<Info
+																				ref={element =>
+																					(showInfoRefOver.current[
+																						i
+																					][
+																						key
+																					] =
+																						element)
+																				}>
+																				Předmět:{' '}
+																				{
+																					e.subjectName
+																				}{' '}
+																				<br />{' '}
+																				Fakulta:{' '}
+																				{e.name}{' '}
+																				(
+																				{
+																					e.shortNameFaculty
+																				}
+																				)
+																				<br />
+																				Třída:{' '}
+																				{
+																					e.class
+																				}
+																			</Info>
+																		</Div2>
+																	</Td>
+																)
+															})}
+													</Tr>
+												)
+											})}
+										</Tbody>
+									</Table>
+								</Div>
+							</Container>
+						</Box>
+					</Main>
+				</ThemeProvider>
+			</>
+		)
 	)
 }
 export default ChangingTimetable
