@@ -14,7 +14,7 @@ const Div2 = styled.div`
 
 const Input = styled.input`
 	border-radius: 8px;
-	width: 60%;
+	width: 100%;
 	border: none;
 	text-align: center;
 	position: relative;
@@ -29,6 +29,7 @@ const Input = styled.input`
 		height: 18%;
 	}
 `
+
 const Select = styled.select`
 	width: 90%;
 	cursor: pointer;

@@ -53,9 +53,6 @@ const FormDiv = styled.div`
 	display: flex;
 	align-items: center;
 `
-const Margin = styled.div`
-	margin-block: 1rem;
-`
 const FormBuild = styled.form`
 	display: flex;
 	margin-top: 1rem;
@@ -66,17 +63,30 @@ const FormBuild = styled.form`
 	input {
 		margin-right: 2rem;
 	}
+	@media screen and (max-width: 540px) and (min-width: 0) {
+		& {
+			flex-direction: column;
+		}
+	}
 `
 const ChooseContainer = styled.div`
-padding-block: 1rem;
+	padding-block: 1rem;
 	display: flex;
-	width: max-content;
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
 	border-top: 2px solid #333;
-
-
+	& > form {
+		flex-wrap: nowrap;
+	}
+	@media screen and (max-width: 736px) and (min-width: 0) {
+		& > form {
+			flex-direction: column !important;
+		}
+		& > form > p {
+			margin: 10px;
+		}
+	}
 `
 const Paragraph2 = styled.p`
 	padding: 0;
@@ -85,6 +95,7 @@ const Paragraph2 = styled.p`
 	display: flex;
 	align-items: center;
 	margin-top: -4px;
+	text-align: center;
 `
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
@@ -101,7 +112,7 @@ const AddingRoom = () => {
 	const [allRoom, setAllRoom] = useState(null)
 	const [roomProp, setRoomProp] = useState(null)
 	const style = {
-		marginInline: 15
+		marginInline: 15,
 	}
 	useEffect(() => {
 		fetch('../../../api/faculty')
@@ -342,46 +353,47 @@ const AddingRoom = () => {
 								</div>
 							</Container>
 							<ChooseContainer>
+								<FormBuild>
+									<Paragraph2>Zadejte parametry: </Paragraph2>
+									{/*vybery*/}
+									<Select2
+										style={style}
+										name="faculty"
+										onChange={e => setState(e.target.value)}>
+										<Option>-</Option>
+										{faculties?.map(faculty => (
+											<Option value={faculty.id} key={faculty.id}>
+												{faculty.name}
+											</Option>
+										))}
+									</Select2>
+									<Select2
+										style={style}
+										name="setbuilding"
+										onChange={e => setBuildProp(e.target.value)}>
+										<Option>-</Option>
 
-							<FormBuild>
-								<Paragraph2>Zadejte parametry: </Paragraph2>
-								{/*vybery*/}
-								<Select2
-									style={style}
-									name="faculty"
-									onChange={e => setState(e.target.value)}>
-									<Option>-</Option>
-									{faculties?.map(faculty => (
-										<Option value={faculty.id} key={faculty.id}>
-											{faculty.name}
-										</Option>
-									))}
-								</Select2>
-								<Select2
-									style={style}
-									name="setbuilding"
-									onChange={e => setBuildProp(e.target.value)}>
-									<Option>-</Option>
+										{buildings?.map(building => (
+											<Option
+												value={building.id}
+												key={building.id}>
+												{building.address}
+											</Option>
+										))}
+									</Select2>
+									<Select2
+										style={style}
+										name="room"
+										onChange={e => setRoomProp(e.target.value)}>
+										<Option>-</Option>
 
-									{buildings?.map(building => (
-										<Option value={building.id} key={building.id}>
-											{building.address}
-										</Option>
-									))}
-								</Select2>
-								<Select2
-									style={style}
-									name="room"
-									onChange={e => setRoomProp(e.target.value)}>
-									<Option>-</Option>
-
-									{allRoom?.map(room => (
-										<Option value={room.id} key={room.id}>
-											{room.label}
-										</Option>
-									))}
-								</Select2>
-							</FormBuild>
+										{allRoom?.map(room => (
+											<Option value={room.id} key={room.id}>
+												{room.label}
+											</Option>
+										))}
+									</Select2>
+								</FormBuild>
 							</ChooseContainer>
 						</Box>
 						{state && buildProp && roomProp && (
