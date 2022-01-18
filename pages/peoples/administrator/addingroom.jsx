@@ -14,6 +14,7 @@ import {
 	Form,
 	Label,
 	Radio,
+	Paragraph,
 } from '../../../theme'
 import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
@@ -66,6 +67,25 @@ const FormBuild = styled.form`
 		margin-right: 2rem;
 	}
 `
+const ChooseContainer = styled.div`
+padding-block: 1rem;
+	display: flex;
+	width: max-content;
+	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
+	border-top: 2px solid #333;
+
+
+`
+const Paragraph2 = styled.p`
+	padding: 0;
+	margin: 0;
+	color: ${props => props.theme.text};
+	display: flex;
+	align-items: center;
+	margin-top: -4px;
+`
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
@@ -80,7 +100,9 @@ const AddingRoom = () => {
 	const [delRoom, setDelRoom] = useState(null)
 	const [allRoom, setAllRoom] = useState(null)
 	const [roomProp, setRoomProp] = useState(null)
-
+	const style = {
+		marginInline: 15
+	}
 	useEffect(() => {
 		fetch('../../../api/faculty')
 			.then(res => res.json())
@@ -250,69 +272,82 @@ const AddingRoom = () => {
 							</Container>
 						</Box>
 						<Box>
-							<FormBuild>
-								<Input
-									onChange={e => setRoom(e.target.value)}
-									style={{ maxWidth: '10rem' }}
-									placeholder="Název místnosti"
-								/>
-								<SubmitButton
-									type="button"
-									value="Přidat místnost"
-									onClick={addRoom}
-								/>
-							</FormBuild>
-							<FormBuild>
-								<Select2
-									name="room"
-									onChange={e => setDelRoom(e.target.value)}>
-									<Option>-</Option>
+							<Container>
+								<div>
+									<FormBuild>
+										<Input
+											onChange={e => setRoom(e.target.value)}
+											style={{ maxWidth: '10rem' }}
+											placeholder="Název místnosti"
+										/>
+										<SubmitButton
+											type="button"
+											value="Přidat místnost"
+											onClick={addRoom}
+										/>
+									</FormBuild>
+									<FormBuild>
+										<Select2
+											name="room"
+											onChange={e => setDelRoom(e.target.value)}>
+											<Option>-</Option>
 
-									{allRoom?.map(room => (
-										<Option value={room.id} key={room.id}>
-											{room.label}
-										</Option>
-									))}
-								</Select2>
-								<SubmitButton
-									type="button"
-									value="Odebrat místnost"
-									onClick={deleteRoom}
-								/>
-							</FormBuild>
-							<FormBuild>
-								<Input
-									onChange={e => setBuild(e.target.value)}
-									style={{ maxWidth: '10rem' }}
-									placeholder="Název budovy"
-									title="Budova, do které budete přidávat místnosti/rozvrhy"
-								/>
-								<SubmitButton
-									type="button"
-									value="Přidat budovu"
-									onClick={addBuild}
-								/>
-							</FormBuild>
-							<FormBuild>
-								<Select2
-									name="building"
-									onChange={e => setDelBuild(e.target.value)}>
-									<Option>-</Option>
+											{allRoom?.map(room => (
+												<Option value={room.id} key={room.id}>
+													{room.label}
+												</Option>
+											))}
+										</Select2>
+										<SubmitButton
+											type="button"
+											value="Odebrat místnost"
+											onClick={deleteRoom}
+										/>
+									</FormBuild>
+								</div>
+								<div>
+									<FormBuild>
+										<Input
+											onChange={e => setBuild(e.target.value)}
+											style={{ maxWidth: '10rem' }}
+											placeholder="Název budovy"
+											title="Budova, do které budete přidávat místnosti/rozvrhy"
+										/>
+										<SubmitButton
+											type="button"
+											value="Přidat budovu"
+											onClick={addBuild}
+										/>
+									</FormBuild>
+									<FormBuild>
+										<Select2
+											name="building"
+											onChange={e => setDelBuild(e.target.value)}>
+											<Option>-</Option>
 
-									{buildings?.map(building => (
-										<Option value={building.id} key={building.id}>
-											{building.address}
-										</Option>
-									))}
-								</Select2>
-								<SubmitButton
-									type="button"
-									value="Odebrat budovu"
-									onClick={deleteBuild}
-								/>
-							</FormBuild>
+											{buildings?.map(building => (
+												<Option
+													value={building.id}
+													key={building.id}>
+													{building.address}
+												</Option>
+											))}
+										</Select2>
+										<SubmitButton
+											type="button"
+											value="Odebrat budovu"
+											onClick={deleteBuild}
+										/>
+									</FormBuild>
+								</div>
+							</Container>
+							<ChooseContainer>
+
 							<FormBuild>
+								<Paragraph2>Zadejte parametry: </Paragraph2>
+								{/*vybery*/}
 								<Select2
+									style={style}
 									name="faculty"
 									onChange={e => setState(e.target.value)}>
 									<Option>-</Option>
@@ -323,6 +358,7 @@ const AddingRoom = () => {
 									))}
 								</Select2>
 								<Select2
+									style={style}
 									name="setbuilding"
 									onChange={e => setBuildProp(e.target.value)}>
 									<Option>-</Option>
@@ -334,6 +370,7 @@ const AddingRoom = () => {
 									))}
 								</Select2>
 								<Select2
+									style={style}
 									name="room"
 									onChange={e => setRoomProp(e.target.value)}>
 									<Option>-</Option>
@@ -345,6 +382,7 @@ const AddingRoom = () => {
 									))}
 								</Select2>
 							</FormBuild>
+							</ChooseContainer>
 						</Box>
 						{state && buildProp && roomProp && (
 							<TimetableComp faculty={state} room={roomProp} />

@@ -29,15 +29,6 @@ const Input = styled.input`
 		height: 18%;
 	}
 `
-const Room = styled.input`
-	width: 60%;
-	border: none;
-	text-align: center;
-	position: relative;
-	color: ${props => props.theme.text};
-	background-color: rgba(0, 0, 0, 0);
-	border-bottom: ${props => props.theme.text} solid 1px;
-`
 const Select = styled.select`
 	width: 90%;
 	cursor: pointer;
@@ -48,7 +39,7 @@ const Select = styled.select`
 	display: flex;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	border-bottom: 1px solid ${props => props.theme.border};
+	border-bottom: 1px solid #555;
 	overflow: hidden;
 `
 const Button = styled.button`
@@ -107,7 +98,6 @@ export default function TimetableAdding(props) {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const timeRef = useRef(null)
-	const [room, setRoom] = useState(null)
 	const [subjects, setSubjects] = useState([])
 	const [teachers, setTeachers] = useState([])
 	const [subject, setSubject] = useState(null)
