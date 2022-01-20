@@ -63,6 +63,12 @@ router.post('/lecture', async (req, res) => {
 	res.status(200).json({ message: 'Lecture created' })
 })
 
+router.get('/lecture', async (req, res) => {
+	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
+	const lectures = await Lecture.findAll()
+	res.status(200).json(lectures.map(lecture => lecture.toJSON()))
+})
+
 router.get('/building', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const buildings = await Building.findAll()
