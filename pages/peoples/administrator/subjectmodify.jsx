@@ -26,7 +26,7 @@ const List = styled.li`
 const Div = styled.div`
 	display: flex;
 	align-items: center;
-	margin-top: 0.7rem;
+
 	width: 10rem;
 `
 const Container2 = styled.div`
@@ -141,6 +141,22 @@ const SubjectModify = () => {
 				<MainHeading>Předměty</MainHeading>
 				<Main>
 					<Container>
+	<Box>
+		<Heading2>Přidání předmětu</Heading2>
+		<Form onSubmit={addSubject}>
+			<InputContainer>
+				<Container2>
+					<Label htmlFor="subject">Předmět:</Label>
+					<Input name="subject" id="subject" />
+				</Container2>
+				<Container2>
+					<Label htmlFor="subjectShort">Zkratka:</Label>
+					<Input name="subjectShort" id="subjectShort" />
+				</Container2>
+			</InputContainer>
+			<SubmitButton type="submit" value="Přidat" />
+		</Form>
+	</Box>
 						{!subjects || subjects[0] ? (
 							<Box>
 								<Heading2>Odebrání předmětu</Heading2>
@@ -163,22 +179,6 @@ const SubjectModify = () => {
 								</UnsortedList>
 							</Box>
 						) : null}
-						<Box>
-							<Heading2>Přidání předmětu</Heading2>
-							<Form onSubmit={addSubject}>
-								<InputContainer>
-									<Container2>
-										<Label htmlFor="subject">Předmět:</Label>
-										<Input name="subject" id="subject" />
-									</Container2>
-									<Container2>
-										<Label htmlFor="subjectShort">Zkratka:</Label>
-										<Input name="subjectShort" id="subjectShort" />
-									</Container2>
-								</InputContainer>
-								<SubmitButton type="submit" value="Přidat" />
-							</Form>
-						</Box>
 					</Container>
 				</Main>
 			</ThemeProvider>

@@ -132,7 +132,7 @@ const ChangingTimetable = () => {
 																	<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
 																		<p>{e.Subject.short}</p>
 																		<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
-																			Předmět: {e.Subject.name} <br /> Fakulta: {e.Faculty.name} ({e.Faculty.shortcut})
+																			Předmět: {e.Subject.name} <br /> Fakulta: {e?.Faculty ? e.Faculty.name : '-'} ({e.Faculty ? e.Faculty.shortcut : '-'})
 																			<br />
 																			Třída: {e.Room.label}
 																		</Info>

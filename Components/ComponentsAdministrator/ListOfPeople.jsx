@@ -86,7 +86,7 @@ const Input = styled.input`
 	&::placeholder {
 		color: #c5c5c5;
 	}
-	border-radius: 20px;
+	border-radius: 4px;
 	@media screen and (max-width: 445px) and (min-width: 0) {
 		margin: 0;
 		margin-top: 1rem;
