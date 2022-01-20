@@ -25,4 +25,5 @@ a {
 }
 *:focus{
 	outline: none;
+	border: none;
 }
