@@ -10,6 +10,25 @@ router.get('/me', async (req, res) => {
 	return res.json(req.session.user)
 })
 
+// Change logged in user's password
+router.post('/password', async (req, res) => {
+	if (!UserChecker.doesExist(req.session.user))
+		return res.status(401).json({ message: 'Not logged in!' })
+	const user = await User.findByPk(req.session.user.id)
+	user.password = req.body.password
+	await user.save()
+	return res.json({ message: 'Password changed!' })
+})
+
+router.post('/password/:id', async (req, res) => {
+	if (!UserChecker.canEdit(req.session.user))
+		return res.status(401).json({ message: 'Not logged in!' })
+	const user = await User.findByPk(req.params.id)
+	user.password = req.body.password
+	await user.save()
+	return res.json({ message: 'Password changed!' })
+})
+
 // Login route using sessions
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body
