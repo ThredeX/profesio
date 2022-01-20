@@ -21,7 +21,7 @@ const DeletingPeople = () => {
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
 				<NavBar route="administrator" theme={useContext(Context)} />
-				<MainHeading>Změna nastavení uživatelů</MainHeading>
+				<MainHeading>Odstranění uživatelů</MainHeading>
 				<Main>
 					<ListOfPeople
 						reload={reload}

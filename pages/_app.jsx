@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
 		theme = {
 			bg: BG_DARK,
 			text: TEXT_DARK,
-			color: RED,
+			color: BLUE,
 			nav: NAV_DARK,
 			box: BOX_DARK,
 			shadow: SHADOW_DARK,
@@ -71,16 +71,7 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<Context.Provider
-				value={{
-					bg: BG_DARK,
-					text: TEXT_DARK,
-					color: RED,
-					nav: NAV_DARK,
-					box: BOX_DARK,
-					shadow: SHADOW_DARK,
-					tableLine: TABLE_LINE_DARK,
-					border: BORDER_DARK,
-				}}>
+				value={theme}>
 				<Component {...pageProps} />
 			</Context.Provider>
 		</ThemeProvider>

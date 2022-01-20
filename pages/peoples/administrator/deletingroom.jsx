@@ -10,6 +10,9 @@ import { Context } from '../../_app'
 const Margin = styled.div`
 	margin-block: ${props => props.m}rem;
 `
+const Container = styled.div`
+	max-width: 20rem;
+`
 
 const DeletingRoom = () => {
 	const [room, setRoom] = useState(null)
@@ -46,6 +49,8 @@ const DeletingRoom = () => {
 					<NavBar route="administrator" />
 					<MainHeading>Odstanění místností</MainHeading>
 					<Main>
+					<Container>
+
 						<Box>
 							<br />
 							<Select2
@@ -65,6 +70,7 @@ const DeletingRoom = () => {
 								type="submit"
 							/>
 						</Box>
+					</Container>
 					</Main>
 				</ThemeProvider>
 			</>

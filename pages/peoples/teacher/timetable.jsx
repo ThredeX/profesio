@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
-import fakulta from '../../../teacherTimetable.json'
 import { Box, Table, Th, Td, Tr, Tbody, MainHeading, Main, Thead } from '../../../theme'
 import { logged } from '../../../utils/logged'
 import { Context } from '../../_app'
@@ -34,8 +33,8 @@ const Info = styled.div`
 	background-color: #383838;
 	height: auto;
 	border-radius: 8px;
-	z-index: 10;
-	width: 15rem;
+	z-index: 30;
+	width: 12rem;
 	font-size: 0.8rem;
 	position: absolute;
 	transition: opacity 1s;
@@ -49,7 +48,8 @@ const Info = styled.div`
 const Div2 = styled.div`
 	color: ${props => props.theme.text};
 	font-size: 1rem;
-	width: 8rem;
+	width: 100%;
+	height: 100%;
 	cursor: pointer;
 	@media screen and (max-width: 500px) {
 		width: 2rem;
@@ -59,14 +59,12 @@ const Div2 = styled.div`
 `
 const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
-	const [timetableState, setTimetableState] = useState([null])
 	const showInfoRefClick = useRef([...new Array(5)].map(() => []))
 	const showInfoRefOver = useRef([...new Array(5)].map(() => []))
 	const [load, setLoad] = useState(false);
+	const [lectures, setLectures] = useState(null)
 
-	useEffect(() => {
-		setTimetableState({ fakulta })
-	}, [])
+
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
@@ -82,13 +80,18 @@ const ChangingTimetable = () => {
 				}
 			}
 		}
-	}, [timetableState])
+	}, [])
 
 	useEffect(() => {
 		fetch(`../../../api/faculty/teacher`)
 		.then(res => res.json())
-		.then(data => console.log(data))
-	})
+		.then(data => {
+			setLectures(data)
+			console.log(data);
+
+		})
+		.catch(err => console.error(err))
+	}, [])
 
 	return load &&(
 		<>
@@ -100,12 +103,12 @@ const ChangingTimetable = () => {
 					<Box style={{ overflowX: 'scroll' }}>
 						<Container>
 							<Div>
-								<Table size={(timetableState.length + 1).toString()}>
+								<Table size={lectures && lectures?.subjects[0].length + 1}>
 									<Thead>
 										<Tr>
 											<Th></Th>
-											{!!timetableState.fakulta &&
-												timetableState.fakulta.timetable.time.map((value, i) => (
+											{!!lectures&&
+												lectures.time.map((value, i) => (
 													<Th key={i}>
 														<Paragraph>
 															{value.start}
@@ -123,18 +126,28 @@ const ChangingTimetable = () => {
 											return (
 												<Tr key={i}>
 													<Td>{day}</Td>
-													{timetableState.fakulta &&
-														timetableState.fakulta.timetable.subject[i].map((e, key) => {
-															return (
+													{!!lectures && lectures.subjects[i].map((e, key) => {
+															return e ? (
 																<Td key={key}>
 																	<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
-																		<p>{e.shortNameSubject}</p>
+																		<p>{e.Subject.short}</p>
 																		<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
-																			Předmět: {e.subjectName} <br /> Fakulta: {e.name} ({e.shortNameFaculty})
+																			Předmět: {e.Subject.name} <br /> Fakulta: {e?.Faculty ? e.Faculty.name : '-'} ({e.Faculty ? e.Faculty.shortcut : '-'})
 																			<br />
-																			Třída: {e.class}
+																			Třída: {e.Room.label}
 																		</Info>
 																	</Div2>
+																</Td>
+															) : (
+																<Td key={key}>
+																
+																<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
+																<p>-</p>
+
+																</Div2>
+																<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
+																			žádne informace
+																		</Info>
 																</Td>
 															)
 														})}

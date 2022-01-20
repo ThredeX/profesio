@@ -88,7 +88,7 @@ const AddingPeople = () => {
 			// data.can_edit = e.target.can_edit.checked
 			data.can_edit = true;
 		}
-		console.log(data)
+	
 		fetch(`../../../api/users/${whichPeople}`, {
 			method: 'POST',
 			headers: {
@@ -111,7 +111,7 @@ const AddingPeople = () => {
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
 				<NavBar route="administrator" theme={useContext(Context)} />
-				<MainHeading>Přidání lidí</MainHeading>
+				<MainHeading>Přidání Uživatelů</MainHeading>
 				<Main>
 					<FormContainer1>
 						<FormRadio onChange={e => setWhichPeople(e.target.value)}>

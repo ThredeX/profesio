@@ -4,6 +4,7 @@ export default function() {
     })
     .then(res => {
         if(res.ok){
+            window.top.location.href = '/'
             alert("Byl jste odhlášen")
         }
     })
