@@ -6,16 +6,16 @@ import { userDataReformat } from '../../utils/userDataReformat'
 const List = styled.li`
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
-	width: 100%;
+	justify-content: space-between;
 `
 const InList = styled.div`
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
-	padding-right: 2rem;
-	padding-left: 40px;
 	width: 100%;
+position: sticky;
+background-color: ${props => props.theme.box};
+top: 0;
 	`
 const Span = styled.span`
 	color: #ff0000;
@@ -59,9 +59,10 @@ const UnsortedList = styled.ul`
 	height: 18rem;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	position: relative;
 	padding-right: 2rem;
 	width: 100%;
+
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
 		width: 10px;
@@ -240,6 +241,10 @@ export default function ListOfPeople(props) {
 						/>
 					</Container>
 				</Settings>
+
+				
+				<UnsortedList>
+				
 				<InList>
 					<Paragraph2>Jméno</Paragraph2>
 					<Paragraph2>Příjmení</Paragraph2>
@@ -248,11 +253,12 @@ export default function ListOfPeople(props) {
 					<Paragraph2>Tel. číslo</Paragraph2>
 					<Paragraph2>Role</Paragraph2>
 					<Paragraph2>Ostatní</Paragraph2>
+				</InList>
 					{props.changingPeople || props.deletingPeople ? (
 						<Paragraph></Paragraph>
 					) : null}
-				</InList>
-				<UnsortedList>{funcNames()}</UnsortedList>
+				
+				{funcNames()}</UnsortedList>
 			</Box>
 		</ThemeProvider>
 	)
