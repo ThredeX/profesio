@@ -7,20 +7,35 @@ const List = styled.li`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	@media screen and (max-width: 630px) and (min-width: 0) {
+		& > input{
+			width: max-content;
+			padding: .1rem .2rem;
+		}
+	}
+	@media screen and (max-width: 980px) and (min-width: 0) {
+		& > input{
+			width: 9rem;
+			padding: .1rem .2rem;
+		}
+	}
+	& > input {
+		margin-right: 2px;
+	}
 `
 const InList = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-position: sticky;
-background-color: ${props => props.theme.box};
-top: 0;
-	`
+	position: sticky;
+	background-color: ${props => props.theme.box};
+	top: 0;
+`
 const Span = styled.span`
 	color: #ff0000;
 	font-weight: 400;
-	`
+`
 const Paragraph = styled.p`
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -30,20 +45,65 @@ const Paragraph = styled.p`
 	margin: 0;
 	text-align: center;
 	color: ${props => props.theme.text};
-	@media screen and (max-width: 1070px) and (min-width: 0) {
+	@media screen and (max-width: 1300px) and (min-width: 0) {
 		&:nth-child(3) {
 			display: none;
 		}
 	}
-	`
+	@media screen and (max-width: 1150px) and (min-width: 0) {
+		&:nth-child(7){
+			display: none;
+		}
+	}
+	@media screen and (max-width: 1040px) and (min-width: 0) {
+		&:nth-child(4){
+			display: none;
+		}
+	}
+	@media screen and (max-width: 610px) and (min-width: 0) {
+		&:nth-child(5){
+			display: none;
+		}
+	}
+	@media screen and (max-width: 530px) and (min-width: 0) {
+		&:nth-child(6){
+			display: none;
+		}
+	}
+`
 const Paragraph2 = styled.p`
 	padding: 0.6rem 0.1rem;
 	width: 9rem;
 	margin: 0;
+	@media screen and (max-width: 1300px) and (min-width: 0) {
+		&:nth-child(3) {
+			display: none;
+		}
+	}
+	@media screen and (max-width: 1150px) and (min-width: 0) {
+		&:nth-child(7){
+			display: none;
+		}
+	}
 
+	@media screen and (max-width: 1040px) and (min-width: 0) {
+		&:nth-child(4){
+			display: none;
+		}
+	}
+	@media screen and (max-width: 610px) and (min-width: 0) {
+		&:nth-child(5){
+			display: none;
+		}
+	}
+	@media screen and (max-width: 530px) and (min-width: 0) {
+		&:nth-child(6){
+			display: none;
+		}
+	}
 	text-align: center;
 	color: ${props => props.theme.text};
-	&::after{
+	&::after {
 		content: '';
 		height: 1px;
 		display: block;
@@ -242,23 +302,22 @@ export default function ListOfPeople(props) {
 					</Container>
 				</Settings>
 
-				
 				<UnsortedList>
-				
-				<InList>
-					<Paragraph2>Jméno</Paragraph2>
-					<Paragraph2>Příjmení</Paragraph2>
-					<Paragraph2>User</Paragraph2>
-					<Paragraph2>E-mail</Paragraph2>
-					<Paragraph2>Tel. číslo</Paragraph2>
-					<Paragraph2>Role</Paragraph2>
-					<Paragraph2>Ostatní</Paragraph2>
-				</InList>
+					<InList>
+						<Paragraph2>Jméno</Paragraph2>
+						<Paragraph2>Příjmení</Paragraph2>
+						<Paragraph2>User</Paragraph2>
+						<Paragraph2>E-mail</Paragraph2>
+						<Paragraph2>Tel. číslo</Paragraph2>
+						<Paragraph2>Role</Paragraph2>
+						<Paragraph2>Ostatní</Paragraph2>
 					{props.changingPeople || props.deletingPeople ? (
 						<Paragraph></Paragraph>
 					) : null}
-				
-				{funcNames()}</UnsortedList>
+					</InList>
+
+					{funcNames()}
+				</UnsortedList>
 			</Box>
 		</ThemeProvider>
 	)
