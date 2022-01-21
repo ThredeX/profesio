@@ -65,7 +65,7 @@ const Button = styled.button`
 `
 
 const Index = () => {
-
+	const theme = useContext(Context)
 	var router = useRouter()
 	async function handleSubmit(e) {
 		e.preventDefault()
@@ -95,7 +95,8 @@ const Index = () => {
 	}
 	return (
 		<>
-			<ThemeProvider theme={useContext(Context)}>
+
+			<ThemeProvider theme={theme}>
 				<Header />
 				<Div>
 					<Heading>Login</Heading>

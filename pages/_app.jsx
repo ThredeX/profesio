@@ -2,7 +2,16 @@ import React from 'react'
 import '../styles/globals.css'
 import { createContext, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
-export const Context = createContext({})
+export const Context = createContext({
+	bg: '#121212',
+	text: '#fff',
+	color: '#03d3fc',
+	nav: '#1E1E1E',
+	box: '#1E1E1E',
+	shadow: '#fff',
+	tableLine: '#444',
+	border: '#fff',
+})
 
 function MyApp({ Component, pageProps }) {
 	// colors to switch
