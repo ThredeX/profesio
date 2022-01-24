@@ -162,7 +162,7 @@ export default function NavBar({ route }) {
 		}
 	}
 	return (
-		<ThemeProvider theme={useContext(Context)}>
+		<ThemeProvider theme={theme}>
 			<Nav ref={navRef}>
 				<Container>
 					<DivHeading className="noneOpen">
@@ -183,7 +183,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Přidat učebnu
+											Přidat místnost
 										</Paragraph>
 									</A>
 								</Link>
@@ -198,7 +198,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Odebrat učebnu
+											Odebrat místnost
 										</Paragraph>
 									</A>
 								</Link>
@@ -213,7 +213,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Přidat studenta/zaměstnance
+											Přidat uživatele
 										</Paragraph>
 									</A>
 								</Link>
@@ -229,7 +229,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Změnit nastavení studenta/zaměstnance
+											Změnit uřivatele
 										</Paragraph>
 									</A>
 								</Link>
@@ -245,7 +245,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Odebrat studenta/zaměstnance
+											Odebrat uživatele
 										</Paragraph>
 									</A>
 								</Link>
@@ -277,7 +277,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Obecné nastavení školy
+											Nastavení školy
 										</Paragraph>
 									</A>
 								</Link>
@@ -324,7 +324,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Úprava rozvrhů
+											Úprava rozvrhu
 										</Paragraph>
 									</A>
 								</Link>
@@ -372,23 +372,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Vytvoření rozvrhu
-										</Paragraph>
-									</A>
-								</Link>
-								<Link
-									href={`/peoples/${route}/timetablechange`}
-									passHref>
-									<A>
-										<Div>
-											<FontAwesomeIcon
-												style={faIconSize}
-												icon={faFolderOpen}
-												color={theme.color}
-											/>
-										</Div>
-										<Paragraph className="noneOpen">
-											Úprava rozvrhu
+											Přihlášení na přednášky
 										</Paragraph>
 									</A>
 								</Link>
