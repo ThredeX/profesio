@@ -3,14 +3,13 @@ const router = require('express').Router()
 const { User, Administrator, Student, Teacher } = require('../models/')
 const parseUser = require('../utils/parseUser.js')
 const UserChecker = require('../utils/userChecker.js')
-// Return logged in user
+
 router.get('/me', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user))
 		return res.status(401).json({ message: 'Not logged in!' })
 	return res.json(req.session.user)
 })
 
-// Change logged in user's password
 router.post('/password', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user))
 		return res.status(401).json({ message: 'Not logged in!' })
@@ -29,7 +28,6 @@ router.post('/password/:id', async (req, res) => {
 	return res.json({ message: 'Password changed!' })
 })
 
-// Login route using sessions
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body
 	const user = await User.findOne({
