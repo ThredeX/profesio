@@ -1,5 +1,14 @@
 const router = require('express').Router()
-const { Faculty, Building, School, Subject, Lecture } = require('../models')
+const {
+	Faculty,
+	Building,
+	School,
+	Subject,
+	Lecture,
+  Participation,
+  Teacher,
+  User
+} = require('../models')
 
 const UserChecker = require('../utils/userChecker.js')
 const { toDB } = require('../utils/lectureParser.js')
@@ -65,8 +74,29 @@ router.post('/lecture', async (req, res) => {
 
 router.get('/lecture', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
-	const lectures = await Lecture.findAll()
+	const lectures = await Lecture.findAll({
+		include: [
+			{
+				model: Subject,
+			},
+			{
+				model: Teacher,
+				include: [
+					{
+						model: User,
+						attributes: ['surname'],
+					},
+				],
+			},
+		],
+	})
 	res.status(200).json(lectures.map(lecture => lecture.toJSON()))
+})
+
+router.post('/lecture/:id', async (req, res) => {
+	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
+	await Participation.create(req.session.user.student.id, req.params.id)
+	res.status(200)
 })
 
 router.get('/building', async (req, res) => {
