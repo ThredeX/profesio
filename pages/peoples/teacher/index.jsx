@@ -35,11 +35,7 @@ const Index = () => {
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
 				<Main>
-					<Container>
-						<Heading>
-							<Span>P</Span>rofesio
-						</Heading>
-					</Container>
+					
 					<NavBar route='teacher'/>
 				</Main>
 			</ThemeProvider>

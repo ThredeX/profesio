@@ -6,7 +6,7 @@ const LecturesList = styled.ul``
 const Lecture = styled.li`
 	display: flex;
 	align-items: center;
-    margin: 10px;
+	margin: 10px;
 	form {
 		display: flex;
 		align-items: center;
@@ -33,15 +33,12 @@ export default function Lectures() {
 	}, [])
 	function toLecture(e) {
 		e.preventDefault()
-		console.log(e.target.id.value)
 		fetch(`../../api/school/lecture/${e.target.id.value}`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
 			},
-		})
-		.then(res => console.log(res))
-		.catch(err => console.error(err))
+		}).catch(err => console.error(err))
 	}
 	return (
 		<Box>

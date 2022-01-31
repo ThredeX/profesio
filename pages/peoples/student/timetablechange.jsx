@@ -25,13 +25,15 @@ const Main = styled.main`
 
 const TimetableChange = (props) => {
 	const [load, setLoad] = useState(false);
+	const theme = useContext(Context)
+	
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
     return load && (
         <>
-			<ThemeProvider theme={useContext(Context)}>
+			<ThemeProvider theme={theme}>
 				<Header />
 				<Main>
 					<Container>
