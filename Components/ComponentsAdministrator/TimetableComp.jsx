@@ -110,12 +110,10 @@ export default function TimetableAdding(props) {
 			.then(res => res.json())
 			.then(data => {
 				setSubjects(data)
-				console.log(data)
 			})
 		fetch('../../api/users/info')
 			.then(res => res.json())
 			.then(data => {
-				console.log(data.teachers)
 				setTeachers(data.teachers)
 			})
 		fetch(`../../api/faculty/room/${props.room}`)
@@ -123,7 +121,6 @@ export default function TimetableAdding(props) {
 			.then(data => {
 				setLecture(data)
 				setTimetableState([...data.subjects[0].map(_ => null), null])
-				console.log(data)
 			})
 	}, [])
 	//Lecture = beginning, end, days, FacultyId, RoomId, TeacherId, SubjectId
@@ -344,19 +341,19 @@ export default function TimetableAdding(props) {
 																			<Option
 																				title={
 																					teacher
-																						.User
-																						.surname
+																						?.User
+																						?.surname
 																				}
 																				value={
-																					teacher.id
+																					teacher?.id
 																				}
 																				key={
-																					teacher.id
+																					teacher?.id
 																				}>
 																				{
 																					teacher
-																						.User
-																						.surname
+																						?.User
+																						?.surname
 																				}
 																			</Option>
 																		),

@@ -49,28 +49,27 @@ const DeletingRoom = () => {
 					<NavBar route="administrator" />
 					<MainHeading>Odstanění místností</MainHeading>
 					<Main>
-					<Container>
-
-						<Box>
-							<br />
-							<Select2
-								name="delrooms"
-								onChange={e => setDelRoom(e.target.value)}>
-								<Option>-</Option>
-								{room?.map(r => (
-									<Option value={r.id} key={r.id}>
-										{r.label}
-									</Option>
-								))}
-							</Select2>
-							<Margin m={1}></Margin>
-							<SubmitButton
-								value="Odstranit"
-								onClick={handleSubmit}
-								type="submit"
-							/>
-						</Box>
-					</Container>
+						<Container>
+							<Box>
+								<br />
+								<Select2
+									name="delrooms"
+									onChange={e => setDelRoom(e.target.value)}>
+									<Option>-</Option>
+									{room?.map(r => (
+										<Option value={r.id} key={r.id}>
+											{r.label}
+										</Option>
+									))}
+								</Select2>
+								<Margin m={1}></Margin>
+								<SubmitButton
+									value="Odstranit"
+									onClick={handleSubmit}
+									type="submit"
+								/>
+							</Box>
+						</Container>
 					</Main>
 				</ThemeProvider>
 			</>

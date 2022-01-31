@@ -10,18 +10,19 @@ const Form = styled.form`
 `
 function changePassword(e) {
 	e.preventDefault()
-	if(e.target.password_1.value !== e.target.password_2.value && e.target.password_1.value == null){
-		return;
+	if (
+		e.target.password_1.value !== e.target.password_2.value &&
+		e.target.password_1.value == null
+	) {
+		return
 	}
 	fetch('../../api/auth/password', {
 		method: 'POST',
 		headers: {
-			'content-type': 'application/json'
+			'content-type': 'application/json',
 		},
-		body: JSON.stringify({password: e.target.password_1.value})
-	})
-	.then(res => console.log(res))
-	.catch(err => console.error(err))
+		body: JSON.stringify({ password: e.target.password_1.value }),
+	}).catch(err => console.error(err))
 }
 
 export default function PasswordChange() {
@@ -31,9 +32,9 @@ export default function PasswordChange() {
 				<Heading2>Změna hesla</Heading2>
 				<Form onSubmit={e => changePassword(e)}>
 					<Label>Zadejte nové heslo: </Label>
-					<Input type='password' name='password_1'/>
+					<Input type="password" name="password_1" />
 					<Label>Zadejte nové heslo: </Label>
-					<Input type='password' name='password_2'/>
+					<Input type="password" name="password_2" />
 					<SubmitButton type="submit" value="Změnit" />
 				</Form>
 			</Box>
