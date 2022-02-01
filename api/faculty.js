@@ -1,25 +1,29 @@
 const router = require('express').Router()
 
-const { Faculty, Lecture, Room, Subject, Teacher, User, Building } = require('../models/')
+const {
+	Faculty,
+	Lecture,
+	Room,
+	Subject,
+	Teacher,
+	User,
+	Building,
+	Participation,
+} = require('../models/')
 const UserChecker = require('../utils/userChecker.js')
 const { fromDB } = require('../utils/lectureParser.js')
 
-// Returns all faculties
 router.get('/', async (req, res) => {
 	const faculties = await Faculty.findAll()
 	res.json(faculties.map(faculty => faculty.toJSON()))
 })
 
-// AUTHENTICATION REQUIRED
-// Create a new faculty
 router.post('/', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	await Faculty.create(req.body)
 	res.status(204).json({ message: 'Faculty created' })
 })
 
-// AUTHENTICATION REQUIRED
-// Remove a faculty by id
 router.delete('/:id', async (req, res) => {
 	if (!UserChecker.canEdit(req.session.user)) return res.status(401).send()
 	const faculty = await Faculty.findByPk(req.params.id)
@@ -54,30 +58,47 @@ router.get('/room/:id', async (req, res) => {
 		},
 		include: [
 			{
-				model: Subject
+				model: Subject,
 			},
-			 {
+			{
 				model: Teacher,
-				include: [{
-					model: User,
-					attributes: ['surname']
-				}]
-			}
-		]
+				include: [
+					{
+						model: User,
+						attributes: ['surname'],
+					},
+				],
+			},
+		],
 	})
 	res.json(fromDB(lect.map(l => l.toJSON())))
 })
 
 router.get('/teacher', async (req, res) => {
-	console.log(req.session.user)
-	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
+	if (!UserChecker.isTeacher(req.session.user)) return res.status(401).send()
 	const lect = await Lecture.findAll({
 		where: {
 			TeacherId: req.session.user.teacher.id,
 		},
-		include: [Subject, Faculty, {model: Room, include: Building}]
+		include: [Subject, Faculty, { model: Room, include: Building }],
 	})
 	res.json(fromDB(lect.map(l => l.toJSON())))
+})
+
+router.get('/student', async (req, res) => {
+	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
+	const lect = await Participation.findAll({
+		where: {
+			StudentId: req.session.user.student.id,
+		},
+		include: [
+			{
+				model: Lecture,
+				include: [Subject, Faculty, { model: Room, include: Building }],
+			},
+		],
+	})
+	res.json(fromDB(lect.map(l => l.Lecture.toJSON())))
 })
 
 module.exports = router
