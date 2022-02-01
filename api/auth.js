@@ -11,6 +11,7 @@ router.get('/me', async (req, res) => {
 })
 
 router.post('/password', async (req, res) => {
+	console.log(req.session.user)
 	if (!UserChecker.doesExist(req.session.user))
 		return res.status(401).json({ message: 'Not logged in!' })
 	const user = await User.findByPk(req.session.user.id)
@@ -43,7 +44,7 @@ router.post('/login', async (req, res) => {
 	const userData = await User.findOne({
 		where: { username },
 		include: [Administrator, Teacher, Student],
-		attributes: ['username', 'email', 'name', 'surname'],
+		attributes: ['id', 'username', 'email', 'name', 'surname'],
 	})
 	req.session.user = parseUser(userData.toJSON())
 	res.status(200).json({ message: 'Successfull Login!' })

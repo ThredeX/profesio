@@ -12,7 +12,7 @@ function changePassword(e) {
 	e.preventDefault()
 	if (
 		e.target.password_1.value !== e.target.password_2.value &&
-		e.target.password_1.value == null
+		!e.target.password_1.value
 	) {
 		return
 	}
