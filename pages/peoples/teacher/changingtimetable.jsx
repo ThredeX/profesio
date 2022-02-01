@@ -84,100 +84,102 @@ const Div3 = styled.div`
 const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
-	const [load, setLoad] = useState(false);
-	
+	const [load, setLoad] = useState(false)
+
 	useEffect(() => {
 		setTimetableState({
 			fakulta,
 		})
-
 	}, [])
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
 
-	return load && (
-		<>
-			<ThemeProvider theme={useContext(Context)}>
-				<Header />
-				<NavBar route="teacher" />
-				<MainHeading>Rozvrh</MainHeading>
-				<Main>
-					<Box style={{ overflowX: 'scroll' }}>
-						<Container>
-							<Div>
-								<Table size={(timetableState.length + 1).toString()}>
-									<Thead>
-										<Tr>
-											<Th></Th>
-											{!!timetableState.fakulta &&
-												timetableState.fakulta.timetable.time.map(
-													(value, i) => (
-														<Th key={i}>
-															<Paragraph>
-																{value.start}
-																<br />
-																-
-																<br />
-																{value.end}
-															</Paragraph>
-														</Th>
-													),
-												)}
-										</Tr>
-									</Thead>
-									<Tbody>
-										{days.map((day, i) => {
-											return (
-												<Tr key={i}>
-													<Td>{day}</Td>
-													{timetableState.fakulta &&
-														timetableState.fakulta.timetable.subject[
-															i
-														].map((e, key) => {
-															return (
-																<Td key={key}>
-																	<Div3>
-																		{
-																			e.shortNameSubject
-																		}
-																		<Change>
-																			<Div2>
-																				<label htmlFor="radio_teacher">
-																					Zrušit:{' '}
-																				</label>{' '}
-																				<Radio
-																					name="radio_teacher"
-																					type="checkbox"
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={useContext(Context)}>
+					<Header />
+					<NavBar route="teacher" />
+					<MainHeading>Rozvrh</MainHeading>
+					<Main>
+						<Box style={{ overflowX: 'scroll' }}>
+							<Container>
+								<Div>
+									<Table
+										size={(timetableState.length + 1).toString()}>
+										<Thead>
+											<Tr>
+												<Th></Th>
+												{!!timetableState.fakulta &&
+													timetableState.fakulta.timetable.time.map(
+														(value, i) => (
+															<Th key={i}>
+																<Paragraph>
+																	{value.start}
+																	<br />
+																	-
+																	<br />
+																	{value.end}
+																</Paragraph>
+															</Th>
+														),
+													)}
+											</Tr>
+										</Thead>
+										<Tbody>
+											{days.map((day, i) => {
+												return (
+													<Tr key={i}>
+														<Td>{day}</Td>
+														{timetableState.fakulta &&
+															timetableState.fakulta.timetable.subject[
+																i
+															].map((e, key) => {
+																return (
+																	<Td key={key}>
+																		<Div3>
+																			{
+																				e.shortNameSubject
+																			}
+																			<Change>
+																				<Div2>
+																					<label htmlFor="radio_teacher">
+																						Zrušit:{' '}
+																					</label>{' '}
+																					<Radio
+																						name="radio_teacher"
+																						type="checkbox"
+																					/>
+																				</Div2>
+																				<Input
+																					name="duvod"
+																					type="text"
+																					placeholder="Důvod"
+																					maxLength="30"
 																				/>
-																			</Div2>
-																			<Input
-																				name="duvod"
-																				type="text"
-																				placeholder="Důvod"
-																				maxLength="30"
-																			/>
-																			<SubmitButton
-																				type="submit"
-																				value="Uložit"
-																			/>
-																		</Change>
-																	</Div3>
-																</Td>
-															)
-														})}
-												</Tr>
-											)
-										})}
-									</Tbody>
-								</Table>
-							</Div>
-						</Container>
-					</Box>
-				</Main>
-			</ThemeProvider>
-		</>
+																				<SubmitButton
+																					type="submit"
+																					value="Uložit"
+																				/>
+																			</Change>
+																		</Div3>
+																	</Td>
+																)
+															})}
+													</Tr>
+												)
+											})}
+										</Tbody>
+									</Table>
+								</Div>
+							</Container>
+						</Box>
+					</Main>
+				</ThemeProvider>
+			</>
+		)
 	)
 }
 export default ChangingTimetable

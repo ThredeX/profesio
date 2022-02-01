@@ -8,15 +8,15 @@ const List = styled.li`
 	align-items: center;
 	justify-content: space-between;
 	@media screen and (max-width: 630px) and (min-width: 0) {
-		& > input{
+		& > input {
 			width: max-content;
-			padding: .1rem .2rem;
+			padding: 0.1rem 0.2rem;
 		}
 	}
 	@media screen and (max-width: 980px) and (min-width: 0) {
-		& > input{
+		& > input {
 			width: 9rem;
-			padding: .1rem .2rem;
+			padding: 0.1rem 0.2rem;
 		}
 	}
 	& > input {
@@ -51,22 +51,22 @@ const Paragraph = styled.p`
 		}
 	}
 	@media screen and (max-width: 1150px) and (min-width: 0) {
-		&:nth-child(7){
+		&:nth-child(7) {
 			display: none;
 		}
 	}
 	@media screen and (max-width: 1040px) and (min-width: 0) {
-		&:nth-child(4){
+		&:nth-child(4) {
 			display: none;
 		}
 	}
 	@media screen and (max-width: 610px) and (min-width: 0) {
-		&:nth-child(5){
+		&:nth-child(5) {
 			display: none;
 		}
 	}
 	@media screen and (max-width: 530px) and (min-width: 0) {
-		&:nth-child(6){
+		&:nth-child(6) {
 			display: none;
 		}
 	}
@@ -81,23 +81,23 @@ const Paragraph2 = styled.p`
 		}
 	}
 	@media screen and (max-width: 1150px) and (min-width: 0) {
-		&:nth-child(7){
+		&:nth-child(7) {
 			display: none;
 		}
 	}
 
 	@media screen and (max-width: 1040px) and (min-width: 0) {
-		&:nth-child(4){
+		&:nth-child(4) {
 			display: none;
 		}
 	}
 	@media screen and (max-width: 610px) and (min-width: 0) {
-		&:nth-child(5){
+		&:nth-child(5) {
 			display: none;
 		}
 	}
 	@media screen and (max-width: 530px) and (min-width: 0) {
-		&:nth-child(6){
+		&:nth-child(6) {
 			display: none;
 		}
 	}
@@ -174,9 +174,12 @@ export default function ListOfPeople(props) {
 		async () => {
 			let res = await fetch('../../api/users/info')
 			let data = await res.json()
-			console.log(userDataReformat(data))
 			setNames(userDataReformat(data))
-			props.setReload(false)
+			if (props.reload) {
+				props.setReload(false)
+			} else {
+				props.setReload(true)
+			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[props.reload],
@@ -194,11 +197,12 @@ export default function ListOfPeople(props) {
 				},
 			}).then(res => {
 				if (!res.ok) {
-					console.error(res.text)
 					alert('error - uživatel nebyl odstraněn')
 				} else {
 					alert('Uživatel byl odstraněn')
-					props.setReload(true)
+					if (props.reload) {
+						props.setReload(false)
+					} else props.setReload(true)
 				}
 			})
 		}
@@ -311,9 +315,9 @@ export default function ListOfPeople(props) {
 						<Paragraph2>Tel. číslo</Paragraph2>
 						<Paragraph2>Role</Paragraph2>
 						<Paragraph2>Ostatní</Paragraph2>
-					{props.changingPeople || props.deletingPeople ? (
-						<Paragraph></Paragraph>
-					) : null}
+						{props.changingPeople || props.deletingPeople ? (
+							<Paragraph></Paragraph>
+						) : null}
 					</InList>
 
 					{funcNames()}

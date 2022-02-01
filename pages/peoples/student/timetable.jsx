@@ -23,27 +23,29 @@ const Main = styled.main`
 	height: calc(100vh - 5.2rem);
 `
 
-const Timetable = (props) => {
-	const [load, setLoad] = useState(false);
+const Timetable = () => {
+	const [load, setLoad] = useState(false)
 
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
-    return load && (
-        <>
-			<ThemeProvider theme={useContext(Context)}>
-				<Header />
-				<Main>
-					<Container>
-						<Heading>
-							<Span>P</Span>rofesio
-						</Heading>
-					</Container>
-					<NavBar route='student' name='Dominik'/>
-				</Main>
-			</ThemeProvider>
-        </>
-    )
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={useContext(Context)}>
+					<Header />
+					<Main>
+						<Container>
+							<Heading>
+								<Span>P</Span>rofesio
+							</Heading>
+						</Container>
+						<NavBar route="student" name="Dominik" />
+					</Main>
+				</ThemeProvider>
+			</>
+		)
+	)
 }
 export default Timetable

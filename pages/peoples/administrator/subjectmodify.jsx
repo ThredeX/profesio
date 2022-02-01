@@ -83,8 +83,7 @@ const UnsortedList = styled.ul`
 const SubjectModify = () => {
 	const [reload, setReload] = useState(null)
 	const [subjects, setSubjects] = useState(null)
-	const [load, setLoad] = useState(false);
-	
+	const [load, setLoad] = useState(false)
 
 	function deleteSubject(id) {
 		if (confirm('Opravdu chcete odstranit předmět?')) {
@@ -98,7 +97,9 @@ const SubjectModify = () => {
 					console.log(res.status)
 				}
 			})
-			setReload(id)
+			if (reload) {
+				setReload(false)
+			} else setReload(true)
 		}
 	}
 	function addSubject(e) {
@@ -115,7 +116,11 @@ const SubjectModify = () => {
 		}).then(res => {
 			if (!res.ok) {
 				console.log(res.status)
-			} else setReload(0)
+			} else {
+				if (reload) {
+					setReload(false)
+				} else setReload(true)
+			}
 		})
 	}
 
@@ -127,62 +132,68 @@ const SubjectModify = () => {
 				console.log(err)
 			})
 	}, [reload])
-	console.log(subjects)
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
-	
-	return load && (
-		<>
-			<ThemeProvider theme={useContext(Context)}>
-				<Header />
-				<NavBar route="administrator" theme={useContext(Context)} />
-				<MainHeading>Předměty</MainHeading>
-				<Main>
-					<Container>
-	<Box>
-		<Heading2>Přidání předmětu</Heading2>
-		<Form onSubmit={addSubject}>
-			<InputContainer>
-				<Container2>
-					<Label htmlFor="subject">Předmět:</Label>
-					<Input name="subject" id="subject" />
-				</Container2>
-				<Container2>
-					<Label htmlFor="subjectShort">Zkratka:</Label>
-					<Input name="subjectShort" id="subjectShort" />
-				</Container2>
-			</InputContainer>
-			<SubmitButton type="submit" value="Přidat" />
-		</Form>
-	</Box>
-						{!subjects || subjects[0] ? (
+
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={useContext(Context)}>
+					<Header />
+					<NavBar route="administrator" theme={useContext(Context)} />
+					<MainHeading>Předměty</MainHeading>
+					<Main>
+						<Container>
 							<Box>
-								<Heading2>Odebrání předmětu</Heading2>
-								<UnsortedList>
-									{subjects?.map(subject => (
-										<List key={subject.id}>
-											<Paragraph>{subject.name}</Paragraph>
-											<Paragraph>{subject.short}</Paragraph>
-											<Div>
-												<SubmitButton
-													value="Odstranit"
-													type="submit"
-													onClick={() =>
-														deleteSubject(subject.id)
-													}
-												/>
-											</Div>
-										</List>
-									))}
-								</UnsortedList>
+								<Heading2>Přidání předmětu</Heading2>
+								<Form onSubmit={addSubject}>
+									<InputContainer>
+										<Container2>
+											<Label htmlFor="subject">Předmět:</Label>
+											<Input name="subject" id="subject" />
+										</Container2>
+										<Container2>
+											<Label htmlFor="subjectShort">
+												Zkratka:
+											</Label>
+											<Input
+												name="subjectShort"
+												id="subjectShort"
+											/>
+										</Container2>
+									</InputContainer>
+									<SubmitButton type="submit" value="Přidat" />
+								</Form>
 							</Box>
-						) : null}
-					</Container>
-				</Main>
-			</ThemeProvider>
-		</>
+							{!subjects || subjects[0] ? (
+								<Box>
+									<Heading2>Odebrání předmětu</Heading2>
+									<UnsortedList>
+										{subjects?.map(subject => (
+											<List key={subject.id}>
+												<Paragraph>{subject.name}</Paragraph>
+												<Paragraph>{subject.short}</Paragraph>
+												<Div>
+													<SubmitButton
+														value="Odstranit"
+														type="submit"
+														onClick={() =>
+															deleteSubject(subject.id)
+														}
+													/>
+												</Div>
+											</List>
+										))}
+									</UnsortedList>
+								</Box>
+							) : null}
+						</Container>
+					</Main>
+				</ThemeProvider>
+			</>
+		)
 	)
 }
 export default SubjectModify

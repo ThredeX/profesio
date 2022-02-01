@@ -61,9 +61,8 @@ const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const showInfoRefClick = useRef([...new Array(5)].map(() => []))
 	const showInfoRefOver = useRef([...new Array(5)].map(() => []))
-	const [load, setLoad] = useState(false);
+	const [load, setLoad] = useState(false)
 	const [lectures, setLectures] = useState(null)
-
 
 	useEffect(async () => {
 		let data = await logged()
@@ -84,84 +83,151 @@ const ChangingTimetable = () => {
 
 	useEffect(() => {
 		fetch(`../../../api/faculty/teacher`)
-		.then(res => res.json())
-		.then(data => {
-			setLectures(data)
-			console.log(data);
-
-		})
-		.catch(err => console.error(err))
+			.then(res => res.json())
+			.then(data => {
+				setLectures(data)
+			})
+			.catch(err => console.error(err))
 	}, [])
 
-	return load &&(
-		<>
-			<ThemeProvider theme={useContext(Context)}>
-				<Header />
-				<NavBar route="teacher" />
-				<MainHeading>Rozvrh</MainHeading>
-				<Main>
-					<Box style={{ overflowX: 'scroll' }}>
-						<Container>
-							<Div>
-								<Table size={lectures && lectures?.subjects[0].length + 1}>
-									<Thead>
-										<Tr>
-											<Th></Th>
-											{!!lectures&&
-												lectures.time.map((value, i) => (
-													<Th key={i}>
-														<Paragraph>
-															{value.start}
-															<br />
-															-
-															<br />
-															{value.end}
-														</Paragraph>
-													</Th>
-												))}
-										</Tr>
-									</Thead>
-									<Tbody>
-										{days.map((day, i) => {
-											return (
-												<Tr key={i}>
-													<Td>{day}</Td>
-													{!!lectures && lectures.subjects[i].map((e, key) => {
-															return e ? (
-																<Td key={key}>
-																	<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
-																		<p>{e.Subject.short}</p>
-																		<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
-																			Předmět: {e.Subject.name} <br /> Fakulta: {e?.Faculty ? e.Faculty.name : '-'} ({e.Faculty ? e.Faculty.shortcut : '-'})
-																			<br />
-																			Třída: {e.Room.label}
-																		</Info>
-																	</Div2>
-																</Td>
-															) : (
-																<Td key={key}>
-																
-																<Div2 ref={element => (showInfoRefClick.current[i][key] = element)}>
-																<p>-</p>
-
-																</Div2>
-																<Info ref={element => (showInfoRefOver.current[i][key] = element)}>
-																			žádne informace
-																		</Info>
-																</Td>
-															)
-														})}
-												</Tr>
-											)
-										})}
-									</Tbody>
-								</Table>
-							</Div>
-						</Container>
-					</Box>
-				</Main>
-			</ThemeProvider>
-		</>
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={useContext(Context)}>
+					<Header />
+					<NavBar route="teacher" />
+					<MainHeading>Rozvrh</MainHeading>
+					<Main>
+						<Box style={{ overflowX: 'scroll' }}>
+							<Container>
+								<Div>
+									<Table
+										size={
+											lectures && lectures?.subjects[0].length + 1
+										}>
+										<Thead>
+											<Tr>
+												<Th></Th>
+												{!!lectures &&
+													lectures.time.map((value, i) => (
+														<Th key={i}>
+															<Paragraph>
+																{value.start}
+																<br />
+																-
+																<br />
+																{value.end}
+															</Paragraph>
+														</Th>
+													))}
+											</Tr>
+										</Thead>
+										<Tbody>
+											{days.map((day, i) => {
+												return (
+													<Tr key={i}>
+														<Td>{day}</Td>
+														{!!lectures &&
+															lectures.subjects[i].map(
+																(e, key) => {
+																	return e ? (
+																		<Td key={key}>
+																			<Div2
+																				ref={element =>
+																					(showInfoRefClick.current[
+																						i
+																					][
+																						key
+																					] =
+																						element)
+																				}>
+																				<p>
+																					{
+																						e
+																							.Subject
+																							.short
+																					}
+																				</p>
+																				<Info
+																					ref={element =>
+																						(showInfoRefOver.current[
+																							i
+																						][
+																							key
+																						] =
+																							element)
+																					}>
+																					Předmět:{' '}
+																					{
+																						e
+																							.Subject
+																							.name
+																					}{' '}
+																					<br />{' '}
+																					Fakulta:{' '}
+																					{e?.Faculty
+																						? e
+																								.Faculty
+																								.name
+																						: '-'}{' '}
+																					(
+																					{e.Faculty
+																						? e
+																								.Faculty
+																								.shortcut
+																						: '-'}
+																					)
+																					<br />
+																					Třída:{' '}
+																					{
+																						e
+																							.Room
+																							.label
+																					}
+																				</Info>
+																			</Div2>
+																		</Td>
+																	) : (
+																		<Td key={key}>
+																			<Div2
+																				ref={element =>
+																					(showInfoRefClick.current[
+																						i
+																					][
+																						key
+																					] =
+																						element)
+																				}>
+																				<p>-</p>
+																			</Div2>
+																			<Info
+																				ref={element =>
+																					(showInfoRefOver.current[
+																						i
+																					][
+																						key
+																					] =
+																						element)
+																				}>
+																				žádne
+																				informace
+																			</Info>
+																		</Td>
+																	)
+																},
+															)}
+													</Tr>
+												)
+											})}
+										</Tbody>
+									</Table>
+								</Div>
+							</Container>
+						</Box>
+					</Main>
+				</ThemeProvider>
+			</>
+		)
 	)
 }
 export default ChangingTimetable

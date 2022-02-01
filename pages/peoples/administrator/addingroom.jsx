@@ -101,7 +101,7 @@ const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
 	const [buildings, setBuildings] = useState(null)
-	const [facultySet, setFacultySet] = useState(null)
+	const [facultySet, setFacultySet] = useState('add')
 	const [reload, setReload] = useState(0)
 	const [load, setLoad] = useState(false)
 	const [build, setBuild] = useState(null)
@@ -127,7 +127,6 @@ const AddingRoom = () => {
 			.then(res => res.json())
 			.then(data => {
 				setAllRoom(data)
-				console.log(data)
 			})
 			.catch(err => console.error(err))
 	}, [, reload, room])
@@ -136,7 +135,6 @@ const AddingRoom = () => {
 			.then(res => res.json())
 			.then(data => {
 				setBuildings(data)
-				console.log(data)
 			})
 			.catch(err => console.error(err))
 	}, [, reload, facultySet])
@@ -151,7 +149,9 @@ const AddingRoom = () => {
 				},
 			})
 			alert('Fakulta byla odstraněna')
-			setReload(e.target.faculty_deleteID.value)
+			if (reload) {
+				setReload(false)
+			} else setReload(true)
 		}
 	}
 	function addFaculty(e) {
@@ -166,14 +166,15 @@ const AddingRoom = () => {
 				shortcut: e.target.faculty_shortName.value,
 			}),
 		})
-		setReload(true)
+		if (reload) {
+			setReload(false)
+		} else setReload(true)
 	}
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	})
 	function addBuild() {
-		console.log(state, build)
 		fetch('../../../api/school/building', {
 			method: 'POST',
 			headers: {
@@ -183,16 +184,19 @@ const AddingRoom = () => {
 		}).catch(err => {
 			console.error(err)
 		})
-		setReload(state)
+		if (reload) {
+			setReload(false)
+		} else setReload(true)
 	}
 	function deleteBuild() {
 		fetch(`/api/school/building/${delBuild}`, {
 			method: 'DELETE',
 		})
-		setReload(state)
+		if (reload) {
+			setReload(false)
+		} else setReload(true)
 	}
 	function addRoom() {
-		console.log(state, build)
 		fetch('../../../api/faculty/room', {
 			method: 'POST',
 			headers: {
@@ -202,13 +206,17 @@ const AddingRoom = () => {
 		}).catch(err => {
 			console.error(err)
 		})
-		setReload(buildProp)
+		if (reload) {
+			setReload(false)
+		} else setReload(true)
 	}
 	function deleteRoom() {
 		fetch(`/api/faculty/room/${delRoom}`, {
 			method: 'DELETE',
 		})
-		setReload(delRoom)
+		if (reload) {
+			setReload(false)
+		} else setReload(true)
 	}
 	return (
 		load && (
@@ -355,7 +363,6 @@ const AddingRoom = () => {
 							<ChooseContainer>
 								<FormBuild>
 									<Paragraph2>Zadejte parametry: </Paragraph2>
-									{/*vybery*/}
 									<Select2
 										style={style}
 										name="faculty"

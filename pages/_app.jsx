@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
 		theme = {
 			bg: BG_DARK,
 			text: TEXT_DARK,
-			color: BLUE,
+			color: RED,
 			nav: NAV_DARK,
 			box: BOX_DARK,
 			shadow: SHADOW_DARK,
