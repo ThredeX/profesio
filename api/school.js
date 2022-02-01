@@ -89,6 +89,18 @@ router.post('/lecture/:id', async (req, res) => {
 	res.status(200)
 })
 
+router.delete('/lecture/:id', async (req, res) => {
+	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
+	const parc = await Participation.findOne({
+		where: {
+			StudentId: req.session.user.student.id,
+			LectureId: req.body.id,
+		},
+	})
+	await parc.destroy()
+	res.status(200)
+})
+
 router.get('/building', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const buildings = await Building.findAll()
