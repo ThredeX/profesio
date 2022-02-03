@@ -177,8 +177,8 @@
             },
             "indexes": []
         },
-        "Participations": {
-            "tableName": "Participations",
+        "Participation": {
+            "tableName": "Participation",
             "schema": {
                 "createdAt": {
                     "allowNull": false,

@@ -182,7 +182,7 @@ export default function ListOfPeople(props) {
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[props.reload],
+		[],
 	)
 
 	function handleClickChanging(id) {
