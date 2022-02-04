@@ -22,7 +22,7 @@ const Timetable = () => {
 				setTimetable(data)
 			})
 			.catch(err => console.error(err))
-	})
+	}, [])
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
@@ -34,13 +34,13 @@ const Timetable = () => {
 				<ThemeProvider theme={useContext(Context)}>
 					<Header />
 					<NavBar route="student" />
-					{/* <Main>
+					<Main>
 						<Box>
 							<Table>
 								<thead>
 									<Tr>
 										<Th></Th>
-										{time.map((time, i) => (
+										{timetable?.time.map((time, i) => (
 											<Th key={i}>
 												{time.start} - {time.end}
 											</Th>
@@ -48,20 +48,13 @@ const Timetable = () => {
 									</Tr>
 								</thead>
 								<tbody>
-									{subjects.map((row, i) => {
+									{timetable?.subjects.map((row, i) => {
 										return (
 											<Tr key={i}>
-												<Td>{`${
-													new Date().getDate() -
-													new Date().getDay() +
-													i +
-													1
-												}. ${days[i]}`}</Td>
+												<Td>{`${new Date().getDate() - new Date().getDay() + i + 1}. ${days[i]}`}</Td>
 												{row.map((subject, i) => (
-													<Td
-														title={`${subject.name}, ${subject.teacher}`}
-														key={i}>
-														{subject.shortName}
+													<Td title={`${subject?.Subject.name}, ${subject?.Teacher.User.surname}`} key={i}>
+														{subject?.Subject.short}
 													</Td>
 												))}
 											</Tr>
@@ -70,7 +63,7 @@ const Timetable = () => {
 								</tbody>
 							</Table>
 						</Box>
-					</Main> */}
+					</Main>
 				</ThemeProvider>
 			</>
 		)

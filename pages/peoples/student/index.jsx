@@ -6,6 +6,7 @@ import NavBar from '../../../Components/NavBar'
 import styled, { ThemeProvider } from 'styled-components'
 import { logged } from '../../../utils/logged'
 
+
 const Heading = styled.h1`
 	color: ${props => props.theme.text};
 	font-size: clamp(3rem, 10vw, 10rem);
@@ -35,11 +36,6 @@ const Index = (props) => {
 			<ThemeProvider theme={useContext(Context)}>
 				<Header />
 				<Main>
-					<Container>
-						<Heading>
-							<Span>P</Span>rofesio
-						</Heading>
-					</Container>
 					<NavBar route='student' name='Dominik'/>
 				</Main>
 			</ThemeProvider>
