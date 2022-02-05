@@ -26,7 +26,7 @@ const Index = () => {
 				<MainHeading>Nastavení školy</MainHeading>
 				<Main>
                         <TimetableEnd />
-                        <SchoolInformation />
+                        {/* <SchoolInformation /> */}
 				</Main>
 			</ThemeProvider>
 		</>
