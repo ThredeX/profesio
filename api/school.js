@@ -94,7 +94,7 @@ router.delete('/lecture/:id', async (req, res) => {
 	const parc = await Participation.findOne({
 		where: {
 			StudentId: req.session.user.student.id,
-			LectureId: req.body.id,
+			LectureId: parseInt(req.params.id),
 		},
 	})
 	await parc.destroy()
