@@ -16,7 +16,7 @@ var Sequelize = require('sequelize')
  * createTable "Teacher", deps: [User]
  * createTable "Subject", deps: [Teacher]
  * createTable "Lecture", deps: [Faculty, Subject, Teacher, Room]
- * createTable "Participations", deps: [Lecture, Student]
+ * createTable "Participation", deps: [Lecture, Student]
  * createTable "BuildingInfo", deps: [Building, Faculty]
  *
  **/
@@ -556,7 +556,7 @@ var migrationCommands = function (transaction) {
 		{
 			fn: 'createTable',
 			params: [
-				'Participations',
+				'Participation',
 				{
 					LectureId: {
 						type: Sequelize.INTEGER,
@@ -682,7 +682,7 @@ var rollbackCommands = function (transaction) {
 		{
 			fn: 'dropTable',
 			params: [
-				'Participations',
+				'Participation',
 				{
 					transaction: transaction,
 				},

@@ -103,6 +103,7 @@ const AddingPeople = () => {
 			}
 			return res.json()
 		})
+		.then(data => console.log(data))
 	}
 	useEffect(async () => {
 		let data = await logged()

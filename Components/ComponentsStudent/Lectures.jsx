@@ -33,12 +33,22 @@ export default function Lectures() {
 	}, [])
 	function toLecture(e) {
 		e.preventDefault()
-		fetch(`../../api/school/lecture/${e.target.id.value}`, {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-			},
-		}).catch(err => console.error(err))
+
+		if (true) {
+			fetch(`../../api/school/lecture/${e.target.id.value}`, {
+				method: 'DELETE',
+				headers: {
+					'content-type': 'application/json',
+				},
+			}).catch(err => console.error(err))
+		} else {
+			fetch(`../../api/school/lecture/${e.target.id.value}`, {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+			}).catch(err => console.error(err))
+		}
 	}
 	return (
 		<Box>
@@ -49,23 +59,10 @@ export default function Lectures() {
 						lecture.Teacher?.User?.surname && (
 							<Lecture key={lecture.id}>
 								<form onSubmit={e => toLecture(e)}>
-									<input
-										type="hidden"
-										name="id"
-										value={lecture.id}
-										readOnly
-									/>
-									<input
-										readOnly
-										type="text"
-										value={lecture.Subject?.name}
-									/>
-									<input
-										readOnly
-										type="text"
-										value={lecture.Teacher?.User?.surname}
-									/>
-									<SubmitButton type="submit" value="Přihlásit" />
+									<input type="hidden" name="id" value={lecture.id} readOnly />
+									<input readOnly type="text" value={lecture.Subject?.name} />
+									<input readOnly type="text" value={lecture.Teacher?.User?.surname} />
+									{lecture.id % 2 == 0 ? <SubmitButton type="submit" value="Přihlásit" /> : <SubmitButton type="submit" value="Odhlásit" />}
 								</form>
 							</Lecture>
 						),
