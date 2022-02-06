@@ -85,7 +85,20 @@ router.get('/lecture', async (req, res) => {
 
 router.post('/lecture/:id', async (req, res) => {
 	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
-	await Participation.create(req.session.user.student.id, req.params.id)
+	console.log(req.session.user.student.id, parseInt(req.params.id));
+	await Participation.create({StudentId: req.session.user.student.id, LectureId: parseInt(req.params.id)})
+	res.status(200)
+})
+
+router.delete('/lecture/:id', async (req, res) => {
+	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
+	const parc = await Participation.findOne({
+		where: {
+			StudentId: req.session.user.student.id,
+			LectureId: parseInt(req.params.id),
+		},
+	})
+	await parc.destroy()
 	res.status(200)
 })
 

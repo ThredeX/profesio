@@ -24,6 +24,16 @@
                     "onUpdate": "CASCADE",
                     "field": "UserId",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -50,10 +60,6 @@
                     "allowNull": false,
                     "field": "updatedAt",
                     "seqType": "Sequelize.DATE"
-                },
-                "deletedAt": {
-                    "field": "deletedAt",
-                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -76,6 +82,16 @@
                     "allowNull": false,
                     "field": "shortcut",
                     "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -112,10 +128,6 @@
                 "updatedAt": {
                     "allowNull": false,
                     "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "deletedAt": {
-                    "field": "deletedAt",
                     "seqType": "Sequelize.DATE"
                 },
                 "FacultyId": {
@@ -165,8 +177,8 @@
             },
             "indexes": []
         },
-        "Participations": {
-            "tableName": "Participations",
+        "Participation": {
+            "tableName": "Participation",
             "schema": {
                 "createdAt": {
                     "allowNull": false,
@@ -227,6 +239,16 @@
                     "onUpdate": "CASCADE",
                     "field": "BuildingId",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -267,10 +289,6 @@
                     "allowNull": false,
                     "field": "updatedAt",
                     "seqType": "Sequelize.DATE"
-                },
-                "deletedAt": {
-                    "field": "deletedAt",
-                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -293,6 +311,16 @@
                     "allowNull": false,
                     "field": "type",
                     "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -332,6 +360,16 @@
                     "onUpdate": "CASCADE",
                     "field": "UserId",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -365,6 +403,16 @@
                     "onUpdate": "CASCADE",
                     "field": "TeacherId",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -388,6 +436,16 @@
                     "onUpdate": "CASCADE",
                     "field": "UserId",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
@@ -438,10 +496,6 @@
                 "updatedAt": {
                     "allowNull": false,
                     "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "deletedAt": {
-                    "field": "deletedAt",
                     "seqType": "Sequelize.DATE"
                 }
             },

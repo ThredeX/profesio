@@ -8,6 +8,7 @@ const {
 	Teacher,
 	User,
 	Building,
+	Student,
 	Participation,
 } = require('../models/')
 const UserChecker = require('../utils/userChecker.js')
@@ -87,18 +88,32 @@ router.get('/teacher', async (req, res) => {
 
 router.get('/student', async (req, res) => {
 	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
-	const lect = await Participation.findAll({
-		where: {
-			StudentId: req.session.user.student.id,
-		},
-		include: [
-			{
-				model: Lecture,
-				include: [Subject, Faculty, { model: Room, include: Building }],
-			},
-		],
+	const student = await Student.findByPk(req.session.user.student.id)
+	const lect = await student.getLectures({
+					include: [Subject, Faculty, {
+						model: Teacher,
+						include: [
+							{
+								model: User,
+								attributes: ['surname'],
+							},
+						],
+					}, { model: Room, include: Building }],
 	})
-	res.json(fromDB(lect.map(l => l.Lecture.toJSON())))
+	// const lect = await Participation.findAll({
+	// 	where: {
+	// 		StudentId: req.session.user.student.id,
+	// 	},
+	// 	include: [
+	// 		{
+	// 			model: Lecture,
+	// 			include: [Subject, Faculty, { model: Room, include: Building }],
+	// 		},
+	// 	],
+	// })
+	
+	console.log(lect);
+	res.json(fromDB(lect.map(l => l.toJSON())))
 })
 
 module.exports = router
