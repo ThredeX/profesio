@@ -171,6 +171,7 @@ export const Td = styled.td`
 `
 export const Tr = styled.tr`
 	height: 5rem;
+	font-size: 1rem;
 	width: 5rem;
 	@media screen and (max-width: 500px) {
 		width: 2rem;

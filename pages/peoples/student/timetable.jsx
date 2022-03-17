@@ -52,12 +52,7 @@ const Timetable = () => {
 									{timetable?.subjects.map((row, i) => {
 										return (
 											<Tr key={i}>
-												<Td>{`${
-													new Date().getDate() -
-													new Date().getDay() +
-													i +
-													1
-												}. ${days[i]}`}</Td>
+												<Td>{days[i]}</Td>
 												{row.map((subject, i) => (
 													<Td
 														title={`${subject?.Subject.name}, ${subject?.Teacher.User.surname}`}
