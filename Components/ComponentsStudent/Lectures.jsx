@@ -59,10 +59,27 @@ export default function Lectures() {
 						lecture.Teacher?.User?.surname && (
 							<Lecture key={lecture.id}>
 								<form onSubmit={e => toLecture(e)}>
-									<input type="hidden" name="id" value={lecture.id} readOnly />
-									<input readOnly type="text" value={lecture.Subject?.name} />
-									<input readOnly type="text" value={lecture.Teacher?.User?.surname} />
-									{lecture.id % 2 == 0 ? <SubmitButton type="submit" value="Přihlásit" /> : <SubmitButton type="submit" value="Odhlásit" />}
+									<input
+										type="hidden"
+										name="id"
+										value={lecture.id}
+										readOnly
+									/>
+									<input
+										readOnly
+										type="text"
+										value={lecture.Subject?.name}
+									/>
+									<input
+										readOnly
+										type="text"
+										value={lecture.Teacher?.User?.surname}
+									/>
+									{lecture.id % 2 == 0 ? (
+										<SubmitButton type="submit" value="Přihlásit" />
+									) : (
+										<SubmitButton type="submit" value="Odhlásit" />
+									)}
 								</form>
 							</Lecture>
 						),

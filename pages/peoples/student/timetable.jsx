@@ -14,6 +14,7 @@ const Timetable = () => {
 	const [load, setLoad] = useState(false)
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pa']
 	const [timetable, setTimetable] = useState(null)
+	const theme = useContext(Context)
 	useEffect(() => {
 		fetch('../../../api/faculty/student')
 			.then(res => res.json())
@@ -31,7 +32,7 @@ const Timetable = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
 					<NavBar route="student" />
 					<Main>
@@ -51,9 +52,16 @@ const Timetable = () => {
 									{timetable?.subjects.map((row, i) => {
 										return (
 											<Tr key={i}>
-												<Td>{`${new Date().getDate() - new Date().getDay() + i + 1}. ${days[i]}`}</Td>
+												<Td>{`${
+													new Date().getDate() -
+													new Date().getDay() +
+													i +
+													1
+												}. ${days[i]}`}</Td>
 												{row.map((subject, i) => (
-													<Td title={`${subject?.Subject.name}, ${subject?.Teacher.User.surname}`} key={i}>
+													<Td
+														title={`${subject?.Subject.name}, ${subject?.Teacher.User.surname}`}
+														key={i}>
 														{subject?.Subject.short}
 													</Td>
 												))}
