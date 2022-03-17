@@ -35,7 +35,7 @@ export default function Lectures() {
 		e.preventDefault()
 
 		if (
-			!true) {
+			false) {
 			fetch(`../../api/school/lecture/${e.target.id.value}`, {
 				method: 'DELETE',
 				headers: {

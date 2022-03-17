@@ -6,7 +6,7 @@ module.exports = async function (userinfo, postfix) {
 		const pw = generator.generate({ numbers: true })
 		const user = await User.create({
 			...userinfo,
-			username: `${userinfo.name}${userinfo.surname}.${postfix}`.toLowerCase(),
+			username: `${userinfo.name.toLowerCase()}${userinfo.surname.toLowerCase()}.${postfix}`,
 			password: pw,
 		})
 		return [user, pw]
