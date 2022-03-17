@@ -1,9 +1,8 @@
-const generator = require('generate-password')
 const { User } = require('../models')
 
 module.exports = async function (userinfo, postfix) {
 	try {
-		const pw = generator.generate({ numbers: true })
+    const pw = `${userinfo.surname.toLowerCase()}!_`
 		const user = await User.create({
 			...userinfo,
 			username: `${userinfo.name}${userinfo.surname}.${postfix}`,
