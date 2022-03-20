@@ -1,6 +1,5 @@
 export function userDataReformat(data) {
     let users = []
-    console.log(data);
     for(let role in data) {
         for(let i = 0;i < data[role].length;i++){
             if(data[role][i].User){
