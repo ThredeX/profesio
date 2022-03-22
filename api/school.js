@@ -8,6 +8,7 @@ const {
 	Participation,
 	Teacher,
 	User,
+	Student
 } = require('../models')
 
 const UserChecker = require('../utils/userChecker.js')
@@ -64,7 +65,19 @@ router.post('/lecture', async (req, res) => {
 
 router.get('/lecture', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
-	const lectures = await Lecture.findAll({
+	const student = await Student.findByPk(req.session.user.student.id)
+	const lect = await student.getLectures({
+					include: [Subject, {
+						model: Teacher,
+						include: [
+							{
+								model: User,
+								attributes: ['surname'],
+							},
+						],
+					}],
+	})
+	let lectures = await Lecture.findAll({
 		include: [
 			{
 				model: Subject,
@@ -80,7 +93,18 @@ router.get('/lecture', async (req, res) => {
 			},
 		],
 	})
-	res.status(200).json(lectures.map(lecture => lecture.toJSON()))
+	const allLectures = lectures.map(lecture => lecture.toJSON());
+	for(let i = 0; i < allLectures.length; i++){
+
+		for(let j = 0; j < lect.length; j++){
+			
+			if(allLectures[i].id === lect[j].id){
+				console.log(i + " ", j+ " ", true);
+				allLectures[i]["attending"] = true
+			}
+		}
+		}
+	res.status(200).json(allLectures)
 })
 
 router.post('/lecture/:id', async (req, res) => {

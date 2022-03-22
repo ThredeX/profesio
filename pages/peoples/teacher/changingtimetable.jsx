@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Header from '../../../Components/Header'
 import NavBar from '../../../Components/NavBar'
-import fakulta from '../../../teacherTimetable.json'
 import {
 	Box,
 	Table,
@@ -112,8 +111,8 @@ const ChangingTimetable = () => {
 										<Thead>
 											<Tr>
 												<Th></Th>
-												{!!timetableState.fakulta &&
-													timetableState.fakulta.timetable.time.map(
+												{!!timetableState?.fakulta &&
+													timetableState?.fakulta.timetable.time.map(
 														(value, i) => (
 															<Th key={i}>
 																<Paragraph>

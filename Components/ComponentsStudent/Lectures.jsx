@@ -28,14 +28,14 @@ export default function Lectures() {
 			.then(res => res.json())
 			.then(data => {
 				setLectures(data)
+				console.log(data);
 			})
 			.catch(err => console.error(err))
 	}, [])
-	function toLecture(e) {
+	function toLecture(e, attending) {
 		e.preventDefault()
 
-		if (
-			false) {
+		if (attending) {
 			fetch(`../../api/school/lecture/${e.target.id.value}`, {
 				method: 'DELETE',
 				headers: {
@@ -59,7 +59,7 @@ export default function Lectures() {
 						lecture.Subject?.name &&
 						lecture.Teacher?.User?.surname && (
 							<Lecture key={lecture.id}>
-								<form onSubmit={e => toLecture(e)}>
+								<form onSubmit={e => toLecture(e, lecture.attending)}>
 									<input
 										type="hidden"
 										name="id"
@@ -76,7 +76,7 @@ export default function Lectures() {
 										type="text"
 										value={lecture.Teacher?.User?.surname}
 									/>
-									{lecture.id % 2 == 0 ? (
+									{!lecture.attending ? (
 										<SubmitButton type="submit" value="Přihlásit" />
 									) : (
 										<SubmitButton type="submit" value="Odhlásit" />
