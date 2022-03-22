@@ -6,7 +6,7 @@ export async function logged() {
 			return data
 		}
         else{
-            window.top.location.href = "/"
+            window.top.location.href = '/'
             return false
         }
 	

@@ -28,14 +28,14 @@ export default function Lectures() {
 			.then(res => res.json())
 			.then(data => {
 				setLectures(data)
+				console.log(data);
 			})
 			.catch(err => console.error(err))
 	}, [])
-	function toLecture(e) {
+	function toLecture(e, attending) {
 		e.preventDefault()
 
-		if (
-			false) {
+		if (attending) {
 			fetch(`../../api/school/lecture/${e.target.id.value}`, {
 				method: 'DELETE',
 				headers: {
@@ -59,11 +59,28 @@ export default function Lectures() {
 						lecture.Subject?.name &&
 						lecture.Teacher?.User?.surname && (
 							<Lecture key={lecture.id}>
-								<form onSubmit={e => toLecture(e)}>
-									<input type="hidden" name="id" value={lecture.id} readOnly />
-									<input readOnly type="text" value={lecture.Subject?.name} />
-									<input readOnly type="text" value={lecture.Teacher?.User?.surname} />
-									{lecture.id % 2 == 0 ? <SubmitButton type="submit" value="Přihlásit" /> : <SubmitButton type="submit" value="Odhlásit" />}
+								<form onSubmit={e => toLecture(e, lecture.attending)}>
+									<input
+										type="hidden"
+										name="id"
+										value={lecture.id}
+										readOnly
+									/>
+									<input
+										readOnly
+										type="text"
+										value={lecture.Subject?.name}
+									/>
+									<input
+										readOnly
+										type="text"
+										value={lecture.Teacher?.User?.surname}
+									/>
+									{!lecture.attending ? (
+										<SubmitButton type="submit" value="Přihlásit" />
+									) : (
+										<SubmitButton type="submit" value="Odhlásit" />
+									)}
 								</form>
 							</Lecture>
 						),
