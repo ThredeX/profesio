@@ -84,6 +84,7 @@ const SubjectModify = () => {
 	const [reload, setReload] = useState(null)
 	const [subjects, setSubjects] = useState(null)
 	const [load, setLoad] = useState(false)
+	const theme = useContext(Context)
 
 	function deleteSubject(id) {
 		if (confirm('Opravdu chcete odstranit předmět?')) {
@@ -140,13 +141,13 @@ const SubjectModify = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
-					<NavBar route="administrator" theme={useContext(Context)} />
+					<NavBar route="administrator" theme={theme} />
 					<MainHeading>Předměty</MainHeading>
 					<Main>
 						<Container>
-							<Box>
+							<Box style={{padding: '2rem'}}>
 								<Heading2>Přidání předmětu</Heading2>
 								<Form onSubmit={addSubject}>
 									<InputContainer>

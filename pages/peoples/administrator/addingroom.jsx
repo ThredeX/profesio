@@ -111,6 +111,8 @@ const AddingRoom = () => {
 	const [delRoom, setDelRoom] = useState(null)
 	const [allRoom, setAllRoom] = useState(null)
 	const [roomProp, setRoomProp] = useState(null)
+	const theme = useContext(Context)
+	
 	const style = {
 		marginInline: 15,
 	}
@@ -221,7 +223,7 @@ const AddingRoom = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
 					<NavBar route="administrator" />
 					<MainHeading>Přidání Rozvrhů</MainHeading>
@@ -295,44 +297,13 @@ const AddingRoom = () => {
 								<div>
 									<FormBuild>
 										<Input
-											onChange={e => setRoom(e.target.value)}
-											style={{ maxWidth: '10rem' }}
-											placeholder="Název místnosti"
-										/>
-										<SubmitButton
-											type="button"
-											value="Přidat místnost"
-											onClick={addRoom}
-										/>
-									</FormBuild>
-									<FormBuild>
-										<Select2
-											name="room"
-											onChange={e => setDelRoom(e.target.value)}>
-											<Option>-</Option>
-
-											{allRoom?.map(room => (
-												<Option value={room.id} key={room.id}>
-													{room.label}
-												</Option>
-											))}
-										</Select2>
-										<SubmitButton
-											type="button"
-											value="Odebrat místnost"
-											onClick={deleteRoom}
-										/>
-									</FormBuild>
-								</div>
-								<div>
-									<FormBuild>
-										<Input
 											onChange={e => setBuild(e.target.value)}
 											style={{ maxWidth: '10rem' }}
 											placeholder="Název budovy"
 											title="Budova, do které budete přidávat místnosti/rozvrhy"
 										/>
 										<SubmitButton
+											style={{width: '10rem', padding: '0'}}
 											type="button"
 											value="Přidat budovu"
 											onClick={addBuild}
@@ -353,9 +324,44 @@ const AddingRoom = () => {
 											))}
 										</Select2>
 										<SubmitButton
+											style={{width: '10rem', padding: '0'}}
 											type="button"
 											value="Odebrat budovu"
 											onClick={deleteBuild}
+										/>
+									</FormBuild>
+								</div>
+								<div>
+									<FormBuild>
+										<Input
+											onChange={e => setRoom(e.target.value)}
+											style={{ maxWidth: '10rem' }}
+											placeholder="Název místnosti"
+										/>
+										<SubmitButton
+											style={{width: '10rem', padding: '0'}}
+											type="button"
+											value="Přidat místnost"
+											onClick={addRoom}
+										/>
+									</FormBuild>
+									<FormBuild>
+										<Select2
+											name="room"
+											onChange={e => setDelRoom(e.target.value)}>
+											<Option>-</Option>
+
+											{allRoom?.map(room => (
+												<Option value={room.id} key={room.id}>
+													{room.label}
+												</Option>
+											))}
+										</Select2>
+										<SubmitButton
+											style={{width: '10rem', padding: '0'}}
+											type="button"
+											value="Odebrat místnost"
+											onClick={deleteRoom}
 										/>
 									</FormBuild>
 								</div>

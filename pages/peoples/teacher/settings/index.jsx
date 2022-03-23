@@ -11,6 +11,7 @@ import { logged } from '../../../../utils/logged'
 
 const Index = () => {
 	const [load, setLoad] = useState(false);
+    const theme = useContext(Context)
 
     useEffect(async () => {
 		let data = await logged()
@@ -18,7 +19,7 @@ const Index = () => {
 	}, [])
     return load && (
         <>
-        <ThemeProvider theme={useContext(Context)}>
+        <ThemeProvider theme={theme}>
             <Header />
             <NavBar route="teacher" />
             <MainHeading>Nastavení</MainHeading>

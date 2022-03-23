@@ -84,6 +84,7 @@ const ChangingTimetable = () => {
 	const days = ['Po', 'Út', 'St', 'Čt', 'Pá']
 	const [timetableState, setTimetableState] = useState([null])
 	const [load, setLoad] = useState(false)
+	const theme = useContext(Context)
 
 	useEffect(() => {
 		setTimetableState({
@@ -98,7 +99,7 @@ const ChangingTimetable = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
 					<NavBar route="teacher" />
 					<MainHeading>Rozvrh</MainHeading>

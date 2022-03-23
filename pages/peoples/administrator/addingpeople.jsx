@@ -73,6 +73,7 @@ const AddingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState(null)
 	const [reload, setReload] = useState(false)
 	const [load, setLoad] = useState(false)
+	const theme = useContext(Context)
 	function handleSubmit(e) {
 		e.preventDefault()
 		if (reload) {
@@ -112,9 +113,9 @@ const AddingPeople = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
-					<NavBar route="administrator" theme={useContext(Context)} />
+					<NavBar route="administrator" theme={theme} />
 					<MainHeading>Přidání Uživatelů</MainHeading>
 					<Main>
 						<FormContainer1>

@@ -18,6 +18,7 @@ const DeletingRoom = () => {
 	const [room, setRoom] = useState(null)
 	const [delRoom, setDelRoom] = useState(null)
 	const [load, setLoad] = useState(false)
+	const theme = useContext(Context)
 
 	useEffect(() => {
 		fetch('../../../api/faculty/room')
@@ -27,11 +28,11 @@ const DeletingRoom = () => {
 	})
 	function handleSubmit() {
 		try {
-			if (confirm(`Opravdu si přejete odstranit místnost?`)) {
+			if (confirm('Opravdu si přejete odstranit místnost?')) {
 				fetch(`../../../api/faculty/room/${delRoom}`, {
 					method: 'DELETE',
 				})
-				alert(`Místnost byla odstraněna`)
+				alert('Místnost byla odstraněna')
 			}
 		} catch {
 			alert('Nebyla vybrána žádná místnost')
@@ -44,7 +45,7 @@ const DeletingRoom = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
 					<NavBar route="administrator" />
 					<MainHeading>Odstanění místností</MainHeading>

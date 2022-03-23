@@ -10,7 +10,9 @@ import { logged } from '../../../utils/logged'
 //delete people
 const DeletingPeople = () => {
 	const [reload, setReload] = useState(false)
-	const [load, setLoad] = useState(false);
+	const [load, setLoad] = useState(false)
+	const theme = useContext(Context)
+
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
@@ -18,9 +20,9 @@ const DeletingPeople = () => {
 
 	return load && (
 		<>
-			<ThemeProvider theme={useContext(Context)}>
+			<ThemeProvider theme={theme}>
 				<Header />
-				<NavBar route="administrator" theme={useContext(Context)} />
+				<NavBar route="administrator" theme={theme} />
 				<MainHeading>Odstranění uživatelů</MainHeading>
 				<Main>
 					<ListOfPeople

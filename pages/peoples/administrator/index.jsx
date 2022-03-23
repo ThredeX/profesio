@@ -22,14 +22,15 @@ const Main = styled.main`
 	height: calc(100vh - 5.2rem);
 `
 const Index = () => {
-	const [load, setLoad] = useState(false);
-	const nevim = useContext(Context)
+	const [load, setLoad] = useState(false)
+	const theme = useContext(Context)
+
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
 	return load && nevim && (
-			<ThemeProvider theme={nevim}>
+			<ThemeProvider theme={theme}>
 				<Header />
 				<Main>
 					<Container>
