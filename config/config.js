@@ -7,10 +7,10 @@ module.exports = {
 		dialect: 'sqlite',
 	},
 	production: {
-		username: 'postgres',
-		password: 'postgres',
-		database: 'postgres',
-		host: 'db',
+		username: procces.env.DB_USERNAME,
+		password: procces.env.DB_PASSWORD,
+		database: procces.env.DB_DATABASE,
+		host: procces.env.DB_HOST,
 		dialect: 'postgres',
 	},
 }
