@@ -63,6 +63,7 @@ const ChangingTimetable = () => {
 	const showInfoRefOver = useRef([...new Array(5)].map(() => []))
 	const [load, setLoad] = useState(false)
 	const [lectures, setLectures] = useState(null)
+	const theme = useContext(Context)
 
 	useEffect(async () => {
 		let data = await logged()
@@ -82,7 +83,7 @@ const ChangingTimetable = () => {
 	}, [])
 
 	useEffect(() => {
-		fetch(`../../../api/faculty/teacher`)
+		fetch('../../../api/faculty/teacher')
 			.then(res => res.json())
 			.then(data => {
 				setLectures(data)
@@ -93,7 +94,7 @@ const ChangingTimetable = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
 					<NavBar route="teacher" />
 					<MainHeading>Rozvrh</MainHeading>

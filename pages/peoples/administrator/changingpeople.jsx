@@ -78,6 +78,8 @@ const ChangingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState('student')
 	const [dataID, setDataID] = useState()
 	const [reload, setReload] = useState(false)
+	const theme = useContext(theme)
+	
 	function handleSubmit(e) {
 		e.preventDefault()
 		if (reload) {
@@ -131,9 +133,9 @@ const ChangingPeople = () => {
 	return (
 		load && (
 			<>
-				<ThemeProvider theme={useContext(Context)}>
+				<ThemeProvider theme={theme}>
 					<Header />
-					<NavBar route="administrator" theme={useContext(Context)} />
+					<NavBar route="administrator" theme={theme} />
 					<MainHeading>Změna nastavení uživatelů</MainHeading>
 					<Main>
 						<ListOfPeople
