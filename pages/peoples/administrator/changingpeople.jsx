@@ -78,8 +78,8 @@ const ChangingPeople = () => {
 	const [whichPeople, setWhichPeople] = useState('student')
 	const [dataID, setDataID] = useState()
 	const [reload, setReload] = useState(false)
-	const theme = useContext(theme)
-	
+	const theme = useContext(Context)
+
 	function handleSubmit(e) {
 		e.preventDefault()
 		if (reload) {

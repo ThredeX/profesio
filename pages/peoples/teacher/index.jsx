@@ -25,8 +25,8 @@ const Main = styled.main`
 
 const Index = () => {
 	const [load, setLoad] = useState(false);
-	const theme = useContext(theme)
-	
+	const theme = useContext(Context)
+
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
