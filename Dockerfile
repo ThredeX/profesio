@@ -1,7 +1,8 @@
 FROM node:14.15.0-alpine3.12 AS build
 WORKDIR /build_app
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
@@ -13,9 +14,6 @@ FROM node:14.15.0-alpine3.12 AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=build . .
+COPY --from=build ./build_app/ .
 
 EXPOSE 3000
-RUN yarn db:runmigrations 
-
-CMD ["yarn", "start"]
