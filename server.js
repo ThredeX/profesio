@@ -31,7 +31,6 @@ app.prepare().then(() => {
 
 	server.listen(port, async err => {
 		if (err) throw err
-		if (dev) {
 			const usergen = require('./utils/usergen.js')
 			const [defaultDevAdmin, pw] = await usergen(
 				{
@@ -43,7 +42,6 @@ app.prepare().then(() => {
 			)
 			console.log(pw)
       await defaultDevAdmin.createAdministrator({ can_edit: true })
-		}
 		console.log(`> Ready on http://localhost:${port}`)
 	})
 })

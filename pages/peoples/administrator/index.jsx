@@ -29,7 +29,7 @@ const Index = () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
-	return load && nevim && (
+	return load && theme && (
 			<ThemeProvider theme={theme}>
 				<Header />
 				<Main>
