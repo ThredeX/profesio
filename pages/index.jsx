@@ -6,7 +6,7 @@ import { useContext } from 'react'
 
 const Container = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: end;
 	align-items: center;
 	margin-top: 5px;
 `
@@ -116,7 +116,6 @@ const Index = () => {
 							placeholder="Password"
 						/>
 						<Container>
-							<Button>Zapomenuté heslo?</Button>
 							<SubmitButton value="Login" type="submit" />
 						</Container>
 					</Form>
