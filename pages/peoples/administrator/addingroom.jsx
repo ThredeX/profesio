@@ -103,13 +103,9 @@ const ResponsCon = styled.div`
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
-	const [buildings, setBuildings] = useState(null)
-	const [facultySet, setFacultySet] = useState('add')
 	const [reload, setReload] = useState(0)
 	const [load, setLoad] = useState(false)
-	const [build, setBuild] = useState(null)
 	const [capacity, setCapacity] = useState(null)
-	const [delBuild, setDelBuild] = useState(null)
 	const [room, setRoom] = useState(null)
 	const [delRoom, setDelRoom] = useState(null)
 	const [allRoom, setAllRoom] = useState(null)
@@ -136,13 +132,8 @@ const AddingRoom = () => {
 			.catch(err => console.error(err))
 	}, [, reload, room])
 	useEffect(() => {
-		fetch('../../../api/school/building')
-			.then(res => res.json())
-			.then(data => {
-				setBuildings(data)
-			})
-			.catch(err => console.error(err))
-	}, [, reload, facultySet])
+		addBuild();
+	}, [])
 
 	function deleteFaculty(e) {
 		e.preventDefault()
@@ -179,20 +170,20 @@ const AddingRoom = () => {
 		let data = await logged()
 		setLoad(!!data)
 	})
-	// function addBuild() {
-	// 	fetch('../../../api/school/building', {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'content-type': 'application/json',
-	// 		},
-	// 		body: JSON.stringify({ id: state, address: build }),
-	// 	}).catch(err => {
-	// 		console.error(err)
-	// 	})
-	// 	if (reload) {
-	// 		setReload(false)
-	// 	} else setReload(true)
-	// }
+	function addBuild() {
+		fetch('../../../api/school/building', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify({ id: 1, address: '' }),
+		}).catch(err => {
+			console.error(err)
+		})
+		if (reload) {
+			setReload(false)
+		} else setReload(true)
+	}
 	// function deleteBuild() {
 	// 	fetch(`/api/school/building/${delBuild}`, {
 	// 		method: 'DELETE',
@@ -207,7 +198,7 @@ const AddingRoom = () => {
 			headers: {
 				'content-type': 'application/json',
 			},
-			body: JSON.stringify({ BuildingId: capacity, label: room }),
+			body: JSON.stringify({ BuildingId: 1, label: room, capacity: capacity }),
 		}).catch(err => {
 			console.error(err)
 		})
