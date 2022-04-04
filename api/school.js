@@ -8,7 +8,7 @@ const {
 	Participation,
 	Teacher,
 	User,
-	Student
+	Student,
 } = require('../models')
 
 const UserChecker = require('../utils/userChecker.js')
@@ -67,21 +67,9 @@ router.get('/lecture', async (req, res) => {
 	if (!UserChecker.doesExist(req.session.user)) return res.status(401).send()
 	const student = await Student.findByPk(req.session.user.student.id)
 	const lect = await student.getLectures({
-					include: [Subject, {
-						model: Teacher,
-						include: [
-							{
-								model: User,
-								attributes: ['surname'],
-							},
-						],
-					}],
-	})
-	let lectures = await Lecture.findAll({
 		include: [
-			{
-				model: Subject,
-			},
+			Subject,
+			Room,
 			{
 				model: Teacher,
 				include: [
@@ -93,24 +81,45 @@ router.get('/lecture', async (req, res) => {
 			},
 		],
 	})
-	const allLectures = lectures.map(lecture => lecture.toJSON());
-	for(let i = 0; i < allLectures.length; i++){
-
-		for(let j = 0; j < lect.length; j++){
-			
-			if(allLectures[i].id === lect[j].id){
-				console.log(i + " ", j+ " ", true);
-				allLectures[i]["attending"] = true
+	let lectures = await Lecture.findAll({
+		include: [
+			Subject,
+			Room,
+			{
+				model: Teacher,
+				include: [
+					{
+						model: User,
+						attributes: ['surname'],
+					},
+				],
+			},
+		],
+	})
+	const allLectures = lectures.map(lecture => lecture.toJSON())
+	for (let i = 0; i < allLectures.length; i++) {
+		let amount = await Lecture.count({
+			where: {
+				id: allLectures[i].id,
+			},
+		})
+		if (amount >= allLectures[i].Room.capacity) allLectures[i]['full'] = true
+		for (let j = 0; j < lect.length; j++) {
+			if (allLectures[i].id === lect[j].id) {
+				allLectures[i]['attending'] = true
 			}
 		}
-		}
+	}
 	res.status(200).json(allLectures)
 })
 
 router.post('/lecture/:id', async (req, res) => {
 	if (!UserChecker.isStudent(req.session.user)) return res.status(401).send()
-	console.log(req.session.user.student.id, parseInt(req.params.id));
-	await Participation.create({StudentId: req.session.user.student.id, LectureId: parseInt(req.params.id)})
+	console.log(req.session.user.student.id, parseInt(req.params.id))
+	await Participation.create({
+		StudentId: req.session.user.student.id,
+		LectureId: parseInt(req.params.id),
+	})
 	res.status(200)
 })
 

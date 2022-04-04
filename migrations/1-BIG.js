@@ -300,6 +300,11 @@ var migrationCommands = function (transaction) {
 						field: 'label',
 						allowNull: false,
 					},
+					capacity: {
+						type: Sequelize.INTEGER,
+						field: 'capacity',
+						allowNull: false,
+					},
 					BuildingId: {
 						type: Sequelize.INTEGER,
 						field: 'BuildingId',
