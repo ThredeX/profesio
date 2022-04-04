@@ -1,4 +1,4 @@
-FROM node:14.15.0-alpine3.12 AS build
+FROM node:16-alpine AS build
 WORKDIR /build_app
 
 COPY package.json ./
@@ -10,7 +10,7 @@ ENV NODE_ENV=production
 
 RUN yarn next:build
 
-FROM node:14.15.0-alpine3.12 AS prod
+FROM node:16-alpine AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 

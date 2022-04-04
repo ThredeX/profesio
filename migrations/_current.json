@@ -229,6 +229,11 @@
                     "field": "label",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "capacity": {
+                    "allowNull": false,
+                    "field": "capacity",
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "BuildingId": {
                     "allowNull": true,
                     "references": {
