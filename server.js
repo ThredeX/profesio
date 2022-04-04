@@ -31,7 +31,8 @@ app.prepare().then(() => {
 
 	server.listen(port, async err => {
 		if (err) throw err
-			const usergen = require('./utils/usergen.js')
+		const usergen = require('./utils/usergen.js')
+		try {
 			const [defaultDevAdmin, pw] = await usergen(
 				{
 					email: 'werfmon@thredex.eu',
@@ -41,7 +42,11 @@ app.prepare().then(() => {
 				'a',
 			)
 			console.log(pw)
-      await defaultDevAdmin.createAdministrator({ can_edit: true })
-		console.log(`> Ready on http://localhost:${port}`)
+			await defaultDevAdmin.createAdministrator({ can_edit: true })
+		} catch (error) {
+			console.info('Default admin already exists')
+		}
+
+		console.info(`> Ready on http://localhost:${port}`)
 	})
 })
