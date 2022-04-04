@@ -55,7 +55,7 @@ const FormDiv = styled.div`
 `
 const FormBuild = styled.form`
 	display: flex;
-	margin-top: 1rem;
+	margin-top: 0.1rem;
 	& > select {
 		width: 10rem;
 	}
@@ -70,12 +70,10 @@ const FormBuild = styled.form`
 	}
 `
 const ChooseContainer = styled.div`
-	padding-block: 1rem;
 	display: flex;
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
-	border-top: 2px solid #333;
 	& > form {
 		flex-wrap: nowrap;
 	}
@@ -97,6 +95,11 @@ const Paragraph2 = styled.p`
 	margin-top: -4px;
 	text-align: center;
 `
+const ResponsCon = styled.div`
+	@media screen and (max-width: 820px) {
+		margin-top: 1rem;
+	}
+`
 const AddingRoom = () => {
 	const [state, setState] = useState(0)
 	const [faculties, setFaculties] = useState(null)
@@ -105,14 +108,14 @@ const AddingRoom = () => {
 	const [reload, setReload] = useState(0)
 	const [load, setLoad] = useState(false)
 	const [build, setBuild] = useState(null)
-	const [buildProp, setBuildProp] = useState(null)
+	const [capacity, setCapacity] = useState(null)
 	const [delBuild, setDelBuild] = useState(null)
 	const [room, setRoom] = useState(null)
 	const [delRoom, setDelRoom] = useState(null)
 	const [allRoom, setAllRoom] = useState(null)
 	const [roomProp, setRoomProp] = useState(null)
 	const theme = useContext(Context)
-	
+
 	const style = {
 		marginInline: 15,
 	}
@@ -176,35 +179,35 @@ const AddingRoom = () => {
 		let data = await logged()
 		setLoad(!!data)
 	})
-	function addBuild() {
-		fetch('../../../api/school/building', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-			},
-			body: JSON.stringify({ id: state, address: build }),
-		}).catch(err => {
-			console.error(err)
-		})
-		if (reload) {
-			setReload(false)
-		} else setReload(true)
-	}
-	function deleteBuild() {
-		fetch(`/api/school/building/${delBuild}`, {
-			method: 'DELETE',
-		})
-		if (reload) {
-			setReload(false)
-		} else setReload(true)
-	}
+	// function addBuild() {
+	// 	fetch('../../../api/school/building', {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'content-type': 'application/json',
+	// 		},
+	// 		body: JSON.stringify({ id: state, address: build }),
+	// 	}).catch(err => {
+	// 		console.error(err)
+	// 	})
+	// 	if (reload) {
+	// 		setReload(false)
+	// 	} else setReload(true)
+	// }
+	// function deleteBuild() {
+	// 	fetch(`/api/school/building/${delBuild}`, {
+	// 		method: 'DELETE',
+	// 	})
+	// 	if (reload) {
+	// 		setReload(false)
+	// 	} else setReload(true)
+	// }
 	function addRoom() {
 		fetch('../../../api/faculty/room', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
 			},
-			body: JSON.stringify({ BuildingId: buildProp, label: room }),
+			body: JSON.stringify({ BuildingId: capacity, label: room }),
 		}).catch(err => {
 			console.error(err)
 		})
@@ -229,34 +232,12 @@ const AddingRoom = () => {
 					<MainHeading>Přidání Rozvrhů</MainHeading>
 					<Main>
 						<Box>
-							<H2>Fakulty: </H2>
+							<H2>Fakulty a místnosti: </H2>
 							<Container>
-								<FormRadio
-									onChange={e => setFacultySet(e.target.value)}>
-									<H3>Vyberte operaci: </H3>
-									<div>
-										<Div>
-											<Label htmlFor="radio1">Přídání: </Label>
-											<Radio
-												type="radio"
-												name="radio"
-												id="radio1"
-												value="add"
-											/>
-										</Div>
-										<Div>
-											<Label htmlFor="radio2">Odstranění: </Label>
-											<Radio
-												type="radio"
-												name="radio"
-												id="radio2"
-												value="delete"
-											/>
-										</Div>
-									</div>
-								</FormRadio>
-								{facultySet === 'add' ? (
-									<Form onSubmit={addFaculty}>
+								<div >
+									<Form
+										onSubmit={addFaculty}
+										style={{ marginBottom: '1rem' }}>
 										<FormDiv>
 											<Input
 												type="text"
@@ -264,16 +245,25 @@ const AddingRoom = () => {
 												placeholder="Název fakulty"
 											/>
 										</FormDiv>
-										<FormDiv>
-											<Input
-												type="text"
-												name="faculty_shortName"
-												placeholder="Zkratka fakulty"
+										<div
+											style={{
+												display: 'flex',
+												justifyContent: 'space-between',
+											}}>
+											<FormDiv>
+												<Input
+													style={{ width: '10rem' }}
+													type="text"
+													name="faculty_shortName"
+													placeholder="Zkratka fakulty"
+												/>
+											</FormDiv>
+											<SubmitButton
+												type="submit"
+												value="Přidat"
 											/>
-										</FormDiv>
-										<SubmitButton type="submit" value="Přidat" />
+										</div>
 									</Form>
-								) : (
 									<Form onSubmit={deleteFaculty}>
 										<FormDiv>
 											<Select2 name="faculty_deleteID">
@@ -289,13 +279,47 @@ const AddingRoom = () => {
 										</FormDiv>
 										<SubmitButton type="submit" value="Odstranit" />
 									</Form>
-								)}
+								</div>
+								<ResponsCon>
+									<FormBuild>
+										<Input
+											onChange={e => setRoom(e.target.value)}
+											style={{ maxWidth: '10rem' }}
+											placeholder="Název místnosti"
+										/>
+										<SubmitButton
+											style={{ width: '10rem', padding: '0' }}
+											type="button"
+											value="Přidat místnost"
+											onClick={addRoom}
+										/>
+									</FormBuild>
+									<FormBuild>
+										<Select2
+											name="room"
+											onChange={e => setDelRoom(e.target.value)}>
+											<Option>-</Option>
+
+											{allRoom?.map(room => (
+												<Option value={room.id} key={room.id}>
+													{room.label}
+												</Option>
+											))}
+										</Select2>
+										<SubmitButton
+											style={{ width: '10rem', padding: '0' }}
+											type="button"
+											value="Odebrat místnost"
+											onClick={deleteRoom}
+										/>
+									</FormBuild>
+								</ResponsCon>
 							</Container>
 						</Box>
 						<Box>
 							<Container>
 								<div>
-									<FormBuild>
+									{/* <FormBuild>
 										<Input
 											onChange={e => setBuild(e.target.value)}
 											style={{ maxWidth: '10rem' }}
@@ -308,8 +332,8 @@ const AddingRoom = () => {
 											value="Přidat budovu"
 											onClick={addBuild}
 										/>
-									</FormBuild>
-									<FormBuild>
+									</FormBuild> */}
+									{/* <FormBuild>
 										<Select2
 											name="building"
 											onChange={e => setDelBuild(e.target.value)}>
@@ -329,41 +353,7 @@ const AddingRoom = () => {
 											value="Odebrat budovu"
 											onClick={deleteBuild}
 										/>
-									</FormBuild>
-								</div>
-								<div>
-									<FormBuild>
-										<Input
-											onChange={e => setRoom(e.target.value)}
-											style={{ maxWidth: '10rem' }}
-											placeholder="Název místnosti"
-										/>
-										<SubmitButton
-											style={{width: '10rem', padding: '0'}}
-											type="button"
-											value="Přidat místnost"
-											onClick={addRoom}
-										/>
-									</FormBuild>
-									<FormBuild>
-										<Select2
-											name="room"
-											onChange={e => setDelRoom(e.target.value)}>
-											<Option>-</Option>
-
-											{allRoom?.map(room => (
-												<Option value={room.id} key={room.id}>
-													{room.label}
-												</Option>
-											))}
-										</Select2>
-										<SubmitButton
-											style={{width: '10rem', padding: '0'}}
-											type="button"
-											value="Odebrat místnost"
-											onClick={deleteRoom}
-										/>
-									</FormBuild>
+									</FormBuild> */}
 								</div>
 							</Container>
 							<ChooseContainer>
@@ -382,20 +372,6 @@ const AddingRoom = () => {
 									</Select2>
 									<Select2
 										style={style}
-										name="setbuilding"
-										onChange={e => setBuildProp(e.target.value)}>
-										<Option>-</Option>
-
-										{buildings?.map(building => (
-											<Option
-												value={building.id}
-												key={building.id}>
-												{building.address}
-											</Option>
-										))}
-									</Select2>
-									<Select2
-										style={style}
 										name="room"
 										onChange={e => setRoomProp(e.target.value)}>
 										<Option>-</Option>
@@ -406,10 +382,16 @@ const AddingRoom = () => {
 											</Option>
 										))}
 									</Select2>
+									<Input
+										style={{ ...style, width: '10rem' }}
+										name="setbuilding"
+										onChange={e => setCapacity(e.target.value)}
+										placeholder="počet míst"
+									/>
 								</FormBuild>
 							</ChooseContainer>
 						</Box>
-						{state && buildProp && roomProp && (
+						{state && capacity && roomProp && (
 							<TimetableComp faculty={state} room={roomProp} />
 						)}
 					</Main>
