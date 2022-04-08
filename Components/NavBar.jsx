@@ -324,7 +324,7 @@ export default function NavBar({ route }) {
 											/>
 										</Div>
 										<Paragraph className="noneOpen">
-											Úprava rozvrhu
+											Rozvrh
 										</Paragraph>
 									</A>
 								</Link>
