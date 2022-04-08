@@ -273,11 +273,20 @@ const AddingRoom = () => {
 								</div>
 								<ResponsCon>
 									<FormBuild>
+									<div style={{display: 'flex', flexDirection: 'column'}}>
+
 										<Input
 											onChange={e => setRoom(e.target.value)}
 											style={{ maxWidth: '10rem' }}
 											placeholder="Název místnosti"
 										/>
+										<Input
+											style={{ width: '10rem' }}
+											name="setCapacity"
+											onChange={e => setCapacity(e.target.value)}
+											placeholder="počet míst"
+										/>
+									</div>
 										<SubmitButton
 											style={{ width: '10rem', padding: '0' }}
 											type="button"
@@ -373,16 +382,10 @@ const AddingRoom = () => {
 											</Option>
 										))}
 									</Select2>
-									<Input
-										style={{ ...style, width: '10rem' }}
-										name="setbuilding"
-										onChange={e => setCapacity(e.target.value)}
-										placeholder="počet míst"
-									/>
 								</FormBuild>
 							</ChooseContainer>
 						</Box>
-						{state && capacity && roomProp && (
+						{state && roomProp && (
 							<TimetableComp faculty={state} room={roomProp} />
 						)}
 					</Main>

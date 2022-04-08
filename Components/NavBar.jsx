@@ -313,7 +313,7 @@ export default function NavBar({ route }) {
 									</A>
 								</Link>
 								<Link
-									href={`/peoples/${route}/changingtimetable`}
+									href={`/peoples/${route}/timetable`}
 									passHref>
 									<A>
 										<Div>
