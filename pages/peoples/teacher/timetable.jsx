@@ -16,7 +16,7 @@ const Container = styled.div`
 `
 
 const Paragraph = styled.p`
-	color: ${props => props.theme.color};
+	color: ${props => props.theme.text};
 	font-size: 1rem;
 	width: 8rem;
 	margin: 0 auto;
@@ -101,7 +101,6 @@ const ChangingTimetable = () => {
 					<Main>
 						<Box style={{ overflowX: 'scroll' }}>
 							<Container>
-								<Div>
 									<Table
 										size={
 											lectures && lectures?.subjects[0].length + 1
@@ -113,10 +112,10 @@ const ChangingTimetable = () => {
 													lectures.time.map((value, i) => (
 														<Th key={i}>
 															<Paragraph>
-																{value.start}
-																<br />
-																-
-																<br />
+																{value.start} 
+																{" "}
+																- 
+																{" "}
 																{value.end}
 															</Paragraph>
 														</Th>
@@ -222,7 +221,6 @@ const ChangingTimetable = () => {
 											})}
 										</Tbody>
 									</Table>
-								</Div>
 							</Container>
 						</Box>
 					</Main>

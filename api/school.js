@@ -9,6 +9,7 @@ const {
 	Teacher,
 	User,
 	Student,
+	Room
 } = require('../models')
 
 const UserChecker = require('../utils/userChecker.js')
@@ -98,11 +99,12 @@ router.get('/lecture', async (req, res) => {
 	})
 	const allLectures = lectures.map(lecture => lecture.toJSON())
 	for (let i = 0; i < allLectures.length; i++) {
-		let amount = await Lecture.count({
+		let amount = await Participation.count({
 			where: {
-				id: allLectures[i].id,
+				LectureId: allLectures[i].id,
 			},
 		})
+		console.log(allLectures[i]);
 		if (amount >= allLectures[i].Room.capacity) allLectures[i]['full'] = true
 		for (let j = 0; j < lect.length; j++) {
 			if (allLectures[i].id === lect[j].id) {

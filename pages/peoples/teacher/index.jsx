@@ -24,24 +24,30 @@ const Main = styled.main`
 `
 
 const Index = () => {
-	const [load, setLoad] = useState(false);
+	const [load, setLoad] = useState(false)
 	const theme = useContext(Context)
 
 	useEffect(async () => {
 		let data = await logged()
 		setLoad(!!data)
 	}, [])
-    return load && (
-        <>
-			<ThemeProvider theme={theme}>
-				<Header />
-				<Main>
-					
-					<NavBar route='teacher'/>
-				</Main>
-			</ThemeProvider>
-        </>
-    )
+	return (
+		load && (
+			<>
+				<ThemeProvider theme={theme}>
+					<Header />
+					<Main>
+						<Container>
+							<Heading>
+								<Span>P</Span>rofesio
+							</Heading>
+						</Container>
+						<NavBar route="teacher" />
+					</Main>
+				</ThemeProvider>
+			</>
+		)
+	)
 }
 export default Index
 

@@ -56,6 +56,8 @@ export default function Lectures() {
 			<LecturesList>
 				{lectures?.map(
 					lecture =>
+(						(lecture.full && lecture.attending) ||
+						!lecture.full )&&
 						lecture.Subject?.name &&
 						lecture.Teacher?.User?.surname && (
 							<Lecture key={lecture.id}>
