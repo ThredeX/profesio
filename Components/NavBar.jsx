@@ -312,7 +312,7 @@ export default function NavBar({ route }) {
 										</Paragraph>
 									</A>
 								</Link>
-								<Link
+								{/* <Link
 									href={`/peoples/${route}/timetable`}
 									passHref>
 									<A>
@@ -327,7 +327,7 @@ export default function NavBar({ route }) {
 											Rozvrh
 										</Paragraph>
 									</A>
-								</Link>
+								</Link> */}
 
 								<Link href={`/peoples/${route}/settings`} passHref>
 									<A>
